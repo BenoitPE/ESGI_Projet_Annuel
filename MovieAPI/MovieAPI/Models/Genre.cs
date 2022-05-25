@@ -1,8 +1,13 @@
-﻿namespace MovieAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace MovieAPI.Models
 {
     public class Genre
     {
-        public int? id { get; set; }
-        public string? name { get; set; }
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
     }
 }

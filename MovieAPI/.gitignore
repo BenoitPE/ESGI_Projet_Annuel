@@ -35,4 +35,3 @@ msbuild.wrn
 
 # Visual Studio
 .vs/
-MovieAPI/appsettings.json

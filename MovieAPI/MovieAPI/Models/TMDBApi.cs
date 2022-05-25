@@ -11,7 +11,17 @@
 
         public static async Task<HttpResponseMessage> Get(string endpoint)
         {
-            return await Client.GetAsync($"{endpoint}?api_key={ApiKey}&language={Language}");
+            try
+            {
+                return await Client.GetAsync($"{endpoint}?api_key={ApiKey}&language={Language}");
+            }
+            catch (Exception)
+            {
+                return new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+            }
         }
 
     }

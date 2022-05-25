@@ -9,17 +9,14 @@ namespace MovieAPI.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private DirectoryInfo _logger;
 
         /// <summary>
         /// <see cref="MovieController"/> constructor
         /// </summary>
-        /// <param name="logger"></param>
         /// <param name="config"></param>
-        public MovieController(ILogger<MovieController> logger, IConfiguration config)
+        public MovieController(IConfiguration config)
         {
             _config = config;
-            _logger = new DirectoryInfo(_config.GetValue<string>("LoggerDirectory"));
         }
 
         /// <summary>
@@ -28,21 +25,23 @@ namespace MovieAPI.Controllers
         /// <param name="id">The movie Id</param>
         /// <returns>Movie details</returns>
         [HttpGet("Get/{id}")]
-        public async Task<Movie> Get(int id = 634649)
+        public async Task<IActionResult> Get(int id = 634649)
         {
-
             HttpResponseMessage response = await TMDBApi.Get($"movie/{id}");
-            //response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+                return NotFound();
 
             Movie? movie = JsonSerializer.Deserialize<Movie>(await (await TMDBApi.Get($"movie/{id}")).Content.ReadAsStringAsync());
-            movie.credits = JsonSerializer.Deserialize<Credits>(await (await TMDBApi.Get($"movie/{id}/credits")).Content.ReadAsStringAsync());
 
-            if (movie?.credits?.cast != null && movie?.credits?.cast?.Count > 9)
-                movie.credits.cast = movie.credits.cast.Take(9).ToList();
+            if(movie == null)
+                return NotFound();
 
-            return movie;
+            movie.Credits = JsonSerializer.Deserialize<Credits>(await (await TMDBApi.Get($"movie/{id}/credits")).Content.ReadAsStringAsync());
 
+            if (movie.Credits != null && movie.Credits.Cast != null && movie.Credits.Cast.Count > 9)
+                movie.Credits.Cast = movie.Credits.Cast.Take(9).ToList();
+
+            return Ok(movie);
         }
-
     }
 }

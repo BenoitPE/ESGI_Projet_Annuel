@@ -1,13 +1,29 @@
-﻿namespace MovieAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace MovieAPI.Models
 {
     public class Actor
     {
-        public int id { get; set; }
-        public int gender { get; set; }
-        public string know_for_department { get; set; }
-        public string name { get; set; }
-        public string profile_path { get; set; }
-        public string character { get; set; }
-        public int order { get; set; }
+        
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        [JsonPropertyName("gender")]
+        public int? Gender{ get; set; }
+
+        [JsonPropertyName("know_for_department")]
+        public string? know_for_department { get; set; }
+
+        [JsonPropertyName("name")]
+        public string? name { get; set; }
+
+        [JsonPropertyName("profile_path")]
+        public string? Image { get; set; }
+
+        [JsonPropertyName("character")]
+        public string? Character { get; set; }
+
+        [JsonPropertyName("order")]
+        public int? Order { get; set; }
     }
 }
