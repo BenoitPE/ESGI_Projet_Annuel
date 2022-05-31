@@ -24,10 +24,12 @@
         {
             get
             {
-                if (Videos != null && Videos.Results != null && Videos.Results.Count > 0)
-                    return Videos.Results[0].TrailerUrl;
-                else return null;
+                return Videos != null && Videos.Results != null && Videos.Results.Count > 0 ? Videos.Results[0].TrailerUrl : null;
             }
+        }
+        public string? Title
+        {
+            get { return !string.IsNullOrWhiteSpace(Name) ? Name : null; }
         }
     }
 }

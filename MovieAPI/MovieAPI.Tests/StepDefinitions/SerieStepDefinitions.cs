@@ -12,7 +12,7 @@ namespace MovieAPI.Tests.StepDefinitions
     {
         private readonly ScenarioContext _scenarioContext;
         private int _serieId;
-        private Serie? _serie;
+        private Content? _content;
         private OkObjectResult? _okObjectResult;
         private bool _notFound;
         private SerieController _serieController;
@@ -56,7 +56,7 @@ namespace MovieAPI.Tests.StepDefinitions
             if (_okObjectResult == null || _okObjectResult.StatusCode == 404)
                 _notFound = true;
             else
-                _serie = (Serie?)_okObjectResult.Value;
+                _content = (Content?)_okObjectResult.Value;
 
         }
 
@@ -64,8 +64,9 @@ namespace MovieAPI.Tests.StepDefinitions
         public void ThenIHaveTheDataFromTheSerie()
         {
             Assert.IsFalse(_notFound);
-            Assert.AreNotEqual(_serie, null);
-            _serie?.Id.Should().Be(_serieId);
+            Assert.AreNotEqual(_content, null);
+            Assert.AreNotEqual(_content?.Serie, null);
+            _content?.Id.Should().Be(_serieId);
         }
 
         [Then("no serie was found")]

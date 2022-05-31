@@ -45,7 +45,7 @@ namespace MovieAPI.Controllers
             if (movie.Credits != null && movie.Credits.Cast != null && movie.Credits.Cast.Count > 9)
                 movie.Credits.Cast = movie.Credits.Cast.Take(9).ToList();
 
-            return Ok(movie);
+            return Ok(new Content(movie));
         }
     }
 }
