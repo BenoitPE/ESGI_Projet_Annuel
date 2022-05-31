@@ -7,10 +7,10 @@ namespace MovieAPI.Models
     /// </summary>
     public static class TMDBApi
     {
-        public static HttpClient Client { get; set; }
-        public static string ApiKey { get; set; }
-        public static string Language { get; set; }
-        public static JsonSerializerOptions jsonSerializerOptions { get; set; }
+        public static HttpClient? Client { get; set; }
+        public static string? ApiKey { get; set; }
+        public static string? Language { get; set; }
+        public static JsonSerializerOptions? JsonSerializerOptions { get; set; }
 
         public static async Task<HttpResponseMessage> Get(string endpoint)
         {
@@ -26,6 +26,5 @@ namespace MovieAPI.Models
                 };
             }
         }
-
     }
 }

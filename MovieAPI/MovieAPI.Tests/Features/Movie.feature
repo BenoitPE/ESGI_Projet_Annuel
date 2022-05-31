@@ -8,6 +8,6 @@ Scenario: Get - Movie exists
 	Then I have the data from the movie
 
 Scenario: Get - Movie doesn't exists
-Given a movie id is 1234
+Given a movie id is 0
 	When I try to get this movie
 	Then no movie was found

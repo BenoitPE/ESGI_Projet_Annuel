@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using MovieAPI.Controllers;
 using MovieAPI.Models;
 using NUnit.Framework;
@@ -9,16 +8,16 @@ using System.Net.Http.Headers;
 namespace MovieAPI.Tests.StepDefinitions
 {
     [Binding]
-    public sealed class MovieStepDefinitions
+    public sealed class SerieStepDefinitions
     {
         private readonly ScenarioContext _scenarioContext;
-        private int _movieId;
-        private Movie? _movie;
+        private int _serieId;
+        private Serie? _serie;
         private OkObjectResult? _okObjectResult;
         private bool _notFound;
-        private MovieController _movieController;
+        private SerieController _serieController;
 
-        public MovieStepDefinitions(ScenarioContext scenarioContext)
+        public SerieStepDefinitions(ScenarioContext scenarioContext)
         {
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false)
@@ -38,39 +37,39 @@ namespace MovieAPI.Tests.StepDefinitions
             };
 
             _scenarioContext = scenarioContext;
-            _movieController = new MovieController(config);
+            _serieController = new SerieController(config);
             _notFound = false;
         }
 
-        [Given("a movie id is (.*)")]
-        public void GivenAMovieIdIs(int id)
+        [Given("a serie id is (.*)")]
+        public void GivenASerieIdIs(int id)
         {
-            _movieId = id;
+            _serieId = id;
         }
 
-        [When("I try to get this movie")]
-        public void WhenITryToGetThisMovie()
+        [When("I try to get this serie")]
+        public void WhenITryToGetThisSerie()
         {
-            IActionResult actionResult = _movieController.Get(_movieId).Result;
+            IActionResult actionResult = _serieController.Get(_serieId).Result;
             _okObjectResult = actionResult as OkObjectResult;
 
             if (_okObjectResult == null || _okObjectResult.StatusCode == 404)
                 _notFound = true;
             else
-                _movie = (Movie?)_okObjectResult.Value;
+                _serie = (Serie?)_okObjectResult.Value;
 
         }
 
-        [Then("I have the data from the movie")]
-        public void ThenIHaveTheDataFromTheMovie()
+        [Then("I have the data from the serie")]
+        public void ThenIHaveTheDataFromTheSerie()
         {
             Assert.IsFalse(_notFound);
-            Assert.AreNotEqual(_movie, null);
-            _movie?.Id.Should().Be(_movieId);
+            Assert.AreNotEqual(_serie, null);
+            _serie?.Id.Should().Be(_serieId);
         }
 
-        [Then("no movie was found")]
-        public void ThenNoMovieWasFound()
+        [Then("no serie was found")]
+        public void ThenNoSerieWasFound()
         {
             Assert.IsTrue(_notFound);
         }

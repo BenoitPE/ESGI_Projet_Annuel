@@ -23,7 +23,7 @@ TMDBApi.Language = config.GetValue<string>("Language");
 Console.WriteLine("Connection with TMDB API established");
 
 //    PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
-TMDBApi.jsonSerializerOptions = new System.Text.Json.JsonSerializerOptions
+TMDBApi.JsonSerializerOptions = new System.Text.Json.JsonSerializerOptions
 {
     PropertyNameCaseInsensitive = true
 };
