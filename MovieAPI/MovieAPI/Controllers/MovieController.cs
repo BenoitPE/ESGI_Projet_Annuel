@@ -30,13 +30,17 @@ namespace MovieAPI.Controllers
             HttpResponseMessage response = await TMDBApi.Get($"movie/{id}");
             if (!response.IsSuccessStatusCode)
                 return NotFound();
-
-            Movie? movie = JsonSerializer.Deserialize<Movie>(await (await TMDBApi.Get($"movie/{id}")).Content.ReadAsStringAsync());
+            
+            Movie? movie = JsonSerializer.Deserialize<Movie>(
+                await (await TMDBApi.Get($"movie/{id}")).Content.ReadAsStringAsync(), 
+                TMDBApi.jsonSerializerOptions);
 
             if(movie == null)
                 return NotFound();
 
-            movie.Credits = JsonSerializer.Deserialize<Credits>(await (await TMDBApi.Get($"movie/{id}/credits")).Content.ReadAsStringAsync());
+            movie.Credits = JsonSerializer.Deserialize<Credits>(
+                await (await TMDBApi.Get($"movie/{id}/credits")).Content.ReadAsStringAsync(),
+                TMDBApi.jsonSerializerOptions);
 
             if (movie.Credits != null && movie.Credits.Cast != null && movie.Credits.Cast.Count > 9)
                 movie.Credits.Cast = movie.Credits.Cast.Take(9).ToList();

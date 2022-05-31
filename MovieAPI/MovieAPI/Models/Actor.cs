@@ -4,26 +4,14 @@ namespace MovieAPI.Models
 {
     public class Actor
     {
-        
-        [JsonPropertyName("id")]
-        public int? Id { get; set; }
-
-        [JsonPropertyName("gender")]
-        public int? Gender{ get; set; }
-
-        [JsonPropertyName("know_for_department")]
-        public string? know_for_department { get; set; }
-
-        [JsonPropertyName("name")]
-        public string? name { get; set; }
-
-        [JsonPropertyName("profile_path")]
-        public string? Image { get; set; }
-
-        [JsonPropertyName("character")]
         public string? Character { get; set; }
-
-        [JsonPropertyName("order")]
-        public int? Order { get; set; }
+        public string? Profile_path { get; set; }
+        public int? Id { get; set; }
+        public int? Gender { get; set; }
+        public string? Name { get; set; }
+        public string? ImageUrl
+        {
+            get { return !string.IsNullOrWhiteSpace(Profile_path) ? "https://image.tmdb.org/t/p/w185" + Profile_path : null; }
+        }
     }
 }

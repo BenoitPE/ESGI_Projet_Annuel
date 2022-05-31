@@ -4,37 +4,30 @@ namespace MovieAPI.Models
 {
     public class Movie
     {
-        [JsonPropertyName("id")]
         public int? Id { get; set; }
-
-        [JsonPropertyName("title")]
         public string? Title { get; set; }
-
-        [JsonPropertyName("adult")]
         public bool? Adult { get; set; }
-
-        [JsonPropertyName("poster_path")]
-        private string? Image { get; set; }
-
-        public string? ImageLowQuality
-        {
-            get { return "https://image.tmdb.org/t/p/w500" + Image; }
-        }
-        public string? ImageHighQuality
-        {
-            get { return "https://image.tmdb.org/t/p/original" + Image; }
-        }
-
-        [JsonPropertyName("release_date")]
-        public DateTime? ReleaseDate { get; set; }
-
-        [JsonPropertyName("vote_average")]
-        public float? Vote { get; set; }
-
-        [JsonPropertyName("genres")]
+        public string? Poster_path { get; set; }
+        public DateTime? Release_date { get; set; }
         public List<Genre>? Genres { get; set; }
-
-        [JsonPropertyName("credits")]
         public Credits? Credits { get; set; }
+        public Videos? Videos { get; set; }
+        public string? ImageUrl
+        {
+            get { return !string.IsNullOrWhiteSpace(Poster_path) ? "https://image.tmdb.org/t/p/original" + Poster_path : null; }
+        }
+        public DateTime? Date
+        {
+            get { return (Release_date != null) ? Release_date : null; }
+        }
+        public string? TrailerUrl
+        {
+            get
+            {
+                if (Videos != null && Videos.Results != null && Videos.Results.Count > 0)
+                    return Videos.Results[0].TrailerUrl;
+                else return null;
+            }
+        }
     }
 }
