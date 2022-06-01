@@ -30,9 +30,9 @@ namespace MovieAPI.Controllers
             HttpResponseMessage response = await TMDBApi.Get($"movie/{id}");
             if (!response.IsSuccessStatusCode)
                 return NotFound();
-            
+
             Movie? movie = JsonSerializer.Deserialize<Movie>(
-                await (await TMDBApi.Get($"movie/{id}")).Content.ReadAsStringAsync(), 
+                await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
             if(movie == null)
@@ -46,6 +46,33 @@ namespace MovieAPI.Controllers
                 movie.Credits.Cast = movie.Credits.Cast.Take(9).ToList();
 
             return Ok(new Content(movie));
+        }
+
+        /// <summary>
+        /// Search a movie
+        /// </summary>
+        /// <param name="query">The query (e.g: "Spiderm")</param>
+        /// <returns>A list of movies</returns>
+        [HttpGet("Search/{query}")]
+        public async Task<IActionResult> Search(string query = "Spiderman")
+        {
+            HttpResponseMessage response = await TMDBApi.Search($"search/movie", query);
+            if (!response.IsSuccessStatusCode)
+                return NotFound();
+
+            string? res = await response.Content.ReadAsStringAsync();
+
+            Search? searchResult = JsonSerializer.Deserialize<Search>(
+                await response.Content.ReadAsStringAsync(),
+                TMDBApi.JsonSerializerOptions);
+
+            if(searchResult == null || searchResult.Results == null)
+                return NotFound();
+
+            if (searchResult.Results.Count == 0)
+                return NotFound();
+
+            return Ok(Models.Content.ToContent(searchResult.Results));
         }
     }
 }

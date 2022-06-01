@@ -26,5 +26,20 @@ namespace MovieAPI.Models
                 };
             }
         }
+
+        public static async Task<HttpResponseMessage> Search(string endpoint, string query)
+        {
+            try
+            {
+                return await Client.GetAsync($"{endpoint}?query={query}&api_key={ApiKey}&language={Language}&append_to_response=videos");
+            }
+            catch (Exception)
+            {
+                return new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+            }
+        }
     }
 }

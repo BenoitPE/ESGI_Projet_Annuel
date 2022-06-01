@@ -3,11 +3,25 @@
 Features linked to series
 
 Scenario: Get - Serie exists
-	Given a serie id is 154521
-	When I try to get this serie
-	Then I have the data from the serie
+	Given I'm pointing on serie
+	Given an id 154521
+	When I try to get data
+	Then I have data
 
 Scenario: Get - Serie doesn't exists
-Given a serie id is 0
-	When I try to get this serie
-	Then no serie was found
+	Given I'm pointing on serie
+	Given an id 0
+	When I try to get data
+	Then no content was found
+
+Scenario: Search series - Multiple results
+	Given I'm pointing on serie
+	Given a search for Spiderman
+	When I make a search
+	Then multiple results were found
+
+Scenario: Search series - No results
+	Given I'm pointing on serie
+	Given a search for Spidermansss
+	When I make a search
+	Then no results were found

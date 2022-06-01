@@ -5,7 +5,7 @@
         public int? Id { get; set; }
         public string? Title { get; set; }
         public string? ImageUrl { get; set; }
-        public DateTime? Date { get; set; }
+        public string? Date { get; set; }
         public string? Anime { get; set; }
         public string? Book { get; set; }
         public Movie? Movie { get; set; }
@@ -27,6 +27,16 @@
             ImageUrl = serie.ImageUrl;
             Date = serie.Date;
             Serie = serie;
+        }
+
+        public static List<Content> ToContent(List<Movie> movies)
+        {
+            List<Content> contents = new List<Content>();
+            foreach(Movie movie in movies)
+            {
+                contents.Add(new Content(movie));
+            }
+            return contents;
         }
     }
 }

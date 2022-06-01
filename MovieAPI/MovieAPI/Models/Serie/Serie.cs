@@ -6,7 +6,7 @@
         public string? Name { get; set; }
         public bool? Adult { get; set; }
         public string? Poster_path { get; set; }
-        public DateTime? First_air_date { get; set; }
+        public string? First_air_date { get; set; }
         public List<Genre>? Genres { get; set; }
         public Credits? Credits { get; set; }
         public string? Overview { get; set; }
@@ -16,9 +16,9 @@
         {
             get { return !string.IsNullOrWhiteSpace(Poster_path) ? "https://image.tmdb.org/t/p/original" + Poster_path : null; }
         }
-        public DateTime? Date
+        public string? Date
         {
-            get { return First_air_date != null ? First_air_date : null; }
+            get { return string.IsNullOrWhiteSpace(First_air_date) ? First_air_date : null; }
         }
         public string? TrailerUrl
         {

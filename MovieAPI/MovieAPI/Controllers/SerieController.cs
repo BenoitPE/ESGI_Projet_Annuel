@@ -47,5 +47,32 @@ namespace MovieAPI.Controllers
 
             return Ok(new Content(serie));
         }
+
+        /// <summary>
+        /// Search a content
+        /// </summary>
+        /// <param name="query">The query (e.g: "Spiderm")</param>
+        /// <returns>A list of movies</returns>
+        [HttpGet("Search/{query}")]
+        public async Task<IActionResult> Search(string query = "Spiderman")
+        {
+            HttpResponseMessage response = await TMDBApi.Search($"search/tv", query);
+            if (!response.IsSuccessStatusCode)
+                return NotFound();
+
+            string? res = await response.Content.ReadAsStringAsync();
+
+            Search? searchResult = JsonSerializer.Deserialize<Search>(
+                await response.Content.ReadAsStringAsync(),
+                TMDBApi.JsonSerializerOptions);
+
+            if (searchResult == null || searchResult.Results == null)
+                return NotFound();
+
+            if (searchResult.Results.Count == 0)
+                return NotFound();
+
+            return Ok(Models.Content.ToContent(searchResult.Results));
+        }
     }
 }
