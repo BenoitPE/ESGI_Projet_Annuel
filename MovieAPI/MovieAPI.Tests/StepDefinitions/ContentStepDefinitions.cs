@@ -102,6 +102,23 @@ namespace MovieAPI.Tests.StepDefinitions
                 _listContents = (List<Content>?)_okObjectResult.Value;
         }
 
+        [When(@"I want a list of popular content")]
+        public void WhenIWantAListOfPopularContent()
+        {
+            IActionResult actionResult;
+            if (_pointingOnMovie)
+                actionResult = _movieController.Popular().Result;
+            else
+                actionResult = _serieController.Popular().Result;
+
+            _okObjectResult = actionResult as OkObjectResult;
+
+            if (_okObjectResult == null || _okObjectResult.StatusCode == 404)
+                _notFound = true;
+            else
+                _listContents = (List<Content>?)_okObjectResult.Value;
+        }
+
         [Then("I have data")]
         public void ThenIHaveData()
         {

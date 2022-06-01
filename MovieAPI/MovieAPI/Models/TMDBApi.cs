@@ -41,5 +41,19 @@ namespace MovieAPI.Models
                 };
             }
         }
+        public static async Task<HttpResponseMessage> Popular(string endpoint)
+        {
+            try
+            {
+                return await Client.GetAsync($"{endpoint}/popular?api_key={ApiKey}&language={Language}&append_to_response=videos");
+            }
+            catch (Exception)
+            {
+                return new HttpResponseMessage
+                {
+                    StatusCode = System.Net.HttpStatusCode.NotFound
+                };
+            }
+        }
     }
 }

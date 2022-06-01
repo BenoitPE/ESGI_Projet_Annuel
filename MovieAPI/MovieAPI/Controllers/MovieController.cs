@@ -74,5 +74,31 @@ namespace MovieAPI.Controllers
 
             return Ok(Models.Content.ToContent(searchResult.Results));
         }
+
+        /// <summary>
+        /// Get popular movies
+        /// </summary>
+        /// <returns>A list of movies</returns>
+        [HttpGet("Popular")]
+        public async Task<IActionResult> Popular()
+        {
+            HttpResponseMessage response = await TMDBApi.Popular("movie");
+            if (!response.IsSuccessStatusCode)
+                return NotFound();
+
+            string? res = await response.Content.ReadAsStringAsync();
+
+            Search? searchResult = JsonSerializer.Deserialize<Search>(
+                await response.Content.ReadAsStringAsync(),
+                TMDBApi.JsonSerializerOptions);
+
+            if (searchResult == null || searchResult.Results == null)
+                return NotFound();
+
+            if (searchResult.Results.Count == 0)
+                return NotFound();
+
+            return Ok(Models.Content.ToContent(searchResult.Results));
+        }
     }
 }
