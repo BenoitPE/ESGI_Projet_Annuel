@@ -25,3 +25,8 @@ Scenario: Search movies - No results
 	Given a search for Spidermansss
 	When I make a search
 	Then no results were found
+
+Scenario: Popular movies
+	Given I'm pointing on movie
+	When I want a list of popular content
+	Then multiple results were found

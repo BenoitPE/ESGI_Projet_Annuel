@@ -26,7 +26,7 @@ Scenario: Search series - No results
 	When I make a search
 	Then no results were found
 
-Scenario: Popular movies
+Scenario: Popular series
 	Given I'm pointing on serie
 	When I want a list of popular content
 	Then multiple results were found
