@@ -15,8 +15,10 @@ namespace MovieAPI.Tests.StepDefinitions
         private bool _pointingOnMovie;
         private int _id;
         private string _name;
-        private Content? _content;
-        private List<Content>? _listContents;
+        private Movie? _movie;
+        private Serie? _serie;
+        private List<Movie>? _listMovies;
+        private List<Serie>? _listSeries;
         private OkObjectResult? _okObjectResult;
         private bool _notFound;
         private MovieController _movieController;
@@ -55,7 +57,6 @@ namespace MovieAPI.Tests.StepDefinitions
                 _pointingOnMovie=true;
         }
 
-
         [Given("an id (.*)")]
         public void GivenAnId(int id)
         {
@@ -81,8 +82,11 @@ namespace MovieAPI.Tests.StepDefinitions
 
             if (_okObjectResult == null || _okObjectResult.StatusCode == 404)
                 _notFound = true;
+            else if(_pointingOnMovie)
+                _movie = (Movie?)_okObjectResult.Value;
             else
-                _content = (Content?)_okObjectResult.Value;
+                _serie = (Serie?)_okObjectResult.Value;
+
         }
 
         [When(@"I make a search")]
@@ -98,8 +102,11 @@ namespace MovieAPI.Tests.StepDefinitions
 
             if (_okObjectResult == null || _okObjectResult.StatusCode == 404)
                 _notFound = true;
+            else if (_pointingOnMovie)
+                _listMovies = (List<Movie>?)_okObjectResult.Value;
             else
-                _listContents = (List<Content>?)_okObjectResult.Value;
+                _listSeries = (List<Serie>?)_okObjectResult.Value;
+
         }
 
         [When(@"I want a list of popular content")]
@@ -115,16 +122,21 @@ namespace MovieAPI.Tests.StepDefinitions
 
             if (_okObjectResult == null || _okObjectResult.StatusCode == 404)
                 _notFound = true;
+            else if (_pointingOnMovie)
+                _listMovies = (List<Movie>?)_okObjectResult.Value;
             else
-                _listContents = (List<Content>?)_okObjectResult.Value;
+                _listSeries = (List<Serie>?)_okObjectResult.Value;
         }
 
         [Then("I have data")]
         public void ThenIHaveData()
         {
             Assert.IsFalse(_notFound);
-            Assert.AreNotEqual(_content, null);
-            _content?.Id.Should().Be(_id);
+
+            if (_pointingOnMovie)
+                _movie?.Id.Should().Be(_id);
+            else
+                _serie?.Id.Should().Be(_id);
         }
 
         [Then("no content was found")]
@@ -137,7 +149,10 @@ namespace MovieAPI.Tests.StepDefinitions
         public void ThenMultipleResultsWereFound()
         {
             Assert.IsFalse(_notFound);
-            Assert.IsTrue(_listContents?.Count > 0);
+            if(_pointingOnMovie)
+                Assert.IsTrue(_listMovies?.Count > 0);
+            else
+                Assert.IsTrue(_listSeries?.Count > 0);
         }
 
         [Then(@"no results were found")]

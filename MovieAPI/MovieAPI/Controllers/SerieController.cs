@@ -45,7 +45,7 @@ namespace MovieAPI.Controllers
             if (serie.Credits != null && serie.Credits.Cast != null && serie.Credits.Cast.Count > 9)
                 serie.Credits.Cast = serie.Credits.Cast.Take(9).ToList();
 
-            return Ok(new Content(serie));
+            return Ok(serie);
         }
 
         /// <summary>
@@ -60,21 +60,24 @@ namespace MovieAPI.Controllers
             if (!response.IsSuccessStatusCode)
                 return NotFound();
 
-            string? res = await response.Content.ReadAsStringAsync();
-
-            Search? searchResult = JsonSerializer.Deserialize<Search>(
+            SerieSearch? searchResult = JsonSerializer.Deserialize<SerieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
-            if (searchResult == null || searchResult.Results == null)
+            if (searchResult == null || searchResult.Results == null || searchResult.Results.Count == 0)
                 return NotFound();
 
-            if (searchResult.Results.Count == 0)
-                return NotFound();
+            if (searchResult.Results.Count > 9)
+                searchResult.Results = searchResult.Results.GetRange(0, 9);
 
-            return Ok(Models.Content.ToContent(searchResult.Results));
+            for (int i = 0; i < searchResult.Results.Count; i++)
+            {
+                OkObjectResult result = await Get((int)searchResult.Results[i].Id) as OkObjectResult;
+                searchResult.Results[i] = (Serie)result.Value;
+            }
+
+            return Ok(searchResult.Results);
         }
-
 
         /// <summary>
         /// Get popular series
@@ -89,17 +92,23 @@ namespace MovieAPI.Controllers
 
             string? res = await response.Content.ReadAsStringAsync();
 
-            Search? searchResult = JsonSerializer.Deserialize<Search>(
+            SerieSearch? searchResult = JsonSerializer.Deserialize<SerieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
-            if (searchResult == null || searchResult.Results == null)
+            if (searchResult == null || searchResult.Results == null || searchResult.Results.Count == 0)
                 return NotFound();
 
-            if (searchResult.Results.Count == 0)
-                return NotFound();
+            if (searchResult.Results.Count > 9)
+                searchResult.Results = searchResult.Results.GetRange(0, 9);
 
-            return Ok(Models.Content.ToContent(searchResult.Results));
+            for (int i = 0; i < searchResult.Results.Count; i++)
+            {
+                OkObjectResult result = await Get((int)searchResult.Results[i].Id) as OkObjectResult;
+                searchResult.Results[i] = (Serie)result.Value;
+            }
+
+            return Ok(searchResult.Results);
         }
     }
 }
