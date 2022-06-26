@@ -20,22 +20,22 @@ namespace MovieAPI.Tests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Movie")]
-    public partial class MovieFeature
+    [NUnit.Framework.DescriptionAttribute("Serie")]
+    public partial class SerieFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "Movie.feature"
+#line 1 "Serie.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Movie", "Features linked to movies", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Serie", "Features linked to series", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,12 +74,12 @@ namespace MovieAPI.Tests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get - Movie exists")]
-        public virtual void Get_MovieExists()
+        [NUnit.Framework.DescriptionAttribute("Get - Serie exists")]
+        public virtual void Get_SerieExists()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get - Movie exists", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get - Serie exists", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,10 +101,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 6
- testRunner.Given("I\'m pointing on movie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I\'m pointing on serie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
- testRunner.Given("an id 634649", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("an id 154521", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
  testRunner.When("I try to get data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -117,12 +117,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get - Movie doesn\'t exists")]
-        public virtual void Get_MovieDoesntExists()
+        [NUnit.Framework.DescriptionAttribute("Get - Serie doesn\'t exists")]
+        public virtual void Get_SerieDoesntExists()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get - Movie doesn\'t exists", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get - Serie doesn\'t exists", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -144,7 +144,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 12
- testRunner.Given("I\'m pointing on movie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I\'m pointing on serie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 13
  testRunner.Given("an id 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
@@ -160,12 +160,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Search movies - Multiple results")]
-        public virtual void SearchMovies_MultipleResults()
+        [NUnit.Framework.DescriptionAttribute("Search series - Multiple results")]
+        public virtual void SearchSeries_MultipleResults()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search movies - Multiple results", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search series - Multiple results", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -187,7 +187,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 18
- testRunner.Given("I\'m pointing on movie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I\'m pointing on serie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 19
  testRunner.Given("a search for Spiderman", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
@@ -203,12 +203,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Search movies - No results")]
-        public virtual void SearchMovies_NoResults()
+        [NUnit.Framework.DescriptionAttribute("Search series - No results")]
+        public virtual void SearchSeries_NoResults()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search movies - No results", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search series - No results", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 23
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -230,7 +230,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 24
- testRunner.Given("I\'m pointing on movie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I\'m pointing on serie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 25
  testRunner.Given("a search for Spidermansss", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
@@ -246,12 +246,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Popular movies")]
-        public virtual void PopularMovies()
+        [NUnit.Framework.DescriptionAttribute("Popular series")]
+        public virtual void PopularSeries()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Popular movies", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Popular series", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 29
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -273,7 +273,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 30
- testRunner.Given("I\'m pointing on movie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I\'m pointing on serie", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 31
  testRunner.When("I want a list of popular content", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

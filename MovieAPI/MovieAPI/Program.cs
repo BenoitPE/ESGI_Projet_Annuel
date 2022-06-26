@@ -22,6 +22,12 @@ TMDBApi.ApiKey = config.GetValue<string>("ApiKey");
 TMDBApi.Language = config.GetValue<string>("Language");
 Console.WriteLine("Connection with TMDB API established");
 
+//    PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+TMDBApi.JsonSerializerOptions = new System.Text.Json.JsonSerializerOptions
+{
+    PropertyNameCaseInsensitive = true
+};
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
