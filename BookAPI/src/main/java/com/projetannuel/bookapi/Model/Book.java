@@ -1,22 +1,12 @@
 package com.projetannuel.bookapi.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.sql.Date;
 
 public class Book {
 
     public Book() {
 
-    }
-
-    public Book(int id, String titleContent, String imageUrl, String date, String authorName, String editorName) {
-        this.id = id;
-        this.titleContent = titleContent;
-        this.imageUrl = imageUrl;
-        this.date = date;
-        this.authorName = authorName;
-        this.editorName = editorName;
     }
 
     private Integer id;
