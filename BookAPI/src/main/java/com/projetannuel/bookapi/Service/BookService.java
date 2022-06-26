@@ -16,7 +16,7 @@ public final class BookService {
     public BookService() {
     }
 
-    public List<Book> getBooks(){
+    public List<Book> buidBookListWithWrapper(){
         List<Book> books = new ArrayList<>();
         // foreach on a list from google apiBook
        // books.add(this.getBook());
@@ -36,16 +36,24 @@ public final class BookService {
         return book;
     }
 
-    public Object getGoogleDetail(){
-        String isbn = "9380658745";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn, GBWrapper.class);
-    }
-
     public Book returnBookFromGoogleApi(){
         String isbn = "9380658745";
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn, GBWrapper.class);
+
+        return buildBookWithWrapper(entity);
+    }
+
+    public Book returnBookFromGoogleApiByTitle(String Title){
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=intitle:"+Title, GBWrapper.class);
+
+        return buildBookWithWrapper(entity);
+    }
+
+    public Book returnBookFromGoogleApiByAuthor(String Author){
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=inauthor:"+Author, GBWrapper.class);
 
         return buildBookWithWrapper(entity);
     }

@@ -25,12 +25,20 @@ public class BookController {
 
 	@GetMapping("/books")
 	public List<Book> books() {
-		return bookService.getBooks();
+		return bookService.buidBookListWithWrapper();
 	}
 
 	@GetMapping("/getBookFromApi")
-	public Book AllIn() {
+	public Book getBookFromApi() {
 		return bookService.returnBookFromGoogleApi();
+	}
+
+	@GetMapping("/getBookFromApiByAuthor")
+	public Book getBookFromApiByAuthor() {return bookService.returnBookFromGoogleApiByTitle("Les immortels de Meluha");}
+
+	@GetMapping("/getBookFromApiByTitle")
+	public Book getBookFromApiByTitle() {
+		return bookService.returnBookFromGoogleApiByAuthor("Amish Tripathi");
 	}
 
 }
