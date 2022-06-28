@@ -12,6 +12,7 @@ import 'ItemsPage.dart';
 class collectionPage extends StatefulWidget {
   @override
   _collectionPage createState() => _collectionPage();
+  MediaType media = MediaType.Tous;
 }
 
 Future<List<Data>> ReadJsonData() async {
@@ -27,6 +28,7 @@ bool serie = false;
 bool anime = false;
 bool livre = false;
 bool tous = true;
+MediaType media = MediaType.Tous;
 
 class _collectionPage extends State<collectionPage> {
   @override
@@ -212,8 +214,19 @@ class _collectionPage extends State<collectionPage> {
                                                   BorderRadius.circular(20),
                                               child: Material(
                                                   child: Ink.image(
-                                                      image: NetworkImage(
-                                                          (categorieData[index].imageUrl != null ? categorieData[index].imageUrl : '' )),
+                                                      image: categorieData[
+                                                                      index]
+                                                                  .imageUrl !=
+                                                              null
+                                                          ? NetworkImage(
+                                                              categorieData[
+                                                                      index]
+                                                                  .imageUrl)
+                                                          : AssetImage(
+                                                                  'image/NoImage.jpg')
+                                                              as ImageProvider,
+                                                      // NetworkImage(
+                                                      //     (categorieData[index].imageUrl != null ? categorieData[index].imageUrl : '' )),
                                                       fit: BoxFit.cover,
                                                       child: InkWell(
                                                           onTap: () =>

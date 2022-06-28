@@ -92,21 +92,21 @@ class itemSection extends StatelessWidget {
   String titre;
 
   NetworkImage urlImage(item, name) {
-    if (name == "Films" && item.movie.length != 0) {
+    if (name == "Films" && item.movie != null) {
       return NetworkImage(
-        (item.movie['imageUrl'] !=null ? item.movie['imageUrl'] : ''),
+        (item.movie.imageUrl !=null ? item.movie.imageUrl : ''),
       );
-    } else if (name == "Série" && item.serie.length != 0) {
+    } else if (name == "Série" && item.serie != null) {
       return NetworkImage(
-        (item.serie['imageUrl'] !=null ? item.serie['imageUrl'] : ''),
+        (item.serie.imageUrl !=null ? item.serie.imageUrl : ''),
       );
-    } else if (name == "Animée" && item.anime.length != 0) {
+    } else if (name == "Animée" && item.anime != null) {
       return NetworkImage(
-        (item.anime['imageUrl'] !=null ? item.anime['imageUrl'] : ''),
+        (item.anime.imageUrl !=null ? item.anime : ''),
       );
-    } else if (name == 'book' && item.book.length != 0) {
+    } else if (name == 'book' && item.book != null) {
       return NetworkImage(
-        (item.book['imageUrl'] !=null ? item.book['imageUrl'] : ''),
+        (item.book.imageUrl !=null ? item.book.imageUrl : ''),
       );
     } else
       return NetworkImage('');

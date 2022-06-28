@@ -36,7 +36,7 @@ class ItemsPage extends StatelessWidget {
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15)),
                               Text(
-                                item['title'],
+                                item.title,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -111,7 +111,7 @@ class ItemsPage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                item['overview'],
+                                item.overview,
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.6),
                                 ),
@@ -138,8 +138,8 @@ class ItemsPage extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: item['imageUrl'] != null
-                  ? NetworkImage(item['imageUrl'])
+              image: item.imageUrl != null
+                  ? NetworkImage(item.imageUrl)
                   : AssetImage('image/NoImage.jpg') as ImageProvider,
               //NetworkImage((item['imageUrl'] != null ? item['imageUrl'] : 'assets/NoImage.jpg' )),
               fit: BoxFit.cover,
@@ -176,10 +176,10 @@ class rolesSection extends StatelessWidget {
           ]),
         ),
         Container(
-            height: 180,
+            height: 210,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: item['credits']['cast'].length,
+              itemCount: item.credits['cast'].length,
               separatorBuilder: (context, _) => SizedBox(width: 12),
               itemBuilder: (context, index) =>
                   buildCardRole(item: item, context: context, index: index),
@@ -204,27 +204,31 @@ Widget buildCardRole(
       width: 100,
       child: Column(
         children: [
-          Expanded(
-            child: AspectRatio(
-                aspectRatio: 4 / 3,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Material(
-                        child: Ink.image(
-                      image: item['credits']['cast'][index]['imageUrl'] != null
-                          ? NetworkImage(item['credits']['cast'][index]['imageUrl'])
-                          : AssetImage('image/NoUserImage.png') as ImageProvider,
-                      // NetworkImage(
-                      //     (item['credits']['cast'][index]['imageUrl'] != null
-                      //         ? item['credits']['cast'][index]['imageUrl']
-                      //         : '')),
-                      fit: BoxFit.cover,
-                    )))),
+          Container(
+            height: 150,
+            child: 
+             AspectRatio(
+                  aspectRatio: 4 / 3,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Material(
+                          child: Ink.image(
+                        image: item.credits['cast'][index]['imageUrl'] != null
+                            ? NetworkImage(
+                                item.credits['cast'][index]['imageUrl'])
+                            : AssetImage('image/NoUserImage.png')
+                                as ImageProvider,
+                        // NetworkImage(
+                        //     (item['credits']['cast'][index]['imageUrl'] != null
+                        //         ? item['credits']['cast'][index]['imageUrl']
+                        //         : '')),
+                        fit: BoxFit.cover,
+                      )))),
           ),
           const SizedBox(height: 4),
           Text(
-              (item['credits']['cast'][index]['name'] != null
-                  ? item['credits']['cast'][index]['name']
+              (item.credits['cast'][index]['name'] != null
+                  ? item.credits['cast'][index]['name']
                   : ''),
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -233,11 +237,12 @@ Widget buildCardRole(
                   color: Colors.white)),
           const SizedBox(height: 2),
           Text(
-              (item['credits']['cast'][index]['character'] != null
-                  ? item['credits']['cast'][index]['character']
+              (item.credits['cast'][index]['character'] != null
+                  ? item.credits['cast'][index]['character']
                   : ''),
               textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 10, color: Colors.white))
+              style: TextStyle(fontSize: 10, color: Colors.white),
+              maxLines: 2)
         ],
       ),
     );
