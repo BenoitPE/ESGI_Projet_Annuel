@@ -1,6 +1,7 @@
 package com.projetannuel.bookapi.Service;
 
 import com.projetannuel.bookapi.Model.Book;
+import com.projetannuel.bookapi.Wrapper.GBWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

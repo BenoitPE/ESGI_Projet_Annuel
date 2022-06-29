@@ -1,4 +1,4 @@
-package com.projetannuel.bookapi.Service;
+package com.projetannuel.bookapi.Wrapper;
 
 public class IndustryIdentifiers {
 

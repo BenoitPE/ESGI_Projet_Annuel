@@ -1,4 +1,4 @@
-package com.projetannuel.bookapi.Service;
+package com.projetannuel.bookapi.Wrapper;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.projetannuel.bookapi.Wrapper.GBItemsWrapper;

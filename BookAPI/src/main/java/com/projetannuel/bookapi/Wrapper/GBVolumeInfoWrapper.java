@@ -1,4 +1,6 @@
-package com.projetannuel.bookapi.Service;
+package com.projetannuel.bookapi.Wrapper;
+
+import com.projetannuel.bookapi.Wrapper.IndustryIdentifiers;
 
 import java.util.HashMap;
 import java.util.List;
