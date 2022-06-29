@@ -1,6 +1,7 @@
 package com.projetannuel.bookapi.Service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.projetannuel.bookapi.Wrapper.GBItemsWrapper;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 
@@ -8,7 +9,6 @@ public class GBWrapper {
 
     private int totalItems;
     private GBItemsWrapper[] items;
-
 
     public int getTotalItems() {
         return totalItems;

@@ -1,26 +1,23 @@
 package com.projetannuel.bookapi.Model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.sql.Date;
-
 public class Book {
 
     public Book() {
 
     }
 
-    private Integer id;
+    private String id;
     private String titleContent;
     private String imageUrl;
-    private String date; //date or String
+    private String date;
     private String authorName;
     private String editorName;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,7 +37,9 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
-    public String getDate() { return date; }
+    public String getDate() {
+        return date;
+    }
 
     public void setDate(String date) {
         this.date = date;

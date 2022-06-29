@@ -1,14 +1,11 @@
 package com.projetannuel.bookapi.Service;
 
 import com.projetannuel.bookapi.Model.Book;
-import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import java.util.*;
 
 @Service
 public final class BookService {
@@ -27,9 +24,9 @@ public final class BookService {
     public Book buildBookWithWrapper(ResponseEntity<GBWrapper> entity)
     {
         Book book = new Book();
-        book.setId(1);
+        book.setId("identifier");
         book.setTitleContent(entity.getBody().getItems()[0].getVolumeInfo().getTitle());
-        book.setImageUrl(entity.getBody().getItems()[0].getVolumeInfo().getImageLinks().get("infoLink"));
+        book.setImageUrl(entity.getBody().getItems()[0].getVolumeInfo().getImageLinks().get("thumbnail"));
         book.setDate(entity.getBody().getItems()[0].getVolumeInfo().getPublishedDate());
         book.setAuthorName(Arrays.toString(entity.getBody().getItems()[0].getVolumeInfo().getAuthors()));
         book.setEditorName(entity.getBody().getItems()[0].getVolumeInfo().getPublisher());
@@ -57,6 +54,5 @@ public final class BookService {
 
         return buildBookWithWrapper(entity);
     }
-
 
 }
