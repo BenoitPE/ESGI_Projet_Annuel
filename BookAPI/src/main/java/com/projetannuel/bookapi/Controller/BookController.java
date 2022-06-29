@@ -27,9 +27,16 @@ public class BookController {
 		return bookService.buidBookListWithWrapper();
 	}
 
-	@GetMapping("/getBookFromApi")
-	public Book getBookFromApi() {
-		return bookService.returnBookFromGoogleApi();
+	@GetMapping("/getBookFromApiById")
+	@ResponseBody
+	public Book getBookFromApi(@RequestParam String id) {
+		return bookService.returnBookFromGoogleApiById(id);
+	}
+
+	@GetMapping("/getBookFromApiByTitle")
+	@ResponseBody
+	public Book getBookFromApiByTitle(@RequestParam String title) {
+		return bookService.returnBookFromGoogleApiByAuthor(title);
 	}
 
 	@GetMapping("/getBookFromApiByAuthor")
@@ -38,10 +45,6 @@ public class BookController {
 		return bookService.returnBookFromGoogleApiByTitle(author);
 	}
 
-	@GetMapping("/getBookFromApiByTitle")
-	@ResponseBody
-	public Book getBookFromApiByTitle(@RequestParam String title) {
-		return bookService.returnBookFromGoogleApiByAuthor(title);
-	}
+
 
 }

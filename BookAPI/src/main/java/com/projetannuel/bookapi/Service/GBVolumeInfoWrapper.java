@@ -1,6 +1,7 @@
 package com.projetannuel.bookapi.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GBVolumeInfoWrapper {
@@ -9,14 +10,8 @@ public class GBVolumeInfoWrapper {
     private String publisher;
     private String publishedDate;
     private String[] authors;
-    private Map<String, String> imageLinks = new HashMap<String, String>();
-
-
-    private String description;
-    private int pageCount;
-    private int printType;
-    private String[] categories;
-    private String language;
+    private final Map<String, String> imageLinks = new HashMap<String, String>();
+    private List<IndustryIdentifiers> industryIdentifiers;
 
     public String getTitle() {
         return title;
@@ -38,5 +33,27 @@ public class GBVolumeInfoWrapper {
         return imageLinks;
     }
 
+    public List<IndustryIdentifiers> getIndustryIdentifiers() {
+        return industryIdentifiers;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
+    }
+
+    public void setIndustryIdentifiers(List<IndustryIdentifiers> industryIdentifiers) {
+        this.industryIdentifiers = industryIdentifiers;
+    }
 }

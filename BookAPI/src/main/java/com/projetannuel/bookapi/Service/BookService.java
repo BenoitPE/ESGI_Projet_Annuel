@@ -24,7 +24,7 @@ public final class BookService {
     public Book buildBookWithWrapper(ResponseEntity<GBWrapper> entity)
     {
         Book book = new Book();
-        book.setId("identifier");
+        book.setId(String.valueOf(entity.getBody().getItems()[0].getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier()));
         book.setTitleContent(entity.getBody().getItems()[0].getVolumeInfo().getTitle());
         book.setImageUrl(entity.getBody().getItems()[0].getVolumeInfo().getImageLinks().get("thumbnail"));
         book.setDate(entity.getBody().getItems()[0].getVolumeInfo().getPublishedDate());
@@ -33,8 +33,7 @@ public final class BookService {
         return book;
     }
 
-    public Book returnBookFromGoogleApi(){
-        String isbn = "9380658745";
+    public Book returnBookFromGoogleApiById(String isbn){
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn, GBWrapper.class);
 
