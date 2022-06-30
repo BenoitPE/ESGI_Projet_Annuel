@@ -1,7 +1,6 @@
 package com.projetannuel.bookapi.Wrapper;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GBVolumeInfoWrapper {
@@ -11,7 +10,9 @@ public class GBVolumeInfoWrapper {
     private String publishedDate;
     private String[] authors;
     private final Map<String, String> imageLinks = new HashMap<String, String>();
-    private List<IndustryIdentifiers> industryIdentifiers;
+    private String description;
+    private String maturityRating;
+    private String pageCount;
 
     public String getTitle() {
         return title;
@@ -33,17 +34,17 @@ public class GBVolumeInfoWrapper {
         return imageLinks;
     }
 
-    public List<IndustryIdentifiers> getIndustryIdentifiers() {
-        return industryIdentifiers;
-    }
+    public String getDescription() { return description; }
+
+    public String getMaturityRating() { return maturityRating; }
+
+    public String getPageCount() { return pageCount; }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
+    public void setPublisher(String publisher) { this.publisher = publisher; }
 
     public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
@@ -53,7 +54,9 @@ public class GBVolumeInfoWrapper {
         this.authors = authors;
     }
 
-    public void setIndustryIdentifiers(List<IndustryIdentifiers> industryIdentifiers) {
-        this.industryIdentifiers = industryIdentifiers;
-    }
+    public void setDescription(String description) { this.description = description; }
+
+    public void setMaturityRating(String maturityRating) { this.maturityRating = maturityRating; }
+
+    public void setPageCount(String pageCount) { this.pageCount = pageCount; }
 }

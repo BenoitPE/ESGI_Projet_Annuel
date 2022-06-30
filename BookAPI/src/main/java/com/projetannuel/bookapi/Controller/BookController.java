@@ -17,16 +17,6 @@ public class BookController {
 
 	}
 
-	@GetMapping("/hello")
-	public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) {
-		return String.format("Hello %s!", name);
-	}
-
-	@GetMapping("/books")
-	public List<Book> books() {
-		return bookService.buidBookListWithWrapper();
-	}
-
 	@GetMapping("/getBookFromApiById")
 	@ResponseBody
 	public Book getBookFromApi(@RequestParam String id) {
@@ -36,15 +26,12 @@ public class BookController {
 	@GetMapping("/getBookFromApiByTitle")
 	@ResponseBody
 	public Book getBookFromApiByTitle(@RequestParam String title) {
-		return bookService.returnBookFromGoogleApiByAuthor(title);
+		return bookService.returnBookFromGoogleApiByTitle(title);
 	}
 
-	@GetMapping("/getBookFromApiByAuthor")
-	@ResponseBody
-	public Book getBookFromApiByAuthor(@RequestParam String author) {
-		return bookService.returnBookFromGoogleApiByTitle(author);
+	@GetMapping("/getBooksFromApi")
+	public List<Book> getBooksFromApi() {
+		return bookService.returnBooksFromGoogleApi();
 	}
-
-
 
 }

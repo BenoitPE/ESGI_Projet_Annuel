@@ -6,20 +6,14 @@ public class Book {
 
     }
 
-    private String id;
     private String titleContent;
     private String imageUrl;
     private String date;
     private String authorName;
     private String editorName;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String overview;
+    private String adulte;
+    private String pageCount;
 
     public String getTitleContent() {
         return titleContent;
@@ -59,5 +53,29 @@ public class Book {
 
     public void setEditorName(String editorName) {
         this.editorName = editorName;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getAdulte() {
+        return adulte;
+    }
+
+    public void setAdulte(String adulte) {
+        this.adulte = adulte;
+    }
+
+    public String getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(String pageCount) {
+        this.pageCount = pageCount;
     }
 }
