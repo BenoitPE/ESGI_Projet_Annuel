@@ -20,10 +20,10 @@ namespace MovieAPI.Controllers
         }
 
         /// <summary>
-        /// Get a movie
+        /// Get a serie
         /// </summary>
-        /// <param name="id">The movie Id</param>
-        /// <returns>Movie details</returns>
+        /// <param name="id">The serie Id</param>
+        /// <returns>Serie details</returns>
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id = 154521)
         {
@@ -32,7 +32,7 @@ namespace MovieAPI.Controllers
                 return NotFound();
 
             Serie? serie = JsonSerializer.Deserialize<Serie>(
-                await (await TMDBApi.Get($"tv/{id}")).Content.ReadAsStringAsync(),
+                await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
             if (serie == null)
@@ -45,14 +45,14 @@ namespace MovieAPI.Controllers
             if (serie.Credits != null && serie.Credits.Cast != null && serie.Credits.Cast.Count > 9)
                 serie.Credits.Cast = serie.Credits.Cast.Take(9).ToList();
 
-            return Ok(serie);
+            return Ok(new Content(serie));
         }
 
         /// <summary>
         /// Search a content
         /// </summary>
         /// <param name="query">The query (e.g: "Spiderm")</param>
-        /// <returns>A list of movies</returns>
+        /// <returns>A list of serie</returns>
         [HttpGet("Search/{query}")]
         public async Task<IActionResult> Search(string query = "Spiderman")
         {
@@ -60,23 +60,23 @@ namespace MovieAPI.Controllers
             if (!response.IsSuccessStatusCode)
                 return NotFound();
 
-            SerieSearch? searchResult = JsonSerializer.Deserialize<SerieSearch>(
+            SerieSearch? search = JsonSerializer.Deserialize<SerieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
-            if (searchResult == null || searchResult.Results == null || searchResult.Results.Count == 0)
-                return NotFound();
+            if (search == null || search.Results == null || search.Results.Count == 0)
+                return Ok(new List<Content>());
 
-            if (searchResult.Results.Count > 9)
-                searchResult.Results = searchResult.Results.GetRange(0, 9);
+            if (search.Results.Count > 9)
+                search.Results = search.Results.GetRange(0, 9);
 
-            for (int i = 0; i < searchResult.Results.Count; i++)
+            List<Content> serieList = new List<Content>();
+            for (int i = 0; i < search.Results.Count; i++)
             {
-                OkObjectResult result = await Get((int)searchResult.Results[i].Id) as OkObjectResult;
-                searchResult.Results[i] = (Serie)result.Value;
+                serieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
             }
 
-            return Ok(searchResult.Results);
+            return Ok(serieList);
         }
 
         /// <summary>
@@ -92,23 +92,23 @@ namespace MovieAPI.Controllers
 
             string? res = await response.Content.ReadAsStringAsync();
 
-            SerieSearch? searchResult = JsonSerializer.Deserialize<SerieSearch>(
+            SerieSearch? search = JsonSerializer.Deserialize<SerieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
-            if (searchResult == null || searchResult.Results == null || searchResult.Results.Count == 0)
-                return NotFound();
+            if (search == null || search.Results == null || search.Results.Count == 0)
+                return Ok(new List<Content>());
 
-            if (searchResult.Results.Count > 9)
-                searchResult.Results = searchResult.Results.GetRange(0, 9);
+            if (search.Results.Count > 9)
+                search.Results = search.Results.GetRange(0, 9);
 
-            for (int i = 0; i < searchResult.Results.Count; i++)
+            List<Content> serieList = new List<Content>();
+            for (int i = 0; i < search.Results.Count; i++)
             {
-                OkObjectResult result = await Get((int)searchResult.Results[i].Id) as OkObjectResult;
-                searchResult.Results[i] = (Serie)result.Value;
+                serieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
             }
 
-            return Ok(searchResult.Results);
+            return Ok(serieList);
         }
     }
 }

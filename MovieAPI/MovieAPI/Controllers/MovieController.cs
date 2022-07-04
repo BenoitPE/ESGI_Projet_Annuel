@@ -45,7 +45,7 @@ namespace MovieAPI.Controllers
             if (movie.Credits != null && movie.Credits.Cast != null && movie.Credits.Cast.Count > 9)
                 movie.Credits.Cast = movie.Credits.Cast.Take(9).ToList();
 
-            return Ok(movie);
+            return Ok(new Content(movie));
         }
 
         /// <summary>
@@ -60,23 +60,23 @@ namespace MovieAPI.Controllers
             if (!response.IsSuccessStatusCode)
                 return NotFound();
 
-            MovieSearch? searchResult = JsonSerializer.Deserialize<MovieSearch>(
+            MovieSearch? search = JsonSerializer.Deserialize<MovieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
-            if(searchResult == null || searchResult.Results == null || searchResult.Results.Count == 0)
-                return NotFound();
+            if (search == null || search.Results == null || search.Results.Count == 0)
+                return Ok(new List<Content>());
 
-            if(searchResult.Results.Count > 9)
-                searchResult.Results = searchResult.Results.GetRange(0, 9);
+            if(search.Results.Count > 9)
+                search.Results = search.Results.GetRange(0, 9);
 
-            for (int i = 0; i < searchResult.Results.Count; i++)
+            List<Content> movieList = new List<Content>();
+            for (int i = 0; i < search.Results.Count; i++)
             {
-                OkObjectResult result = await Get((int)searchResult.Results[i].Id) as OkObjectResult;
-                searchResult.Results[i] = (Movie)result.Value;
+                movieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
             }
 
-            return Ok(searchResult.Results);
+            return Ok(movieList);
         }
 
         /// <summary>
@@ -92,23 +92,23 @@ namespace MovieAPI.Controllers
 
             string? res = await response.Content.ReadAsStringAsync();
 
-            MovieSearch? searchResult = JsonSerializer.Deserialize<MovieSearch>(
+            MovieSearch? search = JsonSerializer.Deserialize<MovieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
-            if (searchResult == null || searchResult.Results == null || searchResult.Results.Count == 0)
-                return NotFound();
+            if (search == null || search.Results == null || search.Results.Count == 0)
+                return Ok(new List<Content>());
 
-            if (searchResult.Results.Count > 9)
-                searchResult.Results = searchResult.Results.GetRange(0, 9);
+            if (search.Results.Count > 9)
+                search.Results = search.Results.GetRange(0, 9);
 
-            for (int i = 0; i < searchResult.Results.Count; i++)
+            List<Content> movieList = new List<Content>();
+            for (int i = 0; i < search.Results.Count; i++)
             {
-                OkObjectResult result = await Get((int)searchResult.Results[i].Id) as OkObjectResult;
-                searchResult.Results[i] = (Movie)result.Value;
+                movieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
             }
 
-            return Ok(searchResult.Results);
+            return Ok(movieList);
         }
     }
 }
