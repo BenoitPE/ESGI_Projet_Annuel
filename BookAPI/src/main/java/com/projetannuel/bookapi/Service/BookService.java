@@ -1,14 +1,12 @@
 package com.projetannuel.bookapi.Service;
 
 import com.projetannuel.bookapi.Model.Book;
-import org.json.JSONObject;
+import com.projetannuel.bookapi.Wrapper.GBWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import java.util.*;
 
 @Service
 public final class BookService {
@@ -16,47 +14,49 @@ public final class BookService {
     public BookService() {
     }
 
-    public List<Book> buidBookListWithWrapper(){
+    public List<Book> buildBookListWithWrapper(ResponseEntity<GBWrapper> entity){
         List<Book> books = new ArrayList<>();
-        // foreach on a list from google apiBook
-       // books.add(this.getBook());
-       // books.add(this.getBook());
+        int i = 0;
+        while (i <10){
+            books.add(buildBookWithWrapper(entity, i));
+            i++;
+        }
         return books;
     }
 
-    public Book buildBookWithWrapper(ResponseEntity<GBWrapper> entity)
+    public Book buildBookWithWrapper(ResponseEntity<GBWrapper> entity, Integer id)
     {
         Book book = new Book();
-        book.setId(1);
-        book.setTitleContent(entity.getBody().getItems()[0].getVolumeInfo().getTitle());
-        book.setImageUrl(entity.getBody().getItems()[0].getVolumeInfo().getImageLinks().get("infoLink"));
-        book.setDate(entity.getBody().getItems()[0].getVolumeInfo().getPublishedDate());
-        book.setAuthorName(Arrays.toString(entity.getBody().getItems()[0].getVolumeInfo().getAuthors()));
-        book.setEditorName(entity.getBody().getItems()[0].getVolumeInfo().getPublisher());
+        book.setTitleContent(entity.getBody().getItems()[id].getVolumeInfo().getTitle());
+        book.setImageUrl(entity.getBody().getItems()[id].getVolumeInfo().getImageLinks().get("thumbnail"));
+        book.setDate(entity.getBody().getItems()[id].getVolumeInfo().getPublishedDate());
+        book.setAuthorName(Arrays.toString(entity.getBody().getItems()[id].getVolumeInfo().getAuthors()));
+        book.setEditorName(entity.getBody().getItems()[id].getVolumeInfo().getPublisher());
+        book.setOverview(entity.getBody().getItems()[id].getVolumeInfo().getDescription());
+        book.setAdulte(entity.getBody().getItems()[id].getVolumeInfo().getMaturityRating());
+        book.setPageCount(entity.getBody().getItems()[id].getVolumeInfo().getPageCount());
         return book;
     }
 
-    public Book returnBookFromGoogleApi(){
-        String isbn = "9380658745";
+    public Book returnBookFromGoogleApiById(String isbn){
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn, GBWrapper.class);
 
-        return buildBookWithWrapper(entity);
+        return buildBookWithWrapper(entity, 0);
     }
 
     public Book returnBookFromGoogleApiByTitle(String Title){
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=intitle:"+Title, GBWrapper.class);
 
-        return buildBookWithWrapper(entity);
+        return buildBookWithWrapper(entity, 0);
     }
 
-    public Book returnBookFromGoogleApiByAuthor(String Author){
+    public List<Book> returnBooksFromGoogleApi(){
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=inauthor:"+Author, GBWrapper.class);
+        ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=subject+action+maxResults+20", GBWrapper.class);
 
-        return buildBookWithWrapper(entity);
+        return buildBookListWithWrapper(entity);
     }
-
 
 }

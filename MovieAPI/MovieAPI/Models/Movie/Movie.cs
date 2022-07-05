@@ -11,22 +11,7 @@
         public Credits? Credits { get; set; }
         public string? Overview { get; set; }
         public Videos? Videos { get; set; }
-        public string? ImageUrl
-        {
-            get { return !string.IsNullOrWhiteSpace(Poster_path) ? "https://image.tmdb.org/t/p/original" + Poster_path : null; }
-        }
-        public string? Date
-        {
-            get { return !string.IsNullOrWhiteSpace(Release_date) ? Release_date : null; }
-        }
-        public string? TrailerUrl
-        {
-            get
-            {
-                if (Videos != null && Videos.Results != null && Videos.Results.Count > 0)
-                    return Videos.Results[0].TrailerUrl;
-                else return null;
-            }
-        }
+        public string? ImageUrl => !string.IsNullOrWhiteSpace(Poster_path) ? "https://image.tmdb.org/t/p/original" + Poster_path : null;
+        public string? TrailerUrl => Videos != null && Videos.Results != null && Videos.Results.Count > 0 ? Videos.Results[0].TrailerUrl : null;
     }
 }
