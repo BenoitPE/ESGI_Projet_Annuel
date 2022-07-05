@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  05/07/2022 10:39:13                      */
+/* Date de création :  05/07/2022 10:59:00                      */
 /*==============================================================*/
 
 
@@ -19,7 +19,6 @@ create table MEDIA
 (
    IDMEDIA              varchar(100) not null,
    MEDIATYPE            varchar(50) not null,
-   SERVERURL            varchar(2048) not null,
    primary key (IDMEDIA, MEDIATYPE)
 );
 
@@ -29,6 +28,7 @@ create table MEDIA
 create table MEDIATYPE
 (
    NAME                 varchar(50) not null,
+   SERVERURL            varchar(2048) not null,
    primary key (NAME)
 );
 
