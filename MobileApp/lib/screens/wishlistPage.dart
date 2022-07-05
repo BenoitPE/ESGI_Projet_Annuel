@@ -17,13 +17,13 @@ Future<List<Data>> ReadJsonData(MediaType media) async {
   final list = json.decode(jsonData) as List<dynamic>;
   var items = [];
   list.forEach((element) {
-    if (media == MediaType.Movie && element["movie"] != null) {
+    if (media == MediaType.Movie && element['mediaType'] == "Movie") {
       items.add(element);
-    } else if (media == MediaType.Serie && element["serie"] != null) {
+    } else if (media == MediaType.Serie && element['mediaType'] == "Serie") {
       items.add(element);
-    } else if (media == MediaType.Book && element["book"] != null) {
+    } else if (media == MediaType.Book && element['mediaType'] == "Book") {
       items.add(element);
-    } else if (media == MediaType.Anime && element["anime"] != null) {
+    } else if (media == MediaType.Anime && element['mediaType'] == "Anime") {
       items.add(element);
     } else if (media == MediaType.Tous) {
       items.add(element);
@@ -185,13 +185,7 @@ class _wishlistPage extends State<wishlistPage> {
                                                                     builder:
                                                                         (context) =>
                                                                             ItemsPage(
-                                                                              item: (items[index].movie != null)
-                                                                                  ? items[index].movie
-                                                                                  : (items[index].serie != null)
-                                                                                      ? items[index].serie
-                                                                                      : (items[index].anime != null)
-                                                                                          ? items[index].anime
-                                                                                          : items[index].book,
+                                                                              item: items[index]
                                                                             )),
                                                               )))))),
                                     ],

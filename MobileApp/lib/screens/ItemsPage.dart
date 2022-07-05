@@ -171,7 +171,7 @@ class rolesSection extends StatelessWidget {
             height: 210,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: item.credits['cast'].length,
+              itemCount: item.properties['characters'].length,
               separatorBuilder: (context, _) => SizedBox(width: 12),
               itemBuilder: (context, index) =>
                   buildCardRole(item: item, context: context, index: index),
@@ -196,9 +196,9 @@ Widget buildCardRole(
                       borderRadius: BorderRadius.circular(20),
                       child: Material(
                           child: Ink.image(
-                        image: item.credits['cast'][index]['imageUrl'] != null
+                        image: item.properties['characters'][index]['profile_path'] != null
                             ? NetworkImage(
-                                item.credits['cast'][index]['imageUrl'])
+                                item.properties['characters'][index]['profile_path'])
                             : AssetImage('image/NoUserImage.png')
                                 as ImageProvider,
                         fit: BoxFit.cover,
@@ -206,8 +206,8 @@ Widget buildCardRole(
           ),
           const SizedBox(height: 4),
           Text(
-              (item.credits['cast'][index]['name'] != null
-                  ? item.credits['cast'][index]['name']
+              (item.properties['characters'][index]['name'] != null
+                  ? item.properties['characters'][index]['name']
                   : ''),
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -216,8 +216,8 @@ Widget buildCardRole(
                   color: Colors.white)),
           const SizedBox(height: 2),
           Text(
-              (item.credits['cast'][index]['character'] != null
-                  ? item.credits['cast'][index]['character']
+              (item.properties['characters'][index]['character'] != null
+                  ? item.properties['characters'][index]['character']
                   : ''),
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 10, color: Colors.white),

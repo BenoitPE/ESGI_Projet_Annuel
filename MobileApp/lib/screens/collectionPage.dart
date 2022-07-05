@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer'; 
+import 'dart:developer';
 
 import '../data.dart';
 import 'ItemsPage.dart';
@@ -15,7 +15,6 @@ class collectionPage extends StatefulWidget {
 }
 
 Future<List<Data>> ReadJsonData(MediaType media) async {
-
   final response = await http
       .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/0'));
 
@@ -27,7 +26,9 @@ Future<List<Data>> ReadJsonData(MediaType media) async {
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    log(response.statusCode.toString() +" : " + response.reasonPhrase.toString());
+    log(response.statusCode.toString() +
+        " : " +
+        response.reasonPhrase.toString());
   }
 
   final response2 = await http
@@ -41,20 +42,22 @@ Future<List<Data>> ReadJsonData(MediaType media) async {
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    log(response2.statusCode.toString() +" : " + response2.reasonPhrase.toString());
+    log(response2.statusCode.toString() +
+        " : " +
+        response2.reasonPhrase.toString());
   }
 
   final jsonData = await rootBundle.rootBundle.loadString('jsonfile/data.json');
   final list = json.decode(jsonData) as List<dynamic>;
   var items = [];
   list.forEach((element) {
-    if (media == MediaType.Movie && element["movie"] != null) {
+    if (media == MediaType.Movie && element['mediaType'] == "Movie") {
       items.add(element);
-    } else if (media == MediaType.Serie && element["serie"] != null) {
+    } else if (media == MediaType.Serie && element['mediaType'] == "Serie") {
       items.add(element);
-    } else if (media == MediaType.Book && element["book"] != null) {
+    } else if (media == MediaType.Book && element['mediaType'] == "Book") {
       items.add(element);
-    } else if (media == MediaType.Anime && element["anime"] != null) {
+    } else if (media == MediaType.Anime && element['mediaType'] == "Anime") {
       items.add(element);
     } else if (media == MediaType.Tous) {
       items.add(element);
@@ -181,6 +184,8 @@ class _collectionPage extends State<collectionPage> {
                                 left: 10, right: 10, bottom: 10),
                             child: AlignedGridView.count(
                               itemCount: items.length,
+                              shrinkWrap: true,
+                              physics: ScrollPhysics(),
                               crossAxisCount: 3,
                               mainAxisSpacing: 0,
                               crossAxisSpacing: 8,
@@ -213,17 +218,10 @@ class _collectionPage extends State<collectionPage> {
                                                               Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            ItemsPage(
-                                                                              item: (items[index].movie != null)
-                                                                                  ? items[index].movie
-                                                                                  : (items[index].serie != null)
-                                                                                      ? items[index].serie
-                                                                                      : (items[index].anime != null)
-                                                                                          ? items[index].anime
-                                                                                          : items[index].book,
-                                                                            )),
+                                                                    builder: (context) =>
+                                                                        ItemsPage(
+                                                                            item:
+                                                                                items[index])),
                                                               )))))),
                                     ],
                                   ),

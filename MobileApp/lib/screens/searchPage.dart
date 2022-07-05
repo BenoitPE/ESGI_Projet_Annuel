@@ -90,21 +90,9 @@ class itemSection extends StatelessWidget {
   MediaType media;
 
   ImageProvider<Object> urlImage(item, name) {
-    if (name == "Films" && item.movie != null) {
-      return item.movie.imageUrl != null
-          ? NetworkImage(item.movie.imageUrl)
-          : AssetImage('image/NoImage.jpg') as ImageProvider;
-    } else if (name == "Série" && item.serie != null) {
-      return item.serie.imageUrl != null
-          ? NetworkImage(item.serie.imageUrl)
-          : AssetImage('image/NoImage.jpg') as ImageProvider;
-    } else if (name == "Animée" && item.anime != null) {
-      return item.anime.imageUrl != null
-          ? NetworkImage(item.anime.imageUrl)
-          : AssetImage('image/NoImage.jpg') as ImageProvider;
-    } else if (name == 'book' && item.book != null) {
-      return item.book.imageUrl != null
-          ? NetworkImage(item.book.imageUrl)
+    if (item.imageUrl != null) {
+      return item.imageUrl != null
+          ? NetworkImage(item.imageUrl)
           : AssetImage('image/NoImage.jpg') as ImageProvider;
     } else
       return AssetImage('image/NoImage.jpg') as ImageProvider;
@@ -115,13 +103,13 @@ class itemSection extends StatelessWidget {
   final list = json.decode(jsonData) as List<dynamic>;
   var items = [];
   list.forEach((element) {
-    if (media == MediaType.Movie && element["movie"] != null) {
+    if (media == MediaType.Movie && element['mediaType'] == "Movie") {
       items.add(element);
-    } else if (media == MediaType.Serie && element["serie"] != null) {
+    } else if (media == MediaType.Serie && element['mediaType'] == "Serie") {
       items.add(element);
-    } else if (media == MediaType.Book && element["book"] != null) {
+    } else if (media == MediaType.Book && element['mediaType'] == "Book") {
       items.add(element);
-    } else if (media == MediaType.Anime && element["anime"] != null) {
+    } else if (media == MediaType.Anime && element['mediaType'] == "Anime") {
       items.add(element);
     } else if (media == MediaType.Tous) {
       items.add(element);
@@ -195,13 +183,7 @@ class itemSection extends StatelessWidget {
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (context) => ItemsPage(
-                                                                      item: (media == MediaType.Movie)
-                                                                          ? items[index].movie
-                                                                          : (media == MediaType.Serie)
-                                                                              ? items[index].serie
-                                                                              : (media == MediaType.Anime)
-                                                                                  ? items[index].anime
-                                                                                  : items[index].book)),
+                                                                      item: items[index])),
                                                             ))))))),
                               ],
                             ),
@@ -298,34 +280,3 @@ class _containerSearch extends State<containerSearch> {
         ])));
   }
 }
-//  Future<List<Data>> ReadJsonData(name,MediaType media) async {
-//     var categorie = (name == "Films")
-//         ? "movie"
-//         : (name == "Série")
-//             ? "serie"
-//             : (name == "Animée")
-//                 ? "anime"
-//                 : "book";
-//     final jsonData =
-//         await rootBundle.rootBundle.loadString('jsonfile/data.json');
-//     final list = json.decode(jsonData) as List<dynamic>;
-//     var listFinale;
-//     if (titre != '') {
-//       listFinale = list
-//           .map((e) {
-//             var titlejson = e['title'].toUpperCase();
-//             if (titlejson.toUpperCase() == titre.toUpperCase() &&
-//                 e[categorie] != {}) {
-//               return Data.fromJson(e);
-//             }
-//           })
-//           .whereNotNull()
-//           .toList();
-//     } else {
-//       listFinale = list.map((e) {
-//         return Data.fromJson(e);
-//       }).toList();
-//     }
-
-//     return listFinale;
-//   }
