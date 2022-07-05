@@ -28,11 +28,11 @@ TMDBApi.JsonSerializerOptions = new System.Text.Json.JsonSerializerOptions
     PropertyNameCaseInsensitive = true
 };
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 
