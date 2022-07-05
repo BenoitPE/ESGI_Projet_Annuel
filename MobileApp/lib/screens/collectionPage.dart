@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
 import 'package:flutter/services.dart' as rootBundle;
-import 'package:flutter_project_test/screens/wishlistPage.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:http/http.dart' as http;
+import 'dart:developer'; 
 
 import '../data.dart';
 import 'ItemsPage.dart';
@@ -12,22 +12,58 @@ import 'ItemsPage.dart';
 class collectionPage extends StatefulWidget {
   @override
   _collectionPage createState() => _collectionPage();
-  MediaType media = MediaType.Tous;
 }
 
-Future<List<Data>> ReadJsonData() async {
-  final jsonData =
-      await rootBundle.rootBundle.loadString('jsonfile/data.json');
+Future<List<Data>> ReadJsonData(MediaType media) async {
+
+  final response = await http
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/0'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    //con Album.fromJson(jsonDecode(response.body));
+    log(response.reasonPhrase.toString());
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    log(response.statusCode.toString() +" : " + response.reasonPhrase.toString());
+  }
+
+  final response2 = await http
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+
+  if (response2.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    //con Album.fromJson(jsonDecode(response.body));
+    log(response2.reasonPhrase.toString());
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    log(response2.statusCode.toString() +" : " + response2.reasonPhrase.toString());
+  }
+
+  final jsonData = await rootBundle.rootBundle.loadString('jsonfile/data.json');
   final list = json.decode(jsonData) as List<dynamic>;
+  var items = [];
+  list.forEach((element) {
+    if (media == MediaType.Movie && element["movie"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Serie && element["serie"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Book && element["book"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Anime && element["anime"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Tous) {
+      items.add(element);
+    }
+  });
 
-  return list.map((e) => Data.fromJson(e)).toList();
+  return items.map((e) => Data.fromJson(e)).toList();
 }
 
-bool film = false;
-bool serie = false;
-bool anime = false;
-bool livre = false;
-bool tous = true;
 MediaType media = MediaType.Tous;
 
 class _collectionPage extends State<collectionPage> {
@@ -56,16 +92,12 @@ class _collectionPage extends State<collectionPage> {
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
-                                        film = false;
-                                        serie = false;
-                                        anime = false;
-                                        livre = false;
-                                        tous = true;
+                                        media = MediaType.Tous;
                                       });
                                     },
                                     child: Text(
                                       "Tous",
-                                      style: (tous == true)
+                                      style: (media == MediaType.Tous)
                                           ? TextStyle(color: Colors.white)
                                           : TextStyle(
                                               color: Colors.white
@@ -76,16 +108,12 @@ class _collectionPage extends State<collectionPage> {
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
-                                        film = true;
-                                        serie = false;
-                                        anime = false;
-                                        livre = false;
-                                        tous = false;
+                                        media = MediaType.Movie;
                                       });
                                     },
                                     child: Text(
                                       "Films",
-                                      style: (film == true)
+                                      style: (media == MediaType.Movie)
                                           ? TextStyle(color: Colors.white)
                                           : TextStyle(
                                               color: Colors.white
@@ -96,16 +124,12 @@ class _collectionPage extends State<collectionPage> {
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
-                                        film = false;
-                                        serie = true;
-                                        anime = false;
-                                        livre = false;
-                                        tous = false;
+                                        media = MediaType.Serie;
                                       });
                                     },
                                     child: Text(
                                       "Séries",
-                                      style: (serie == true)
+                                      style: (media == MediaType.Serie)
                                           ? TextStyle(color: Colors.white)
                                           : TextStyle(
                                               color: Colors.white
@@ -116,16 +140,12 @@ class _collectionPage extends State<collectionPage> {
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
-                                        film = false;
-                                        serie = false;
-                                        anime = true;
-                                        livre = false;
-                                        tous = false;
+                                        media = MediaType.Anime;
                                       });
                                     },
                                     child: Text(
                                       "Animés",
-                                      style: (anime == true)
+                                      style: (media == MediaType.Anime)
                                           ? TextStyle(color: Colors.white)
                                           : TextStyle(
                                               color: Colors.white
@@ -136,16 +156,12 @@ class _collectionPage extends State<collectionPage> {
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
-                                        film = false;
-                                        serie = false;
-                                        anime = false;
-                                        livre = true;
-                                        tous = false;
+                                        media = MediaType.Book;
                                       });
                                     },
                                     child: Text(
                                       "Livres",
-                                      style: (livre == true)
+                                      style: (media == MediaType.Book)
                                           ? TextStyle(color: Colors.white)
                                           : TextStyle(
                                               color: Colors.white
@@ -153,58 +169,25 @@ class _collectionPage extends State<collectionPage> {
                                     ))),
                           ]))),
                   FutureBuilder(
-                    future: ReadJsonData(),
+                    future: ReadJsonData(media),
                     builder: (context, data) {
                       if (data.hasError) {
                         return Text('error');
                       } else if (data.hasData) {
                         var items = data.data as List<Data>;
-                        List<Data> nbMovie = [];
-                        List<Data> nbSerie = [];
-                        List<Data> nbBook = [];
-                        List<Data> nbAnime = [];
-                        items.forEach((element) {
-                          if (element.movie != null) {
-                            nbMovie.add(element);
-                          } else if (element.serie != null) {
-                            nbSerie.add(element);
-                          } else if (element.book != null) {
-                            nbBook.add(element);
-                          } else if (element.anime != null) {
-                            nbAnime.add(element);
-                          }
-                        });
                         return Container(
                             height: 530,
                             padding: EdgeInsets.only(
                                 left: 10, right: 10, bottom: 10),
                             child: AlignedGridView.count(
-                              itemCount: (film == true)
-                                  ? nbMovie.length
-                                  : (serie == true)
-                                      ? nbSerie.length
-                                      : (anime == true)
-                                          ? nbAnime.length
-                                          : (livre == true)
-                                              ? nbBook.length
-                                              : items.length,
+                              itemCount: items.length,
                               crossAxisCount: 3,
                               mainAxisSpacing: 0,
                               crossAxisSpacing: 8,
                               itemBuilder: (context, index) {
-                                var categorieData = (film == true)
-                                    ? nbMovie
-                                    : (serie == true)
-                                        ? nbSerie
-                                        : (anime == true)
-                                            ? nbAnime
-                                            : (livre == true)
-                                                ? nbBook
-                                                : items;
+                                var categorieData = items;
                                 return Container(
-                                  //width: 100,
                                   height: 200,
-                                  //padding: EdgeInsets.fromLTRB(10, 10, 10, 10) ,
                                   child: Column(
                                     children: [
                                       AspectRatio(
@@ -219,14 +202,11 @@ class _collectionPage extends State<collectionPage> {
                                                                   .imageUrl !=
                                                               null
                                                           ? NetworkImage(
-                                                              categorieData[
-                                                                      index]
+                                                              items[index]
                                                                   .imageUrl)
                                                           : AssetImage(
                                                                   'image/NoImage.jpg')
                                                               as ImageProvider,
-                                                      // NetworkImage(
-                                                      //     (categorieData[index].imageUrl != null ? categorieData[index].imageUrl : '' )),
                                                       fit: BoxFit.cover,
                                                       child: InkWell(
                                                           onTap: () =>
@@ -236,13 +216,13 @@ class _collectionPage extends State<collectionPage> {
                                                                     builder:
                                                                         (context) =>
                                                                             ItemsPage(
-                                                                              item: (categorieData[index].movie  != null)
-                                                                                  ? categorieData[index].movie
-                                                                                  : (categorieData[index].serie != null)
-                                                                                      ? categorieData[index].serie
-                                                                                      : (categorieData[index].anime!= null)
-                                                                                          ? categorieData[index].anime
-                                                                                          : categorieData[index].book,
+                                                                              item: (items[index].movie != null)
+                                                                                  ? items[index].movie
+                                                                                  : (items[index].serie != null)
+                                                                                      ? items[index].serie
+                                                                                      : (items[index].anime != null)
+                                                                                          ? items[index].anime
+                                                                                          : items[index].book,
                                                                             )),
                                                               )))))),
                                     ],
@@ -273,211 +253,3 @@ class textSection extends StatelessWidget {
     );
   }
 }
-
-// class itemSection extends StatelessWidget {
-//   String name;
-
-//   Future<List<Data>> ReadJsonData() async {
-//     final jsonData =
-//         await rootBundle.rootBundle.loadString('jsonfile/movie.json');
-//     final list = json.decode(jsonData) as List<dynamic>;
-
-//     return list.map((e) => Data.fromJson(e)).toList();
-//   }
-
-//   itemSection(this.name);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Column(children: [
-//         Container(height: 90, color: Colors.red, child: ItemsAppBarWidget()),
-//         FutureBuilder(
-//           future: ReadJsonData(),
-//           builder: (context, data) {
-//             if (data.hasError) {
-//               return Text('error');
-//             } else if (data.hasData) {
-//               var items = data.data as List<Data>;
-//               return Container(
-//                 height: 530,
-//                 padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-//                 //color: Colors.amber,
-//                 child: GridView.builder(
-//                   itemCount: 30,
-//                   itemBuilder: (context, index) {
-//                     return Container(
-//                       width: 100,
-//                       //height: 140,
-//                       child: Column(
-//                         children: [
-//                           Expanded(
-//                               child: AspectRatio(
-//                                   aspectRatio: 4 / 3,
-//                                   child: ClipRRect(
-//                                       borderRadius: BorderRadius.circular(20),
-//                                       child: Material(
-//                                           child: Ink.image(
-//                                               image: NetworkImage(
-//                                                   items[index].imageUrl),
-//                                               fit: BoxFit.cover,
-//                                               child: InkWell(
-//                                                   onTap: () => Navigator.push(
-//                                                         context,
-//                                                         MaterialPageRoute(
-//                                                             builder:
-//                                                                 (context) =>
-//                                                                     ItemsPage(
-//                                                                       item: items[
-//                                                                           index],
-//                                                                     )),
-//                                                       ))))))),
-//                         ],
-//                       ),
-//                     );
-//                   },
-//                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                       crossAxisCount: 3,
-//                       crossAxisSpacing: 10,
-//                       mainAxisSpacing: 10),
-//                 ),
-//               );
-//             } else {
-//               return CircularProgressIndicator();
-//             }
-//           },
-//         ),
-//       ]),
-//     );
-//   }
-
-//   Widget buildCard({required CardItem item, required BuildContext context}) =>
-//       Container(
-//         width: 100,
-//         //height: 140,
-//         child: Column(
-//           children: [
-//             Expanded(
-//                 child: AspectRatio(
-//                     aspectRatio: 4 / 3,
-//                     child: ClipRRect(
-//                         borderRadius: BorderRadius.circular(20),
-//                         child: Material(
-//                             child: Ink.image(
-//                                 image: NetworkImage(item.urlImage),
-//                                 fit: BoxFit.cover))))),
-//           ],
-//         ),
-//       );
-// }
-
-// class ItemsAppBarWidget extends StatefulWidget {
-//   ItemsAppBar createState() => ItemsAppBar();
-// }
-
-// class ItemsAppBar extends State {
-//   bool film = false;
-//   bool serie = false;
-//   bool anime = false;
-//   bool livre = false;
-//   bool tous = true;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AppBar(
-//         backgroundColor: Colors.black,
-//         automaticallyImplyLeading: false,
-//         title: Row(children: <Widget>[
-//           Container(
-//               width: 72,
-//               child: TextButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       film = false;
-//                       serie = false;
-//                       anime = false;
-//                       livre = false;
-//                       tous = true;
-//                     });
-//                   },
-//                   child: Text(
-//                     "Tous",
-//                     style: (tous == true)
-//                         ? TextStyle(color: Colors.white)
-//                         : TextStyle(color: Colors.white.withOpacity(0.5)),
-//                   ))),
-//           Container(
-//               width: 72,
-//               child: TextButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       film = true;
-//                       serie = false;
-//                       anime = false;
-//                       livre = false;
-//                       tous = false;
-//                     });
-//                   },
-//                   child: Text(
-//                     "Films",
-//                     style: (film == true)
-//                         ? TextStyle(color: Colors.white)
-//                         : TextStyle(color: Colors.white.withOpacity(0.5)),
-//                   ))),
-//           Container(
-//               width: 72,
-//               child: TextButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       film = false;
-//                       serie = true;
-//                       anime = false;
-//                       livre = false;
-//                       tous = false;
-//                     });
-//                   },
-//                   child: Text(
-//                     "Séries",
-//                     style: (serie == true)
-//                         ? TextStyle(color: Colors.white)
-//                         : TextStyle(color: Colors.white.withOpacity(0.5)),
-//                   ))),
-//           Container(
-//               width: 72,
-//               child: TextButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       film = false;
-//                       serie = false;
-//                       anime = true;
-//                       livre = false;
-//                       tous = false;
-//                     });
-//                   },
-//                   child: Text(
-//                     "Animés",
-//                     style: (anime == true)
-//                         ? TextStyle(color: Colors.white)
-//                         : TextStyle(color: Colors.white.withOpacity(0.5)),
-//                   ))),
-//           Container(
-//               width: 72,
-//               child: TextButton(
-//                   onPressed: () {
-//                     setState(() {
-//                       film = false;
-//                       serie = false;
-//                       anime = false;
-//                       livre = true;
-//                       tous = false;
-//                     });
-//                   },
-//                   child: Text(
-//                     "Livres",
-//                     style: (livre == true)
-//                         ? TextStyle(color: Colors.white)
-//                         : TextStyle(color: Colors.white.withOpacity(0.5)),
-//                   ))),
-//         ]));
-//   }
-// }
