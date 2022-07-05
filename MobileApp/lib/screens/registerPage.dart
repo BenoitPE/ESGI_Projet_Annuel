@@ -1,10 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_project_test/screens/loginPage.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
-import 'package:flutter_project_test/main.dart';
 
 class registerPage extends StatelessWidget {
   @override

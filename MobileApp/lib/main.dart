@@ -85,6 +85,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-//text: 'Noubliez plus ce que vous possédez.'
-//text: "Films, séries TV, animées et livres, listez tout ce que vous avez pour ne plus jamais l'oublier"

@@ -86,7 +86,6 @@ class Media {
       imageUrl: json['imageUrl'],
       date: json['date'],
       trailerUrl: json['trailerUrl'],
-      //type : json['type'],
     );
   }
 }

@@ -1,9 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_project_test/main.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
 
 class profilPage extends StatelessWidget {
   @override

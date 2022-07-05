@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
-import 'package:flutter_project_test/main.dart';
 import 'package:flutter_project_test/screens/ItemsPage.dart';
 import 'package:flutter_project_test/screens/profil.dart';
 import 'package:flutter_project_test/screens/wishlistPage.dart';
@@ -90,61 +87,51 @@ class TestItem {
 class itemSection extends StatelessWidget {
   String name;
   String titre;
+  MediaType media;
 
-  NetworkImage urlImage(item, name) {
+  ImageProvider<Object> urlImage(item, name) {
     if (name == "Films" && item.movie != null) {
-      return NetworkImage(
-        (item.movie.imageUrl !=null ? item.movie.imageUrl : ''),
-      );
+      return item.movie.imageUrl != null
+          ? NetworkImage(item.movie.imageUrl)
+          : AssetImage('image/NoImage.jpg') as ImageProvider;
     } else if (name == "Série" && item.serie != null) {
-      return NetworkImage(
-        (item.serie.imageUrl !=null ? item.serie.imageUrl : ''),
-      );
+      return item.serie.imageUrl != null
+          ? NetworkImage(item.serie.imageUrl)
+          : AssetImage('image/NoImage.jpg') as ImageProvider;
     } else if (name == "Animée" && item.anime != null) {
-      return NetworkImage(
-        (item.anime.imageUrl !=null ? item.anime : ''),
-      );
+      return item.anime.imageUrl != null
+          ? NetworkImage(item.anime.imageUrl)
+          : AssetImage('image/NoImage.jpg') as ImageProvider;
     } else if (name == 'book' && item.book != null) {
-      return NetworkImage(
-        (item.book.imageUrl !=null ? item.book.imageUrl : ''),
-      );
+      return item.book.imageUrl != null
+          ? NetworkImage(item.book.imageUrl)
+          : AssetImage('image/NoImage.jpg') as ImageProvider;
     } else
-      return NetworkImage('');
+      return AssetImage('image/NoImage.jpg') as ImageProvider;
   }
 
-  Future<List<Data>> ReadJsonData(name) async {
-    var categorie = (name == "Films")
-        ? "movie"
-        : (name == "Série")
-            ? "serie"
-            : (name == "Animée")
-                ? "anime"
-                : "book";
-    final jsonData =
-        await rootBundle.rootBundle.loadString('jsonfile/data.json');
-    final list = json.decode(jsonData) as List<dynamic>;
-    var listFinale;
-    if (titre != '') {
-      listFinale = list
-          .map((e) {
-            var titlejson = e['title'].toUpperCase();
-            if (titlejson.toUpperCase() == titre.toUpperCase() &&
-                e[categorie] != {}) {
-              return Data.fromJson(e);
-            }
-          })
-          .whereNotNull()
-          .toList();
-    } else {
-      listFinale = list.map((e) {
-        return Data.fromJson(e);
-      }).toList();
+  Future<List<Data>> ReadJsonData(name,MediaType media) async {
+    final jsonData = await rootBundle.rootBundle.loadString('jsonfile/data.json');
+  final list = json.decode(jsonData) as List<dynamic>;
+  var items = [];
+  list.forEach((element) {
+    if (media == MediaType.Movie && element["movie"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Serie && element["serie"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Book && element["book"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Anime && element["anime"] != null) {
+      items.add(element);
+    } else if (media == MediaType.Tous) {
+      items.add(element);
     }
+  });
 
-    return listFinale;
+  return items.map((e) => Data.fromJson(e)).toList();
   }
 
-  itemSection(this.name, this.titre);
+  itemSection(this.name, this.titre, this.media);
 
   @override
   Widget build(BuildContext context) {
@@ -172,63 +159,22 @@ class itemSection extends StatelessWidget {
           ]),
         ),
         FutureBuilder(
-          future: ReadJsonData(name),
+          future: ReadJsonData(name,media),
           builder: (context, data) {
             if (data.hasError) {
               return Text('error');
             } else if (data.hasData) {
               var items = data.data as List<Data>;
-              List<Data> nbMovie = [];
-              List<Data> nbSerie = [];
-              List<Data> nbBook = [];
-              List<Data> nbAnime = [];
-              items.forEach((element) {
-                if (element.movie != null) {
-                  nbMovie.add(element);
-                } else if (element.serie != null) {
-                  nbSerie.add(element);
-                } else if (element.book != null) {
-                  nbBook.add(element);
-                } else if (element.anime != null) {
-                  nbAnime.add(element);
-                }
-              });
-              var categorie = (name == "Films")
-                  ? nbMovie
-                  : (name == "Série")
-                      ? nbSerie
-                      : (name == "Animée")
-                          ? nbAnime
-                          : nbBook;
-              if ((nbMovie.length != 0 && name == 'Films') ||
-                  (nbSerie.length != 0 && name == 'Série') ||
-                  (nbBook.length != 0 && name == 'Animée') ||
-                  (nbAnime.length != 0 && name == 'Livres')) {
+              if (items.length != 0){
                 return Container(
                     height: 140,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        itemCount: categorie.length,
+                        itemCount: items.length,
                         separatorBuilder: (context, _) => SizedBox(width: 12),
                         itemBuilder: (context, index) {
-                          var typeData = (name == "Films")
-                              ? "movie"
-                              : (name == "Série")
-                                  ? "serie"
-                                  : (name == "Animée")
-                                      ? "anime"
-                                      : "book";
-                          var categorieData = (name == "Films")
-                              ? nbMovie
-                              : (name == "Série")
-                                  ? nbSerie
-                                  : (name == "Animée")
-                                      ? nbAnime
-                                      : nbBook;
-                          var selectListdata = categorieData;
                           return Container(
                             width: 100,
-                            //height: 140,
                             child: Column(
                               children: [
                                 Expanded(
@@ -240,7 +186,7 @@ class itemSection extends StatelessWidget {
                                             child: Material(
                                                 child: Ink.image(
                                                     image: urlImage(
-                                                        selectListdata[index],
+                                                        items[index],
                                                         name),
                                                     fit: BoxFit.cover,
                                                     child: InkWell(
@@ -249,13 +195,13 @@ class itemSection extends StatelessWidget {
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (context) => ItemsPage(
-                                                                      item: (typeData == "movie")
-                                                                          ? selectListdata[index].movie
-                                                                          : (typeData == "serie")
-                                                                              ? selectListdata[index].serie
-                                                                              : (typeData == "anime")
-                                                                                  ? selectListdata[index].anime
-                                                                                  : selectListdata[index].book)),
+                                                                      item: (media == MediaType.Movie)
+                                                                          ? items[index].movie
+                                                                          : (media == MediaType.Serie)
+                                                                              ? items[index].serie
+                                                                              : (media == MediaType.Anime)
+                                                                                  ? items[index].anime
+                                                                                  : items[index].book)),
                                                             ))))))),
                               ],
                             ),
@@ -273,25 +219,6 @@ class itemSection extends StatelessWidget {
     );
   }
 }
-
-// class containerSearch extends StatefulWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         height: double.infinity,
-//         width: double.infinity,
-//         color: Colors.black,
-//         child: SingleChildScrollView(
-//             child: Column(children: [
-//           SizedBox(height: 40),
-//           SearchSection(),
-//           SizedBox(height: 20),
-//           itemSection("Films"),
-//           itemSection("Série"),
-//           itemSection("Animée"),
-//           itemSection("Livres")
-//         ])));
-//   }
 
 class containerSearch extends StatefulWidget {
   @override
@@ -355,8 +282,7 @@ class _containerSearch extends State<containerSearch> {
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.only(top: 14),
                     prefixIcon: IconButton(
-                        onPressed: () => setState(() {
-                            }),
+                        onPressed: () => setState(() {}),
                         icon: Icon(
                           Icons.search,
                           color: Colors.white,
@@ -365,62 +291,41 @@ class _containerSearch extends State<containerSearch> {
                     hintStyle: TextStyle(color: Colors.white)),
               )),
           SizedBox(height: 20),
-          itemSection("Films", titre),
-          itemSection("Série", titre),
-          itemSection("Animée", titre),
-          itemSection("Livres", titre)
+          itemSection("Films", titre, MediaType.Movie),
+          itemSection("Série", titre, MediaType.Serie),
+          itemSection("Animée", titre, MediaType.Anime),
+          itemSection("Livres", titre, MediaType.Book)
         ])));
   }
 }
-
-// class SearchSection extends StatelessWidget {
-//   TextEditingController myController = TextEditingController();
-
-//   Future<List> fetchData() async {
-//     await Future.delayed(Duration(milliseconds: 3000));
-//     String _inputText = myController.text;
+//  Future<List<Data>> ReadJsonData(name,MediaType media) async {
+//     var categorie = (name == "Films")
+//         ? "movie"
+//         : (name == "Série")
+//             ? "serie"
+//             : (name == "Animée")
+//                 ? "anime"
+//                 : "book";
 //     final jsonData =
-//         await rootBundle.rootBundle.loadString('jsonfile/movie.json');
+//         await rootBundle.rootBundle.loadString('jsonfile/data.json');
 //     final list = json.decode(jsonData) as List<dynamic>;
-
-//     var listFinale = list
-//         .map((e) {
-//           var titlejson =
-//               e['title'].toUpperCase().substring(0, _inputText.length);
-//           if (titlejson.toUpperCase() == _inputText.toUpperCase()) {
-//             return Data.fromJson(e);
-//           }
-//         })
-//         .whereNotNull()
-//         .toList();
+//     var listFinale;
+//     if (titre != '') {
+//       listFinale = list
+//           .map((e) {
+//             var titlejson = e['title'].toUpperCase();
+//             if (titlejson.toUpperCase() == titre.toUpperCase() &&
+//                 e[categorie] != {}) {
+//               return Data.fromJson(e);
+//             }
+//           })
+//           .whereNotNull()
+//           .toList();
+//     } else {
+//       listFinale = list.map((e) {
+//         return Data.fromJson(e);
+//       }).toList();
+//     }
 
 //     return listFinale;
 //   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-//         decoration: BoxDecoration(
-//           color: Colors.red.withOpacity(0.5),
-//           borderRadius: BorderRadius.circular(23),
-//         ),
-//         child: TextFieldSearch(
-//           label: '',
-//           controller: myController,
-//           future: () {
-//             return fetchData();
-//           },
-//           getSelectedValue: (value) {
-//             print(value);
-//           },
-//           textStyle: TextStyle(color: Colors.white),
-//           decoration: InputDecoration(
-//               border: InputBorder.none,
-//               contentPadding: EdgeInsets.only(top: 14),
-//               prefixIcon: Icon(Icons.search, color: Colors.white),
-//               hintText: 'Recherche un film, une série, un livre ...',
-//               hintStyle: TextStyle(color: Colors.white)),
-//         ));
-//   }
-// }

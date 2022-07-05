@@ -2,11 +2,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'package:flutter_project_test/data.dart';
-import 'package:flutter_project_test/main.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
 
 class ItemsPage extends StatelessWidget {
   final item;
@@ -26,7 +21,6 @@ class ItemsPage extends StatelessWidget {
                     children: [
                       Container(
                           width: MediaQuery.of(context).size.width,
-                          //color: Colors.amber,
                           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                           alignment: Alignment.center,
                           child: Column(
@@ -97,7 +91,6 @@ class ItemsPage extends StatelessWidget {
                           )),
                       rolesSection(item: item),
                       Container(
-                        //color: Colors.black.withOpacity(0.2),
                         child: Column(children: [
                           SizedBox(height: 15),
                           Container(
@@ -141,7 +134,6 @@ class ItemsPage extends StatelessWidget {
               image: item.imageUrl != null
                   ? NetworkImage(item.imageUrl)
                   : AssetImage('image/NoImage.jpg') as ImageProvider,
-              //NetworkImage((item['imageUrl'] != null ? item['imageUrl'] : 'assets/NoImage.jpg' )),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.3),
@@ -189,15 +181,6 @@ class rolesSection extends StatelessWidget {
   }
 }
 
-class CardRole {
-  final urlImage;
-  final title;
-  final subtitle;
-
-  const CardRole(
-      {required this.urlImage, required this.title, required this.subtitle});
-}
-
 Widget buildCardRole(
         {required item, required BuildContext context, required index}) =>
     Container(
@@ -218,10 +201,6 @@ Widget buildCardRole(
                                 item.credits['cast'][index]['imageUrl'])
                             : AssetImage('image/NoUserImage.png')
                                 as ImageProvider,
-                        // NetworkImage(
-                        //     (item['credits']['cast'][index]['imageUrl'] != null
-                        //         ? item['credits']['cast'][index]['imageUrl']
-                        //         : '')),
                         fit: BoxFit.cover,
                       )))),
           ),
