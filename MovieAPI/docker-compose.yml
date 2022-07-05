@@ -1,0 +1,10 @@
+services:
+  movieapi:
+    image : movieapi:latest 
+    container_name: movieapi
+    ports:
+     - 80:80
+     - 443:443
+    environment:
+      - TZ=Europe/Paris
+    restart: unless-stopped
