@@ -27,6 +27,7 @@ public final class BookService {
     public Book buildBookWithWrapper(ResponseEntity<GBWrapper> entity, Integer id)
     {
         Book book = new Book();
+        book.setId(entity.getBody().getItems()[id].getId());
         book.setTitleContent(entity.getBody().getItems()[id].getVolumeInfo().getTitle());
         book.setImageUrl(entity.getBody().getItems()[id].getVolumeInfo().getImageLinks().get("thumbnail"));
         book.setDate(entity.getBody().getItems()[id].getVolumeInfo().getPublishedDate());
