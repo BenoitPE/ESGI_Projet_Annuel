@@ -1,5 +1,7 @@
 package com.projetannuel.bookapi.Model;
 
+import java.util.Objects;
+
 public class Book {
 
     public Book() {
@@ -68,7 +70,14 @@ public class Book {
     }
 
     public void setAdulte(String adulte) {
-        this.adulte = adulte;
+        if (Objects.equals(adulte, "NOT_MATURE"))
+        {
+            this.adulte = "false";
+        }
+        else
+        {
+            this.adulte = "true";
+        }
     }
 
     public Properties getProperties() {
