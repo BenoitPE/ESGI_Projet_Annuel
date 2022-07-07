@@ -7,7 +7,9 @@ import 'package:flutter_project_test/screens/wishlistPage.dart';
 import 'package:textfield_search/textfield_search.dart';
 import 'package:flutter_project_test/data.dart';
 import 'package:collection/collection.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:developer';
+import "dart:io";
 import 'collectionPage.dart';
 
 class searchPage extends StatefulWidget {
@@ -88,6 +90,8 @@ class itemSection extends StatelessWidget {
   String name;
   String titre;
   MediaType media;
+  dynamic myController;
+  dynamic test;
 
   ImageProvider<Object> urlImage(item, name) {
     if (item.imageUrl != null) {
@@ -98,31 +102,58 @@ class itemSection extends StatelessWidget {
       return AssetImage('image/NoImage.jpg') as ImageProvider;
   }
 
-  Future<List<Data>> ReadJsonData(name,MediaType media) async {
-    final jsonData = await rootBundle.rootBundle.loadString('jsonfile/data.json');
-  final list = json.decode(jsonData) as List<dynamic>;
-  var items = [];
-  list.forEach((element) {
-    if (media == MediaType.Movie && element['mediaType'] == "Movie") {
-      items.add(element);
-    } else if (media == MediaType.Serie && element['mediaType'] == "Serie") {
-      items.add(element);
-    } else if (media == MediaType.Book && element['mediaType'] == "Book") {
-      items.add(element);
-    } else if (media == MediaType.Anime && element['mediaType'] == "Anime") {
-      items.add(element);
-    } else if (media == MediaType.Tous) {
-      items.add(element);
+  itemSection(this.name, this.titre, this.media, this.myController);
+
+  late Future<List<Data>> futureData;
+
+  Future<List<Data>> ReadJsonData(
+      String myController, MediaType media) async {
+    var list;
+    var list2;
+    var items = [];
+    debugPrint(myController);
+
+    if (media == MediaType.Movie || media == MediaType.Tous) {
+      final response =
+          await http.get(Uri.parse('http://100.113.108.37/Movie/Popular'));
+
+      if (response.statusCode == 200) {
+        list = json.decode(response.body) as List<dynamic>;
+        log(response.reasonPhrase.toString());
+        list.forEach((element) {
+          items.add(element);
+        });
+      } else {
+        log(response.statusCode.toString() +
+            " : " +
+            response.reasonPhrase.toString());
+      }
     }
-  });
 
-  return items.map((e) => Data.fromJson(e)).toList();
+    if (media == MediaType.Serie || media == MediaType.Tous) {
+      final response2 =
+          await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
+
+      if (response2.statusCode == 200) {
+        list2 = json.decode(response2.body) as List<dynamic>;
+        log(response2.reasonPhrase.toString());
+        list2.forEach((element) {
+          items.add(element);
+        });
+      } else {
+        log(response2.statusCode.toString() +
+            " : " +
+            response2.reasonPhrase.toString());
+      }
+    }
+    return items.map((e) => Data.fromJson(e)).toList();
   }
-
-  itemSection(this.name, this.titre, this.media);
 
   @override
   Widget build(BuildContext context) {
+    futureData = ReadJsonData(myController, media);
+    // var textController = myController.text;
+    // var textRayane = "test";
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
       child: Column(children: [
@@ -147,13 +178,13 @@ class itemSection extends StatelessWidget {
           ]),
         ),
         FutureBuilder(
-          future: ReadJsonData(name,media),
+          future: futureData,
           builder: (context, data) {
             if (data.hasError) {
               return Text('error');
             } else if (data.hasData) {
               var items = data.data as List<Data>;
-              if (items.length != 0){
+              if (items.length != 0) {
                 return Container(
                     height: 140,
                     child: ListView.separated(
@@ -174,17 +205,18 @@ class itemSection extends StatelessWidget {
                                             child: Material(
                                                 child: Ink.image(
                                                     image: urlImage(
-                                                        items[index],
-                                                        name),
+                                                        items[index], name),
                                                     fit: BoxFit.cover,
                                                     child: InkWell(
-                                                        onTap: () =>
-                                                            Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) => ItemsPage(
-                                                                      item: items[index])),
-                                                            ))))))),
+                                                        onTap:
+                                                            () =>
+                                                                Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          ItemsPage(
+                                                                              item: items[index])),
+                                                                ))))))),
                               ],
                             ),
                           );
@@ -273,10 +305,10 @@ class _containerSearch extends State<containerSearch> {
                     hintStyle: TextStyle(color: Colors.white)),
               )),
           SizedBox(height: 20),
-          itemSection("Films", titre, MediaType.Movie),
-          itemSection("Série", titre, MediaType.Serie),
-          itemSection("Animée", titre, MediaType.Anime),
-          itemSection("Livres", titre, MediaType.Book)
+          itemSection("Films", titre, MediaType.Movie, myController.text),
+          itemSection("Série", titre, MediaType.Serie, myController.text),
+          itemSection("Animée", titre, MediaType.Anime, myController.text),
+          itemSection("Livres", titre, MediaType.Book, myController.text)
         ])));
   }
 }

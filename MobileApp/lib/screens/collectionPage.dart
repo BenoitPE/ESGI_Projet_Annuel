@@ -15,55 +15,43 @@ class collectionPage extends StatefulWidget {
 }
 
 Future<List<Data>> ReadJsonData(MediaType media) async {
-  final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/0'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    //con Album.fromJson(jsonDecode(response.body));
-    log(response.reasonPhrase.toString());
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    log(response.statusCode.toString() +
-        " : " +
-        response.reasonPhrase.toString());
-  }
-
-  final response2 = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-
-  if (response2.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    //con Album.fromJson(jsonDecode(response.body));
-    log(response2.reasonPhrase.toString());
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    log(response2.statusCode.toString() +
-        " : " +
-        response2.reasonPhrase.toString());
-  }
-
-  final jsonData = await rootBundle.rootBundle.loadString('jsonfile/data.json');
-  final list = json.decode(jsonData) as List<dynamic>;
+  var list;
+  var list2;
   var items = [];
-  list.forEach((element) {
-    if (media == MediaType.Movie && element['mediaType'] == "Movie") {
-      items.add(element);
-    } else if (media == MediaType.Serie && element['mediaType'] == "Serie") {
-      items.add(element);
-    } else if (media == MediaType.Book && element['mediaType'] == "Book") {
-      items.add(element);
-    } else if (media == MediaType.Anime && element['mediaType'] == "Anime") {
-      items.add(element);
-    } else if (media == MediaType.Tous) {
-      items.add(element);
-    }
-  });
 
+  if (media == MediaType.Movie || media == MediaType.Tous) {
+    final response =
+        await http.get(Uri.parse('http://100.113.108.37/Movie/Popular'));
+
+    if (response.statusCode == 200) {
+      list = json.decode(response.body) as List<dynamic>;
+      log(response.reasonPhrase.toString());
+      list.forEach((element) {
+        items.add(element);
+      });
+    } else {
+      log(response.statusCode.toString() +
+          " : " +
+          response.reasonPhrase.toString());
+    }
+  }
+
+  if (media == MediaType.Serie || media == MediaType.Tous) {
+    final response2 =
+        await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
+
+    if (response2.statusCode == 200) {
+      list2 = json.decode(response2.body) as List<dynamic>;
+      log(response2.reasonPhrase.toString());
+      list2.forEach((element) {
+        items.add(element);
+      });
+    } else {
+      log(response2.statusCode.toString() +
+          " : " +
+          response2.reasonPhrase.toString());
+    }
+  }
   return items.map((e) => Data.fromJson(e)).toList();
 }
 
