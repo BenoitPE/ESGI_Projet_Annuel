@@ -45,6 +45,14 @@ public class Book {
     }
 
     public void setDate(String date) {
+        if (date.length() == 4 )
+        {
+            date = date.concat("-01-01");
+        }
+        else if (date.length() == 7)
+        {
+            date = date.concat("-01");
+        }
         this.date = date;
     }
 
