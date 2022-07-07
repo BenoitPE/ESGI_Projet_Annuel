@@ -6,6 +6,7 @@ public class Book {
 
     }
 
+    private String id;
     private String titleContent;
     private String imageUrl;
     private String date;
@@ -14,6 +15,14 @@ public class Book {
     private String overview;
     private String adulte;
     private String pageCount;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitleContent() {
         return titleContent;
@@ -36,6 +45,14 @@ public class Book {
     }
 
     public void setDate(String date) {
+        if (date.length() == 4 )
+        {
+            date = date.concat("-01-01");
+        }
+        else if (date.length() == 7)
+        {
+            date = date.concat("-01");
+        }
         this.date = date;
     }
 

@@ -6,16 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class GBWrapper {
 
-    private int totalItems;
     private GBItemsWrapper[] items;
-
-    public int getTotalItems() {
-        return totalItems;
-    }
-
-    public void setTotalItems(int totalItems) {
-        this.totalItems = totalItems;
-    }
 
     public GBItemsWrapper[] getItems() {
         return items;
