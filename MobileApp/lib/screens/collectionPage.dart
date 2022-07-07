@@ -73,13 +73,13 @@ class _collectionPage extends State<collectionPage> {
                 child: Column(children: [
                   Container(
                       height: 90,
-                      color: Colors.red,
+                      color: Colors.black,
                       child: AppBar(
                           backgroundColor: Colors.black,
                           automaticallyImplyLeading: false,
                           title: Row(children: <Widget>[
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -95,7 +95,7 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -111,7 +111,7 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -127,7 +127,7 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -143,7 +143,7 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {

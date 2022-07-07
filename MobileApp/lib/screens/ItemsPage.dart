@@ -113,6 +113,7 @@ class ItemsPage extends StatelessWidget {
                           ),
                         ]),
                       ),
+                      Container(height: 100,)
                     ],
                   ),
                 ),
