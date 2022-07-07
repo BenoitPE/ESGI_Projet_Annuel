@@ -27,15 +27,19 @@ public final class BookService {
     public Book buildBookWithWrapper(ResponseEntity<GBWrapper> entity, Integer id)
     {
         Book book = new Book();
-        book.setId(entity.getBody().getItems()[id].getId());
-        book.setTitleContent(entity.getBody().getItems()[id].getVolumeInfo().getTitle());
-        book.setImageUrl(entity.getBody().getItems()[id].getVolumeInfo().getImageLinks().get("thumbnail"));
-        book.setDate(entity.getBody().getItems()[id].getVolumeInfo().getPublishedDate());
-        book.setAuthorName(Arrays.toString(entity.getBody().getItems()[id].getVolumeInfo().getAuthors()));
-        book.setEditorName(entity.getBody().getItems()[id].getVolumeInfo().getPublisher());
-        book.setOverview(entity.getBody().getItems()[id].getVolumeInfo().getDescription());
-        book.setAdulte(entity.getBody().getItems()[id].getVolumeInfo().getMaturityRating());
-        book.setPageCount(entity.getBody().getItems()[id].getVolumeInfo().getPageCount());
+        try {
+            book.setId(entity.getBody().getItems()[id].getId());
+            book.setTitleContent(entity.getBody().getItems()[id].getVolumeInfo().getTitle());
+            book.setImageUrl(entity.getBody().getItems()[id].getVolumeInfo().getImageLinks().get("thumbnail"));
+            book.setDate(entity.getBody().getItems()[id].getVolumeInfo().getPublishedDate());
+            book.setAuthorName(Arrays.toString(entity.getBody().getItems()[id].getVolumeInfo().getAuthors()));
+            book.setEditorName(entity.getBody().getItems()[id].getVolumeInfo().getPublisher());
+            book.setOverview(entity.getBody().getItems()[id].getVolumeInfo().getDescription());
+            book.setAdulte(entity.getBody().getItems()[id].getVolumeInfo().getMaturityRating());
+            book.setPageCount(entity.getBody().getItems()[id].getVolumeInfo().getPageCount());
+        } catch (NullPointerException e) {
+            return book;
+        }
         return book;
     }
 
