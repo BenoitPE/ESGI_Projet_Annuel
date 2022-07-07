@@ -1,15 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' as rootBundle;
 import 'package:flutter_project_test/screens/ItemsPage.dart';
 import 'package:flutter_project_test/screens/profil.dart';
 import 'package:flutter_project_test/screens/wishlistPage.dart';
-import 'package:textfield_search/textfield_search.dart';
 import 'package:flutter_project_test/data.dart';
-import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
-import "dart:io";
 import 'collectionPage.dart';
 
 class searchPage extends StatefulWidget {
@@ -106,46 +102,83 @@ class itemSection extends StatelessWidget {
 
   late Future<List<Data>> futureData;
 
-  Future<List<Data>> ReadJsonData(
-      String myController, MediaType media) async {
+  Future<List<Data>> ReadJsonData(String myController, MediaType media) async {
     var list;
     var list2;
+    var list3;
+    var list4;
     var items = [];
     debugPrint(myController);
+    if (myController != "") {
+      if (media == MediaType.Movie || media == MediaType.Tous) {
+        final response = await http.get(
+            Uri.parse('http://100.113.108.37/Movie/Search/' + myController));
 
-    if (media == MediaType.Movie || media == MediaType.Tous) {
-      final response =
-          await http.get(Uri.parse('http://100.113.108.37/Movie/Popular'));
+        if (response.statusCode == 200) {
+          list = json.decode(response.body) as List<dynamic>;
+          log(response.reasonPhrase.toString());
+          list.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response.statusCode.toString() +
+              " : " +
+              response.reasonPhrase.toString());
+        }
+      }
 
-      if (response.statusCode == 200) {
-        list = json.decode(response.body) as List<dynamic>;
-        log(response.reasonPhrase.toString());
-        list.forEach((element) {
-          items.add(element);
-        });
-      } else {
-        log(response.statusCode.toString() +
-            " : " +
-            response.reasonPhrase.toString());
+      if (media == MediaType.Serie || media == MediaType.Tous) {
+        final response2 = await http.get(
+            Uri.parse('http://100.113.108.37/Serie/Search/' + myController));
+
+        if (response2.statusCode == 200) {
+          list2 = json.decode(response2.body) as List<dynamic>;
+          log(response2.reasonPhrase.toString());
+          list2.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response2.statusCode.toString() +
+              " : " +
+              response2.reasonPhrase.toString());
+        }
+      }
+    } else {
+      if (media == MediaType.Movie || media == MediaType.Tous) {
+        final response =
+            await http.get(Uri.parse('http://100.113.108.37/Movie/Popular'));
+
+        if (response.statusCode == 200) {
+          list = json.decode(response.body) as List<dynamic>;
+          log(response.reasonPhrase.toString());
+          list.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response.statusCode.toString() +
+              " : " +
+              response.reasonPhrase.toString());
+        }
+      }
+
+      if (media == MediaType.Serie || media == MediaType.Tous) {
+        final response2 =
+            await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
+
+        if (response2.statusCode == 200) {
+          list2 = json.decode(response2.body) as List<dynamic>;
+          log(response2.reasonPhrase.toString());
+          list2.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response2.statusCode.toString() +
+              " : " +
+              response2.reasonPhrase.toString());
+        }
       }
     }
 
-    if (media == MediaType.Serie || media == MediaType.Tous) {
-      final response2 =
-          await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
-
-      if (response2.statusCode == 200) {
-        list2 = json.decode(response2.body) as List<dynamic>;
-        log(response2.reasonPhrase.toString());
-        list2.forEach((element) {
-          items.add(element);
-        });
-      } else {
-        log(response2.statusCode.toString() +
-            " : " +
-            response2.reasonPhrase.toString());
-      }
-    }
     return items.map((e) => Data.fromJson(e)).toList();
   }
 
@@ -240,29 +273,8 @@ class containerSearch extends StatefulWidget {
 }
 
 class _containerSearch extends State<containerSearch> {
-  TextEditingController myController = TextEditingController();
+  late TextEditingController myController = TextEditingController();
   late String titre = '';
-
-  Future<List> fetchData() async {
-    await Future.delayed(Duration(milliseconds: 3000));
-    String _inputText = myController.text;
-    final jsonData =
-        await rootBundle.rootBundle.loadString('jsonfile/data.json');
-    final list = json.decode(jsonData) as List<dynamic>;
-
-    var listFinale = list
-        .map((e) {
-          var titlejson =
-              e['title'].toUpperCase().substring(0, _inputText.length);
-          if (titlejson.toUpperCase() == _inputText.toUpperCase()) {
-            return Data.fromJson(e);
-          }
-        })
-        .whereNotNull()
-        .toList();
-
-    return listFinale;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -279,19 +291,11 @@ class _containerSearch extends State<containerSearch> {
                 color: Colors.red.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(23),
               ),
-              child: TextFieldSearch(
-                itemsInView: 10,
-                minStringLength: 0,
-                label: '',
+              child: TextField(
+                textInputAction: TextInputAction.search,
+                onSubmitted: (String value) => setState(() {}),
                 controller: myController,
-                future: () {
-                  return fetchData();
-                },
-                getSelectedValue: (value) => setState(() {
-                  print(value);
-                  titre = value.label;
-                }),
-                textStyle: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.only(top: 14),
