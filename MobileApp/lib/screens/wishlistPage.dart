@@ -79,7 +79,7 @@ class _wishlistPage extends State<wishlistPage> {
                           automaticallyImplyLeading: false,
                           title: Row(children: <Widget>[
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -95,7 +95,7 @@ class _wishlistPage extends State<wishlistPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -111,7 +111,7 @@ class _wishlistPage extends State<wishlistPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -127,7 +127,7 @@ class _wishlistPage extends State<wishlistPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -143,7 +143,7 @@ class _wishlistPage extends State<wishlistPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: 72,
+                                width: (MediaQuery.of(context).size.width/5) -7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
