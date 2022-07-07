@@ -7,14 +7,13 @@ public class Book {
     }
 
     private String id;
-    private String titleContent;
+    private String title;
     private String imageUrl;
     private String date;
-    private String authorName;
-    private String editorName;
-    private String overview;
     private String adulte;
-    private String pageCount;
+    private String overview;
+    private String mediaType;
+    private Properties properties;
 
     public String getId() {
         return id;
@@ -24,12 +23,12 @@ public class Book {
         this.id = id;
     }
 
-    public String getTitleContent() {
-        return titleContent;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitleContent(String titleContent) {
-        this.titleContent = titleContent;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getImageUrl() {
@@ -56,22 +55,6 @@ public class Book {
         this.date = date;
     }
 
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
-    public String getEditorName() {
-        return editorName;
-    }
-
-    public void setEditorName(String editorName) {
-        this.editorName = editorName;
-    }
-
     public String getOverview() {
         return overview;
     }
@@ -88,11 +71,19 @@ public class Book {
         this.adulte = adulte;
     }
 
-    public String getPageCount() {
-        return pageCount;
+    public Properties getProperties() {
+        return properties;
     }
 
-    public void setPageCount(String pageCount) {
-        this.pageCount = pageCount;
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType() {
+        this.mediaType = "book";
     }
 }
