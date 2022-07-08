@@ -6,6 +6,7 @@ import com.projetannuel.userapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
@@ -49,8 +50,12 @@ public class UserService {
         RestTemplate restTemplate = new RestTemplate();
         List<Content> contents = new ArrayList<Content>();
         Urls.forEach(url -> {
-            ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
-            contents.add(new Content(entity.getBody()));
+            try {
+                ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
+                contents.add(new Content(entity.getBody()));
+            }catch (HttpClientErrorException ignored){
+
+            }
         });
         return contents;
     }
