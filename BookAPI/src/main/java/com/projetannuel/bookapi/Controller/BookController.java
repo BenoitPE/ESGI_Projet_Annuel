@@ -17,10 +17,10 @@ public class BookController {
 
 	}
 
-	@GetMapping("/getBookFromApiById")
+	@GetMapping("/getBookFromApiByIsbn")
 	@ResponseBody
-	public Book getBookFromApi(@RequestParam String id) {
-		return bookService.returnBookFromGoogleApiById(id);
+	public Book getBookFromApi(@RequestParam String isbn) {
+		return bookService.returnBookFromGoogleApiByIsbn(isbn);
 	}
 
 	@GetMapping("/getBookFromApiByTitle")

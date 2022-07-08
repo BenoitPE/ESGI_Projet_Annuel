@@ -47,7 +47,7 @@ public final class BookService {
         return book;
     }
 
-    public Book returnBookFromGoogleApiById(String isbn){
+    public Book returnBookFromGoogleApiByIsbn(String isbn){
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<GBWrapper> entity = restTemplate.getForEntity("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn, GBWrapper.class);
 
