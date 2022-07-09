@@ -1,0 +1,29 @@
+version: '3.1'
+networks:
+  default:
+        name: localnetwork
+services:
+  userapi:
+    image: userapi:latest
+    restart: always
+    container_name: userapi
+    ports:
+      - 8081:8081
+    environment:
+      - TZ=Europe/Paris
+  bookapi:
+    restart: always
+    image : bookapi:latest
+    container_name: bookapi
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Europe/Paris
+  movieapi:
+    restart: always
+    image : movieapi:latest
+    container_name: movieapi
+    ports:
+     - 80:80
+    environment:
+      - TZ=Europe/Paris
