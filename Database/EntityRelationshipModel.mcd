@@ -1,0 +1,2063 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner AppLocale="UTF16" ID="{0BC3DFEA-4205-458C-A5C1-038FAD39F17D}" Label="" LastModificationDate="1657011490" Name="MCD" Objects="63" Symbols="9" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" signature="CDM_DATA_MODEL_XML" version="15.1.0.2850"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
+
+<o:RootObject Id="o1">
+<c:Children>
+<o:Model Id="o2">
+<a:ObjectID>0BC3DFEA-4205-458C-A5C1-038FAD39F17D</a:ObjectID>
+<a:Name>MCD</a:Name>
+<a:Code>MCD</a:Code>
+<a:CreationDate>1653471560</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657011442</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:PackageOptionsText>[FolderOptions]
+
+[FolderOptions\Conceptual Data Objects]
+GenerationCheckModel=Yes
+GenerationPath=
+GenerationOptions=
+GenerationTasks=
+GenerationTargets=
+GenerationSelections=
+
+[FolderOptions\CheckModel]
+
+[FolderOptions\CheckModel\Package]
+
+[FolderOptions\CheckModel\Package\GenrCircularityYes]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Package\GenrCircularityNo]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Package\ShortcutUniqCode]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=No
+
+[FolderOptions\CheckModel\Package\ChildShortcut]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine]
+
+[FolderOptions\CheckModel\Domaine\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckNumParam]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckPrecSupLng]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckUndefDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Domaine\CheckOtherDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information]
+
+[FolderOptions\CheckModel\Information\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\InfoNotUsed]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\InfoUsedSevTime]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\InfoDiffDomn]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\CheckNumParam]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\CheckPrecSupLng]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\CheckUndefDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Information\CheckOtherDttp]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité]
+
+[FolderOptions\CheckModel\Entité\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\MaxLen - NAME]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\MaxLen - CODE]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttNoAttrNo]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttNbSerials]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttNoAttrYes]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EmptyCollYesYes]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttSamePrnt]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttMultInhr]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\EnttSevInhr]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité\PidtfInhrAtt]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité]
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Attribut d&#39;entité\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant]
+
+[FolderOptions\CheckModel\Entité.Identifiant\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\EmptyColl - PENTCOL]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\CheckIncludeColl - Entt]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Entité.Identifiant\IdtfChildPIdtf]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation]
+
+[FolderOptions\CheckModel\Relation\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshReflexiveDeptYes]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshReflexiveDeptNo]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshBject]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshMnyMny]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Relation\RlshDepdChild]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association]
+
+[FolderOptions\CheckModel\Association\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscNbLink]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscNbIdLink1]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscNbIdLink2]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscIdPass]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscBject]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscMaxCard]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscReflex]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Association\AsscMnyMny]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Héritage]
+
+[FolderOptions\CheckModel\Héritage\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Héritage\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Héritage\EmptyColl - CHILDCOL]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Réplication]
+
+[FolderOptions\CheckModel\Réplication\PartialReplication]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Règle de gestion]
+
+[FolderOptions\CheckModel\Règle de gestion\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Règle de gestion\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Règle de gestion\EmptyColl - OBJCOL]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Objet étendu]
+
+[FolderOptions\CheckModel\Objet étendu\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Objet étendu\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Objet étendu\MSSQLSRV2008_ExtendedObject_Queue_Nombre_de_lecteurs_valide_]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Lien étendu]
+
+[FolderOptions\CheckModel\Lien étendu\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Lien étendu\UniqueCode]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Fichier]
+
+[FolderOptions\CheckModel\Fichier\UniqueNom]
+CheckSeverity=No
+FixRequested=No
+CheckRequested=Yes
+
+[FolderOptions\CheckModel\Fichier\CheckPathExists]
+CheckSeverity=Yes
+FixRequested=No
+CheckRequested=Yes</a:PackageOptionsText>
+<a:ModelOptionsText>[ModelOptions]
+
+[ModelOptions\Conceptual options]
+CaseSensitive=No
+DisplayName=Yes
+EnableTrans=No
+EnableRequirements=No
+InfoUnique=Yes
+AllowReuse=Yes
+InfoAllowReuse=Yes
+Notation=2
+RlshUnique=Yes
+DefaultDttp=
+DomnCopyDttp=Yes
+DomnCopyChck=No
+DomnCopyRule=No
+DomnCopyExat=No
+DomnCopyMand=No
+DttpFullName=Yes
+
+[ModelOptions\Conceptual options\NamingOptionsTemplates]
+
+[ModelOptions\Conceptual options\ClssNamingOptions]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FILO]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FILO\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=&quot;\/:*?&lt;&gt;|&quot;
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FILO\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_. &quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FRMEOBJ]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FRMEOBJ\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FRMEOBJ\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FRMELNK]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FRMELNK\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\FRMELNK\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\DefaultClass]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\DefaultClass\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\DefaultClass\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMPCKG]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMPCKG\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMPCKG\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMDOMN]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMDOMN\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMDOMN\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\INFO]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\INFO\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\INFO\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\ENTT]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\ENTT\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\ENTT\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\IDTF]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\IDTF\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\IDTF\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\RLSH]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\RLSH\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\RLSH\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\ASSC]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\ASSC\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\ASSC\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMINHR]
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMINHR\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,&quot;_&quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Conceptual options\ClssNamingOptions\CDMINHR\Code]
+Template=
+MaxLen=254
+Case=U
+ValidChar=&#39;a&#39;-&#39;z&#39;,&#39;A&#39;-&#39;Z&#39;,&#39;0&#39;-&#39;9&#39;,&quot;_&quot;
+InvldChar=
+AllValid=No
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%,&quot; &quot;)
+ConvTable=
+ConvTablePath=%_HOME%\Fichiers de ressources\Tables de conversion
+
+[ModelOptions\Generate]
+
+[ModelOptions\Generate\Pdm]
+CheckModel=Yes
+SaveLinks=Yes
+NameToCode=No
+BuildTrgr=No
+TablePrefix=
+RefrUpdRule=RESTRICT
+RefrDelRule=RESTRICT
+IndxPKName=%TABLE%_PK
+IndxAKName=%TABLE%_AK
+IndxFKName=%REFR%_FK
+IndxThreshold=
+ClassPrefix=
+ColnFKName=%.3:PARENT%_%COLUMN%
+ColnFKNameUse=No
+PreserveMode=Yes
+
+[ModelOptions\Generate\Oom]
+CheckModel=Yes
+SaveLinks=Yes
+NameToCode=Yes
+
+[ModelOptions\Generate\Ldm]
+CheckModel=Yes
+SaveLinks=Yes
+NameToCode=No</a:ModelOptionsText>
+<c:GeneratedModels>
+<o:Shortcut Id="o3">
+<a:ObjectID>BD998CE4-E655-4E3A-8956-1D1135D62823</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1656586134</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656586134</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetStereotype/>
+<a:TargetID>E4E3E38B-0052-4572-9078-7A03E742C214</a:TargetID>
+<a:TargetClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetClassID>
+</o:Shortcut>
+<o:Shortcut Id="o4">
+<a:ObjectID>6225933C-3991-4162-9634-B6710D3430B6</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1656586893</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656586893</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetStereotype/>
+<a:TargetID>E1C37A80-5D81-48DB-9901-27E7ED40EF73</a:TargetID>
+<a:TargetClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetClassID>
+</o:Shortcut>
+<o:Shortcut Id="o5">
+<a:ObjectID>890D248A-04FF-46FB-B8E4-427D48236CCE</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1657009673</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657009673</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetStereotype/>
+<a:TargetID>1C92A65F-601E-4E96-B051-A5CFDF1D5661</a:TargetID>
+<a:TargetClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetClassID>
+</o:Shortcut>
+<o:Shortcut Id="o6">
+<a:ObjectID>24C449BC-92AD-4405-9F6E-6DCED7D0A6F0</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1657010309</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657010309</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetStereotype/>
+<a:TargetID>EEA7D86F-A7A4-4FD3-A5AA-FAFE5C5FC0EE</a:TargetID>
+<a:TargetClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetClassID>
+</o:Shortcut>
+<o:Shortcut Id="o7">
+<a:ObjectID>A061A77C-F6AD-4FC0-B412-9BB97149831D</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1657011479</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657011479</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetStereotype/>
+<a:TargetID>9A390874-7379-4CDD-8C74-BF040192C6A6</a:TargetID>
+<a:TargetClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetClassID>
+</o:Shortcut>
+</c:GeneratedModels>
+<c:ConceptualDiagrams>
+<o:ConceptualDiagram Id="o8">
+<a:ObjectID>4DB412F8-07FE-4BE5-AD4C-6A4FF709FE73</a:ObjectID>
+<a:Name>MCD</a:Name>
+<a:Code>MCD</a:Code>
+<a:CreationDate>1653471561</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008851</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DisplayPreferences>[DisplayPreferences]
+
+[DisplayPreferences\CDM]
+
+[DisplayPreferences\General]
+Adjust to text=Yes
+Snap Grid=No
+Constrain Labels=Yes
+Display Grid=No
+Show Page Delimiter=No
+Grid size=800
+Graphic unit=2
+Window color=255 255 255
+Background image=
+Background mode=8
+Watermark image=
+Watermark mode=8
+Show watermark on screen=No
+Gradient mode=0
+Gradient end color=255 255 255
+Show Swimlane=No
+SwimlaneVert=Yes
+TreeVert=No
+CompDark=0
+
+[DisplayPreferences\Object]
+Mode=2
+Trunc Length=40
+Word Length=40
+Word Text=!&quot;&quot;#$%&amp;&#39;()*+,-./:;&lt;=&gt;?@[\]^_`{|}~
+Shortcut IntIcon=Yes
+Shortcut IntLoct=Yes
+Shortcut IntFullPath=No
+Shortcut IntLastPackage=Yes
+Shortcut ExtIcon=Yes
+Shortcut ExtLoct=No
+Shortcut ExtFullPath=No
+Shortcut ExtLastPackage=Yes
+Shortcut ExtIncludeModl=Yes
+EObjShowStrn=Yes
+ExtendedObject.Comment=No
+ExtendedObject.IconPicture=No
+ExtendedObject_SymbolLayout=&lt;Form&gt;[CRLF] &lt;StandardAttribute Name=&quot;Stéréotype&quot; Attribute=&quot;Stereotype&quot; Prefix=&quot;&amp;lt;&amp;lt;&quot; Suffix=&quot;&amp;gt;&amp;gt;&quot; Alignment=&quot;CNTR&quot; Caption=&quot;&quot; Mandatory=&quot;No&quot; /&gt;[CRLF] &lt;StandardAttribute Name=&quot;Nom de l&amp;#39;objet&quot; Attribute=&quot;DisplayName&quot; Prefix=&quot;&quot; Suffix=&quot;&quot; Alignment=&quot;CNTR&quot; Caption=&quot;&quot; Mandatory=&quot;Yes&quot; /&gt;[CRLF] &lt;Separator Name=&quot;Séparateur&quot; /&gt;[CRLF] &lt;StandardAttribute Name=&quot;Commentaire&quot; Attribute=&quot;Comment&quot; Prefix=&quot;&quot; Suffix=&quot;&quot; Alignment=&quot;LEFT&quot; Caption=&quot;&quot; Mandatory=&quot;No&quot; /&gt;[CRLF] &lt;StandardAttribute Name=&quot;Icône&quot; Attribute=&quot;IconPicture&quot; Prefix=&quot;&quot; Suffix=&quot;&quot; Alignment=&quot;CNTR&quot; Caption=&quot;&quot; Mandatory=&quot;Yes&quot; /&gt;[CRLF]&lt;/Form&gt;
+ELnkShowStrn=Yes
+ELnkShowName=Yes
+ExtendedLink_SymbolLayout=&lt;Form&gt;[CRLF] &lt;Form Name=&quot;Centre&quot; &gt;[CRLF]  &lt;StandardAttribute Name=&quot;Stéréotype&quot; Attribute=&quot;Stereotype&quot; Prefix=&quot;&amp;lt;&amp;lt;&quot; Suffix=&quot;&amp;gt;&amp;gt;&quot; Caption=&quot;&quot; Mandatory=&quot;No&quot; /&gt;[CRLF]  &lt;StandardAttribute Name=&quot;Nom&quot; Attribute=&quot;DisplayName&quot; Prefix=&quot;&quot; Suffix=&quot;&quot; Caption=&quot;&quot; Mandatory=&quot;No&quot; /&gt;[CRLF] &lt;/Form&gt;[CRLF] &lt;Form Name=&quot;Source&quot; &gt;[CRLF] &lt;/Form&gt;[CRLF] &lt;Form Name=&quot;Destination&quot; &gt;[CRLF] &lt;/Form&gt;[CRLF]&lt;/Form&gt;
+FileObject.Stereotype=No
+FileObject.DisplayName=Yes
+FileObject.LocationOrName=No
+FileObject.IconPicture=No
+FileObject.IconMode=Yes
+FileObject_SymbolLayout=&lt;Form&gt;[CRLF] &lt;StandardAttribute Name=&quot;Stéréotype&quot; Attribute=&quot;Stereotype&quot; Prefix=&quot;&amp;lt;&amp;lt;&quot; Suffix=&quot;&amp;gt;&amp;gt;&quot; Alignment=&quot;CNTR&quot; Caption=&quot;&quot; Mandatory=&quot;No&quot; /&gt;[CRLF] &lt;ExclusiveChoice Name=&quot;Choix exclusif&quot; Mandatory=&quot;Yes&quot; Display=&quot;HorizontalRadios&quot; &gt;[CRLF]  &lt;StandardAttribute Name=&quot;Nom&quot; Attribute=&quot;DisplayName&quot; Prefix=&quot;&quot; Suffix=&quot;&quot; Alignment=&quot;CNTR&quot; Caption=&quot;&quot; Mandatory=&quot;No&quot; /&gt;[CRLF]  &lt;StandardAttribute Name=&quot;Emplacement&quot; Attribute=&quot;LocationOrName&quot; Prefix=&quot;&quot; Suffix=&quot;&quot; Alignment=&quot;CNTR&quot; Caption=&quot;&quot; Mandatory=&quot;No&quot; /&gt;[CRLF] &lt;/ExclusiveChoice&gt;[CRLF] &lt;StandardAttribute Name=&quot;Icône&quot; Attribute=&quot;IconPicture&quot; Prefix=&quot;&quot; Suffix=&quot;&quot; Alignment=&quot;CNTR&quot; Caption=&quot;&quot; Mandatory=&quot;Yes&quot; /&gt;[CRLF]&lt;/Form&gt;
+PckgStrn=Yes
+Package.Comment=No
+Package.IconPicture=No
+Package_SymbolLayout=
+Display Model Version=Yes
+EnttAttr=Yes
+PentMode=0
+PentNb=5
+EnttDttp=Yes
+EnttDomn=Yes
+EnttShowDomn=No
+EnttMand=Yes
+EnttCIdf=Yes
+EnttKeyI=Yes
+PentStrn=Yes
+IdtfStrn=Yes
+RlshName=Yes
+RlshRole=Yes
+RlshCard=No
+RlshDmnt=Yes
+RlshStrn=Yes
+InhrName=Yes
+InhrStrn=Yes
+Entity.IconPicture=No
+Entity_SymbolLayout=
+Association.IconPicture=No
+Association_SymbolLayout=
+Inheritance.IconPicture=No
+Inheritance_SymbolLayout=
+EnttStrn=Yes
+EnttCmmt=No
+AsscStrn=Yes
+AsscCmmt=No
+AsscAttr=Yes
+AsscDttp=Yes
+AsscDomn=Yes
+AsscShowDomn=No
+AsscMand=Yes
+AsscDLim=Yes
+AsscNb=5
+PassStrn=1
+LinkRole=Yes
+LinkCard=Yes
+LinkStrn=Yes
+
+[DisplayPreferences\Symbol]
+
+[DisplayPreferences\Symbol\FRMEOBJ]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+LABLFont=Arial,8,N
+LABLFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=6000
+Height=2000
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=64
+Brush gradient color=192 192 192
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 255 128 128
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\FRMELNK]
+CENTERFont=Arial,8,N
+CENTERFont color=0, 0, 0
+Line style=1
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\FILO]
+OBJSTRNFont=Arial,8,N
+OBJSTRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+LCNMFont=Arial,8,N
+LCNMFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=3600
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 0 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\CDMPCKG]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+LABLFont=Arial,8,N
+LABLFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=3600
+Brush color=255 255 192
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 178 178 178
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\ENTT]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+AttributesFont=Arial,8,N
+AttributesFont color=0, 0, 0
+LABLFont=Arial,8,N
+LABLFont color=0, 0, 0
+EntityPrimaryAttributeFont=Arial,8,U
+EntityPrimaryAttributeFont color=0, 0, 0
+IdentifiersFont=Arial,8,N
+IdentifiersFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=4000
+Brush color=176 255 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 170 170
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\RLSH]
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+NAMAFont=Arial,8,N
+NAMAFont color=0, 0, 0
+Line style=1
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 170 170
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\ASSC]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+AttributesFont=Arial,8,N
+AttributesFont color=0, 0, 0
+LABLFont=Arial,8,N
+LABLFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=3000
+Brush color=208 208 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\LINK]
+ROLEFont=Arial,8,N
+ROLEFont color=0, 0, 0
+CARDFont=Arial,8,N
+CARDFont color=0, 0, 0
+Line style=1
+Pen=1 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\CDMINHR]
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=Yes
+Width=1600
+Height=1000
+Brush color=176 255 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\LINH]
+Line style=1
+Pen=1 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\USRDEPD]
+OBJXSTRFont=Arial,8,N
+OBJXSTRFont color=0, 0, 0
+Line style=1
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=2 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\Free Symbol]
+Free TextFont=Arial,8,N
+Free TextFont color=0, 0, 0
+Line style=0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 0 255
+Shadow color=192 192 192
+Shadow=0</a:DisplayPreferences>
+<a:PaperSize>(8268, 11693)</a:PaperSize>
+<a:PageMargins>((315,354), (433,354))</a:PageMargins>
+<a:PageOrientation>1</a:PageOrientation>
+<a:PaperSource>15</a:PaperSource>
+<c:Symbols>
+<o:AssociationLinkSymbol Id="o9">
+<a:CreationDate>1657008850</a:CreationDate>
+<a:ModificationDate>1657009311</a:ModificationDate>
+<a:Rect>((-28871,24562), (-25646,33675))</a:Rect>
+<a:ListOfPoints>((-27446,33675),(-27446,28716),(-28871,28716),(-28871,24562))</a:ListOfPoints>
+<a:CornerStyle>1</a:CornerStyle>
+<a:ArrowStyle>0</a:ArrowStyle>
+<a:LineColor>16744576</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>ROLE 0 Arial,8,N
+CARD 0 Arial,8,N</a:FontList>
+<c:SourceSymbol>
+<o:EntitySymbol Ref="o10"/>
+</c:SourceSymbol>
+<c:DestinationSymbol>
+<o:AssociationSymbol Ref="o11"/>
+</c:DestinationSymbol>
+<c:Object>
+<o:AssociationLink Ref="o12"/>
+</c:Object>
+</o:AssociationLinkSymbol>
+<o:AssociationLinkSymbol Id="o13">
+<a:CreationDate>1657008850</a:CreationDate>
+<a:ModificationDate>1657009311</a:ModificationDate>
+<a:Rect>((-31345,15725), (-28871,24562))</a:Rect>
+<a:ListOfPoints>((-29545,15725),(-29545,20615),(-28871,20615),(-28871,24562))</a:ListOfPoints>
+<a:CornerStyle>1</a:CornerStyle>
+<a:ArrowStyle>0</a:ArrowStyle>
+<a:LineColor>16744576</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>ROLE 0 Arial,8,N
+CARD 0 Arial,8,N</a:FontList>
+<c:SourceSymbol>
+<o:EntitySymbol Ref="o14"/>
+</c:SourceSymbol>
+<c:DestinationSymbol>
+<o:AssociationSymbol Ref="o11"/>
+</c:DestinationSymbol>
+<c:Object>
+<o:AssociationLink Ref="o15"/>
+</c:Object>
+</o:AssociationLinkSymbol>
+<o:AssociationLinkSymbol Id="o16">
+<a:CreationDate>1657008851</a:CreationDate>
+<a:ModificationDate>1657009303</a:ModificationDate>
+<a:Rect>((-24086,15542), (-8398,16716))</a:Rect>
+<a:ListOfPoints>((-24086,15542),(-8398,15542))</a:ListOfPoints>
+<a:CornerStyle>1</a:CornerStyle>
+<a:ArrowStyle>0</a:ArrowStyle>
+<a:LineColor>16744576</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>ROLE 0 Arial,8,N
+CARD 0 Arial,8,N</a:FontList>
+<c:SourceSymbol>
+<o:EntitySymbol Ref="o14"/>
+</c:SourceSymbol>
+<c:DestinationSymbol>
+<o:AssociationSymbol Ref="o17"/>
+</c:DestinationSymbol>
+<c:Object>
+<o:AssociationLink Ref="o18"/>
+</c:Object>
+</o:AssociationLinkSymbol>
+<o:AssociationLinkSymbol Id="o19">
+<a:CreationDate>1657008851</a:CreationDate>
+<a:ModificationDate>1657009303</a:ModificationDate>
+<a:Rect>((-8398,14848), (6415,16122))</a:Rect>
+<a:ListOfPoints>((6415,16022),(-8398,16022))</a:ListOfPoints>
+<a:CornerStyle>1</a:CornerStyle>
+<a:ArrowStyle>0</a:ArrowStyle>
+<a:LineColor>16744576</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>ROLE 0 Arial,8,N
+CARD 0 Arial,8,N</a:FontList>
+<c:SourceSymbol>
+<o:EntitySymbol Ref="o20"/>
+</c:SourceSymbol>
+<c:DestinationSymbol>
+<o:AssociationSymbol Ref="o17"/>
+</c:DestinationSymbol>
+<c:Object>
+<o:AssociationLink Ref="o21"/>
+</c:Object>
+</o:AssociationLinkSymbol>
+<o:EntitySymbol Id="o10">
+<a:CreationDate>1653471623</a:CreationDate>
+<a:ModificationDate>1657008844</a:ModificationDate>
+<a:IconMode>-1</a:IconMode>
+<a:Rect>((-37431,31071), (-19641,37812))</a:Rect>
+<a:LineColor>11184640</a:LineColor>
+<a:FillColor>16777136</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>STRN 0 Arial,8,N
+DISPNAME 0 Arial,8,N
+Attributes 0 Arial,8,N
+LABL 0 Arial,8,N
+EntityPrimaryAttribute 0 Arial,8,U
+Identifiers 0 Arial,8,N</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<c:Object>
+<o:Entity Ref="o22"/>
+</c:Object>
+</o:EntitySymbol>
+<o:EntitySymbol Id="o14">
+<a:CreationDate>1653471624</a:CreationDate>
+<a:ModificationDate>1657008666</a:ModificationDate>
+<a:IconMode>-1</a:IconMode>
+<a:Rect>((-35618,12987), (-20762,16987))</a:Rect>
+<a:LineColor>11184640</a:LineColor>
+<a:FillColor>16777136</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>STRN 0 Arial,8,N
+DISPNAME 0 Arial,8,N
+Attributes 0 Arial,8,N
+LABL 0 Arial,8,N
+EntityPrimaryAttribute 0 Arial,8,U
+Identifiers 0 Arial,8,N</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<c:Object>
+<o:Entity Ref="o23"/>
+</c:Object>
+</o:EntitySymbol>
+<o:EntitySymbol Id="o20">
+<a:CreationDate>1653478914</a:CreationDate>
+<a:ModificationDate>1657008880</a:ModificationDate>
+<a:IconMode>-1</a:IconMode>
+<a:Rect>((481,12767), (18425,17560))</a:Rect>
+<a:LineColor>11184640</a:LineColor>
+<a:FillColor>16777136</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>STRN 0 Arial,8,N
+DISPNAME 0 Arial,8,N
+Attributes 0 Arial,8,N
+LABL 0 Arial,8,N
+EntityPrimaryAttribute 0 Arial,8,U
+Identifiers 0 Arial,8,N</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<c:Object>
+<o:Entity Ref="o24"/>
+</c:Object>
+</o:EntitySymbol>
+<o:AssociationSymbol Id="o11">
+<a:CreationDate>1657008850</a:CreationDate>
+<a:ModificationDate>1657009311</a:ModificationDate>
+<a:Rect>((-31983,22802), (-25762,26321))</a:Rect>
+<a:LineColor>16744576</a:LineColor>
+<a:FillColor>16765136</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>STRN 0 Arial,8,N
+DISPNAME 0 Arial,8,N
+Attributes 0 Arial,8,N
+LABL 0 Arial,8,N</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<c:Object>
+<o:Association Ref="o25"/>
+</c:Object>
+</o:AssociationSymbol>
+<o:AssociationSymbol Id="o17">
+<a:CreationDate>1657008851</a:CreationDate>
+<a:ModificationDate>1657009303</a:ModificationDate>
+<a:Rect>((-11116,13952), (-5682,17471))</a:Rect>
+<a:LineColor>16744576</a:LineColor>
+<a:FillColor>16765136</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>STRN 0 Arial,8,N
+DISPNAME 0 Arial,8,N
+Attributes 0 Arial,8,N
+LABL 0 Arial,8,N</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<c:Object>
+<o:Association Ref="o26"/>
+</c:Object>
+</o:AssociationSymbol>
+</c:Symbols>
+</o:ConceptualDiagram>
+</c:ConceptualDiagrams>
+<c:DefaultDiagram>
+<o:ConceptualDiagram Ref="o8"/>
+</c:DefaultDiagram>
+<c:Entities>
+<o:Entity Id="o22">
+<a:ObjectID>C5258ECE-C88F-46BA-B5C5-8079A91BF50B</a:ObjectID>
+<a:Name>User</a:Name>
+<a:Code>USER</a:Code>
+<a:CreationDate>1653471623</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653474396</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<c:Identifiers>
+<o:Identifier Id="o27">
+<a:ObjectID>023165BB-6DF7-4669-B71C-4202FEDDACCE</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDUSER</a:Code>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653478568</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<c:Identifier.Attributes>
+<o:EntityAttribute Ref="o28"/>
+</c:Identifier.Attributes>
+</o:Identifier>
+</c:Identifiers>
+<c:PrimaryIdentifier>
+<o:Identifier Ref="o27"/>
+</c:PrimaryIdentifier>
+<c:Attributes>
+<o:EntityAttribute Id="o28">
+<a:ObjectID>3F9B8424-EA7D-4CB1-8AB1-503CA3C757D1</a:ObjectID>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653471927</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o29"/>
+</c:DataItem>
+</o:EntityAttribute>
+<o:EntityAttribute Id="o30">
+<a:ObjectID>9B2B882D-CA3F-4E89-BC3F-DDCF2E8175F2</a:ObjectID>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653471927</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o31"/>
+</c:DataItem>
+</o:EntityAttribute>
+<o:EntityAttribute Id="o32">
+<a:ObjectID>159DEE74-DCD4-4E5B-9574-C92ED27E8A55</a:ObjectID>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653471927</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o33"/>
+</c:DataItem>
+</o:EntityAttribute>
+<o:EntityAttribute Id="o34">
+<a:ObjectID>6CD877AF-BC2A-4053-836F-DF63FDFFB0CD</a:ObjectID>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653471927</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o35"/>
+</c:DataItem>
+</o:EntityAttribute>
+</c:Attributes>
+</o:Entity>
+<o:Entity Id="o23">
+<a:ObjectID>A870A6C7-06E4-45CD-AE32-2EC4ECF6DFAE</a:ObjectID>
+<a:Name>Media</a:Name>
+<a:Code>MEDIA</a:Code>
+<a:CreationDate>1653471624</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657011425</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<c:Identifiers>
+<o:Identifier Id="o36">
+<a:ObjectID>A152AC20-B12A-4857-95BD-0FC304F535B5</a:ObjectID>
+<a:Name>Identifiant_1</a:Name>
+<a:Code>IDENTIFIANT_1</a:Code>
+<a:CreationDate>1657009439</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657009589</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<c:Identifier.Attributes>
+<o:EntityAttribute Ref="o37"/>
+</c:Identifier.Attributes>
+</o:Identifier>
+</c:Identifiers>
+<c:PrimaryIdentifier>
+<o:Identifier Ref="o36"/>
+</c:PrimaryIdentifier>
+<c:Attributes>
+<o:EntityAttribute Id="o37">
+<a:ObjectID>7438DE98-CCA5-4C22-835B-F9452E1DF6A8</a:ObjectID>
+<a:CreationDate>1653472658</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657009528</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o38"/>
+</c:DataItem>
+</o:EntityAttribute>
+</c:Attributes>
+</o:Entity>
+<o:Entity Id="o24">
+<a:ObjectID>931435DF-4EB0-4232-A833-992E4C7D5544</a:ObjectID>
+<a:Name>MediaType</a:Name>
+<a:Code>MEDIATYPE</a:Code>
+<a:CreationDate>1653478914</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657011442</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<c:Identifiers>
+<o:Identifier Id="o39">
+<a:ObjectID>E2DDCAFC-9C0B-4366-95E5-C2287F724119</a:ObjectID>
+<a:Name>Name</a:Name>
+<a:Code>NAMETYPE</a:Code>
+<a:CreationDate>1653478925</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008732</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<c:Identifier.Attributes>
+<o:EntityAttribute Ref="o40"/>
+</c:Identifier.Attributes>
+</o:Identifier>
+</c:Identifiers>
+<c:PrimaryIdentifier>
+<o:Identifier Ref="o39"/>
+</c:PrimaryIdentifier>
+<c:Attributes>
+<o:EntityAttribute Id="o40">
+<a:ObjectID>503CC412-BDE6-4242-9A5F-BC0CDD2F6341</a:ObjectID>
+<a:CreationDate>1653485877</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657009366</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o41"/>
+</c:DataItem>
+</o:EntityAttribute>
+<o:EntityAttribute Id="o42">
+<a:ObjectID>85010815-0F7C-410A-88D8-7332CBA258AF</a:ObjectID>
+<a:CreationDate>1657011427</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657011449</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
+<c:DataItem>
+<o:DataItem Ref="o43"/>
+</c:DataItem>
+</o:EntityAttribute>
+</c:Attributes>
+</o:Entity>
+</c:Entities>
+<c:DataItems>
+<o:DataItem Id="o44">
+<a:ObjectID>745DCE54-3DCF-44A4-96AB-60BD965D3296</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDCOLLECTION</a:Code>
+<a:CreationDate>1653473906</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653478517</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o45">
+<a:ObjectID>037DAD87-587D-4E6B-96B3-5DD8FBE76423</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDANIME</a:Code>
+<a:CreationDate>1653473596</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653478451</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o46">
+<a:ObjectID>14DFAA3C-362E-46AD-B316-D7870FDF6751</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDBOOK</a:Code>
+<a:CreationDate>1653473312</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653474002</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o29">
+<a:ObjectID>82588DF8-BB7E-4B2D-B05F-8BEF95406285</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDUSER</a:Code>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653478568</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o31">
+<a:ObjectID>8A33DA93-7B11-46DF-9D26-750EEFF0266A</a:ObjectID>
+<a:Name>Username</a:Name>
+<a:Code>USERNAME</a:Code>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653471985</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>VA30</a:DataType>
+<a:Length>30</a:Length>
+</o:DataItem>
+<o:DataItem Id="o33">
+<a:ObjectID>B98DF1A9-9C84-4B80-9699-5EDC91D69372</a:ObjectID>
+<a:Name>Email</a:Name>
+<a:Code>EMAIL</a:Code>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653472047</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>VA320</a:DataType>
+<a:Length>320</a:Length>
+</o:DataItem>
+<o:DataItem Id="o35">
+<a:ObjectID>094A7A11-763A-437A-B9A9-2F3E68C847C7</a:ObjectID>
+<a:Name>Password</a:Name>
+<a:Code>PASSWORD</a:Code>
+<a:CreationDate>1653471786</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653472047</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>VA128</a:DataType>
+<a:Length>128</a:Length>
+</o:DataItem>
+<o:DataItem Id="o47">
+<a:ObjectID>A6F5E12A-30A1-4F87-92E8-3916AEBB283B</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDWISHLIST</a:Code>
+<a:CreationDate>1653472589</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653478546</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o38">
+<a:ObjectID>6578A53E-002C-47F2-8D2F-327DFD7FF918</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDMEDIA</a:Code>
+<a:CreationDate>1653472658</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657010250</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>VA100</a:DataType>
+<a:Length>100</a:Length>
+</o:DataItem>
+<o:DataItem Id="o48">
+<a:ObjectID>D1F25096-311B-417F-A359-0301A2311D5C</a:ObjectID>
+<a:Name>Title</a:Name>
+<a:Code>TITLECONTENT</a:Code>
+<a:CreationDate>1653472658</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008222</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA100</a:DataType>
+<a:Length>100</a:Length>
+</o:DataItem>
+<o:DataItem Id="o49">
+<a:ObjectID>5768F556-CFE8-409D-94DA-4435FC67102C</a:ObjectID>
+<a:Name>ImageUrl</a:Name>
+<a:Code>IMAGEURL</a:Code>
+<a:CreationDate>1653472658</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008222</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA2048</a:DataType>
+<a:Length>2048</a:Length>
+</o:DataItem>
+<o:DataItem Id="o50">
+<a:ObjectID>6F9FD554-7893-4086-BE15-23A97F0AA239</a:ObjectID>
+<a:Name>Date</a:Name>
+<a:Code>DATE</a:Code>
+<a:CreationDate>1653472845</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008222</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>D</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o51">
+<a:ObjectID>8D4AC7C4-62B5-4A2C-BF6D-2DD796036EF5</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDMOVIE</a:Code>
+<a:CreationDate>1653472908</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653474015</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o52">
+<a:ObjectID>8A752B25-EE8F-4F9E-AEA2-1DC9511CDCC0</a:ObjectID>
+<a:Name>Adult</a:Name>
+<a:Code>ADULT</a:Code>
+<a:CreationDate>1653472908</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008222</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>BL</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o53">
+<a:ObjectID>E074AD24-B273-4024-8B4E-7D203A79CC60</a:ObjectID>
+<a:Name>TrailerUrl</a:Name>
+<a:Code>TRAILERURL</a:Code>
+<a:CreationDate>1653472908</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653472970</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA2048</a:DataType>
+<a:Length>2048</a:Length>
+</o:DataItem>
+<o:DataItem Id="o54">
+<a:ObjectID>F3EC118D-F804-48EF-B300-F3DF01143312</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDSERIE</a:Code>
+<a:CreationDate>1653473118</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653474029</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o55">
+<a:ObjectID>1F95CECC-DF57-4C58-B243-0FE137F12240</a:ObjectID>
+<a:Name>AuthorName</a:Name>
+<a:Code>AUTHORNAME</a:Code>
+<a:CreationDate>1653473318</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656585424</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA100</a:DataType>
+<a:Length>100</a:Length>
+</o:DataItem>
+<o:DataItem Id="o56">
+<a:ObjectID>1C36547D-A828-4182-A833-DC2ACD1BDEC0</a:ObjectID>
+<a:Name>EditorName</a:Name>
+<a:Code>EDITORNAME</a:Code>
+<a:CreationDate>1653473318</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653473511</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA100</a:DataType>
+<a:Length>100</a:Length>
+</o:DataItem>
+<o:DataItem Id="o57">
+<a:ObjectID>65FC7C1D-5DB3-4559-8E56-1B0A19372386</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDGENRE</a:Code>
+<a:CreationDate>1653478925</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008687</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o41">
+<a:ObjectID>31A1F3C7-3544-4934-A388-8BC5E65457A9</a:ObjectID>
+<a:Name>Name</a:Name>
+<a:Code>NAME</a:Code>
+<a:CreationDate>1653478925</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657010260</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>VA50</a:DataType>
+<a:Length>50</a:Length>
+</o:DataItem>
+<o:DataItem Id="o58">
+<a:ObjectID>5276889A-BC5D-4A20-B7D1-68F033848BBC</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDCAST</a:Code>
+<a:CreationDate>1653478990</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653487551</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o59">
+<a:ObjectID>2E83423B-8190-468A-AAC6-8957CA7C8F49</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDCREDITSMEMBER</a:Code>
+<a:CreationDate>1653479301</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653479390</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o60">
+<a:ObjectID>27BC08D9-9714-47D0-8944-2DDAA0671305</a:ObjectID>
+<a:Name>Role</a:Name>
+<a:Code>ROLE</a:Code>
+<a:CreationDate>1653480126</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653480189</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA50</a:DataType>
+<a:Length>50</a:Length>
+</o:DataItem>
+<o:DataItem Id="o61">
+<a:ObjectID>EA239F3B-1E0F-40DB-8E9D-860817AF0C9A</a:ObjectID>
+<a:Name>ImageUrl</a:Name>
+<a:Code>IMAGEURLCREDITSMEMBER</a:Code>
+<a:CreationDate>1653480855</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1653485675</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA2048</a:DataType>
+<a:Length>2048</a:Length>
+</o:DataItem>
+<o:DataItem Id="o62">
+<a:ObjectID>E21545AD-4D35-4485-A4CB-DC67CB16B241</a:ObjectID>
+<a:Name>Overview</a:Name>
+<a:Code>OVERVIEW</a:Code>
+<a:CreationDate>1656584631</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008222</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA2048</a:DataType>
+<a:Length>2048</a:Length>
+</o:DataItem>
+<o:DataItem Id="o63">
+<a:ObjectID>061AECFF-9213-43B9-99F1-572B5D145CD4</a:ObjectID>
+<a:Name>PageNumber</a:Name>
+<a:Code>PAGENUMBER</a:Code>
+<a:CreationDate>1656585210</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656585227</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o64">
+<a:ObjectID>194E0451-C2C4-4965-93CA-599E0EF71853</a:ObjectID>
+<a:Name>Id</a:Name>
+<a:Code>IDAUTHOR</a:Code>
+<a:CreationDate>1656585369</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656585411</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o65">
+<a:ObjectID>257E7391-A491-4215-BB21-8A43FE94868A</a:ObjectID>
+<a:Name>Episodes</a:Name>
+<a:Code>EPISODES</a:Code>
+<a:CreationDate>1656585551</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656585603</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o66">
+<a:ObjectID>DE17EA8B-5D8A-4C40-867B-B4FE80F2F87A</a:ObjectID>
+<a:Name>Duration</a:Name>
+<a:Code>DURATION</a:Code>
+<a:CreationDate>1656585551</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656585603</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>I</a:DataType>
+</o:DataItem>
+<o:DataItem Id="o43">
+<a:ObjectID>4AB0349F-F1DD-4746-8BCF-E2C0A4EB1705</a:ObjectID>
+<a:Name>ServerUrl</a:Name>
+<a:Code>SERVERURL</a:Code>
+<a:CreationDate>1657008777</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657011442</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>VA2048</a:DataType>
+<a:Length>2048</a:Length>
+</o:DataItem>
+<o:DataItem Id="o67">
+<a:ObjectID>7883F9EE-10D1-4EFD-B85C-25BFC2DC3F16</a:ObjectID>
+<a:Name>Type</a:Name>
+<a:Code>TYPE</a:Code>
+<a:CreationDate>1657009439</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657009589</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:DataType>LVA50</a:DataType>
+<a:Length>50</a:Length>
+</o:DataItem>
+</c:DataItems>
+<c:Associations>
+<o:Association Id="o25">
+<a:ObjectID>A87DF242-E140-45F6-B238-FA08933BA8DC</a:ObjectID>
+<a:Name>UserMedia</a:Name>
+<a:Code>USERMEDIA</a:Code>
+<a:CreationDate>1657008850</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008901</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+</o:Association>
+<o:Association Id="o26">
+<a:ObjectID>F2354B22-06AE-43EE-B534-EE09B8D1DADD</a:ObjectID>
+<a:Name>Has_type</a:Name>
+<a:Code>HAS_TYPE</a:Code>
+<a:CreationDate>1657008851</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657010121</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+</o:Association>
+</c:Associations>
+<c:AssociationsLinks>
+<o:AssociationLink Id="o12">
+<a:ObjectID>1B316C4F-D74D-4060-BB86-70715806329E</a:ObjectID>
+<a:CreationDate>1657008850</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008850</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:Cardinality>0,n</a:Cardinality>
+<c:Object1>
+<o:Association Ref="o25"/>
+</c:Object1>
+<c:Object2>
+<o:Entity Ref="o22"/>
+</c:Object2>
+</o:AssociationLink>
+<o:AssociationLink Id="o15">
+<a:ObjectID>B5FFE9A2-22A8-4658-BFA3-837DBCC9B47F</a:ObjectID>
+<a:CreationDate>1657008850</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008850</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:Cardinality>0,n</a:Cardinality>
+<c:Object1>
+<o:Association Ref="o25"/>
+</c:Object1>
+<c:Object2>
+<o:Entity Ref="o23"/>
+</c:Object2>
+</o:AssociationLink>
+<o:AssociationLink Id="o18">
+<a:ObjectID>206C8435-69DE-4F84-8DE5-1369E584989A</a:ObjectID>
+<a:CreationDate>1657008851</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008886</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:Cardinality>1,1</a:Cardinality>
+<c:Object1>
+<o:Association Ref="o26"/>
+</c:Object1>
+<c:Object2>
+<o:Entity Ref="o23"/>
+</c:Object2>
+</o:AssociationLink>
+<o:AssociationLink Id="o21">
+<a:ObjectID>A3F6CAA9-4F99-4716-9E66-BEA0A388331B</a:ObjectID>
+<a:CreationDate>1657008851</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657008851</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:Cardinality>0,n</a:Cardinality>
+<c:Object1>
+<o:Association Ref="o26"/>
+</c:Object1>
+<c:Object2>
+<o:Entity Ref="o24"/>
+</c:Object2>
+</o:AssociationLink>
+</c:AssociationsLinks>
+<c:TargetModels>
+<o:TargetModel Id="o68">
+<a:ObjectID>CE797A56-F9EA-46DA-B0B2-BD3545E79456</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1656586134</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656586139</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetModelURL>file:///C|/Users/bpegaz/Documents/GitHub/ESGI_Projet_Annuel/Database/MPD.mpd</a:TargetModelURL>
+<a:TargetModelID>E4E3E38B-0052-4572-9078-7A03E742C214</a:TargetModelID>
+<a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
+<c:SessionShortcuts>
+<o:Shortcut Ref="o3"/>
+</c:SessionShortcuts>
+</o:TargetModel>
+<o:TargetModel Id="o69">
+<a:ObjectID>401D231B-E513-4529-B4A1-C1F44ADC24CB</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1656586893</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1656586910</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetModelURL>file:///C|/Users/bpegaz/Documents/GitHub/ESGI_Projet_Annuel/Database/PhysicalDataModel.mpd</a:TargetModelURL>
+<a:TargetModelID>E1C37A80-5D81-48DB-9901-27E7ED40EF73</a:TargetModelID>
+<a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
+<c:SessionShortcuts>
+<o:Shortcut Ref="o4"/>
+</c:SessionShortcuts>
+</o:TargetModel>
+<o:TargetModel Id="o70">
+<a:ObjectID>3682B888-871C-432E-93EF-7C4C92D72B29</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1657009673</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657009862</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetModelURL>file:///C|/Users/bpegaz/Documents/GitHub/ESGI_Projet_Annuel/Database/PhysicalDataModel.mpd</a:TargetModelURL>
+<a:TargetModelID>1C92A65F-601E-4E96-B051-A5CFDF1D5661</a:TargetModelID>
+<a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
+<c:SessionShortcuts>
+<o:Shortcut Ref="o5"/>
+</c:SessionShortcuts>
+</o:TargetModel>
+<o:TargetModel Id="o71">
+<a:ObjectID>9B60CB29-F9D0-4098-8E1E-B99E7786C363</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1657010309</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657010344</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetModelURL>file:///C|/Users/bpegaz/Documents/GitHub/ESGI_Projet_Annuel/Database/PhysicalDataModel.mpd</a:TargetModelURL>
+<a:TargetModelID>EEA7D86F-A7A4-4FD3-A5AA-FAFE5C5FC0EE</a:TargetModelID>
+<a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
+<c:SessionShortcuts>
+<o:Shortcut Ref="o6"/>
+</c:SessionShortcuts>
+</o:TargetModel>
+<o:TargetModel Id="o72">
+<a:ObjectID>352026F2-18F5-41A7-85AA-CD5F96EF9F03</a:ObjectID>
+<a:Name>MPD</a:Name>
+<a:Code>MPD</a:Code>
+<a:CreationDate>1657011479</a:CreationDate>
+<a:Creator>bpegaz</a:Creator>
+<a:ModificationDate>1657011490</a:ModificationDate>
+<a:Modifier>bpegaz</a:Modifier>
+<a:TargetModelURL>file:///C|/Users/bpegaz/Documents/GitHub/ESGI_Projet_Annuel/Database/PhysicalDataModel.mpd</a:TargetModelURL>
+<a:TargetModelID>9A390874-7379-4CDD-8C74-BF040192C6A6</a:TargetModelID>
+<a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
+<c:SessionShortcuts>
+<o:Shortcut Ref="o7"/>
+</c:SessionShortcuts>
+</o:TargetModel>
+</c:TargetModels>
+</o:Model>
+</c:Children>
+</o:RootObject>
+
+</Model>

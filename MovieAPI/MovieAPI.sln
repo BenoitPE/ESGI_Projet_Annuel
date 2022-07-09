@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieAPI.Tests", "MovieAPI.Tests\MovieAPI.Tests.csproj", "{562AAA05-7DF9-4BB1-B986-FA560A7B0DE2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieAPI", "MovieAPI\MovieAPI.csproj", "{3FBB978F-3CB2-4A76-8240-C42338D10DB1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{CBA6739A-9835-4E04-B2AF-1AC4AB94B54B}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{562AAA05-7DF9-4BB1-B986-FA560A7B0DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562AAA05-7DF9-4BB1-B986-FA560A7B0DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562AAA05-7DF9-4BB1-B986-FA560A7B0DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562AAA05-7DF9-4BB1-B986-FA560A7B0DE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FBB978F-3CB2-4A76-8240-C42338D10DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FBB978F-3CB2-4A76-8240-C42338D10DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FBB978F-3CB2-4A76-8240-C42338D10DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FBB978F-3CB2-4A76-8240-C42338D10DB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F47EAC4C-C304-4031-9297-C197A839F899}
+	EndGlobalSection
+EndGlobal
