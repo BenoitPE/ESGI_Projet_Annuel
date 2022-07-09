@@ -6,7 +6,7 @@ import com.projetannuel.userapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
@@ -29,10 +29,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void deleteByIdUser(Integer IdUser) {
-        userRepository.deleteByIdUser(IdUser);
-    }
-
     public List<Content> getUserCollectionByIdUser(Integer IdUser) {
 
         List<String> Urls = userRepository.getUserCollectionByIdUser(IdUser);
@@ -45,6 +41,14 @@ public class UserService {
         return getContent(Urls);
     }
 
+    public String addToUserWishlist(String MediaType, String MediaId,Integer IdUser) {
+        return userRepository.StoredUpdateUserWishlist(MediaType,MediaId,IdUser);
+    }
+
+    public String addToUserCollection(String MediaType, String MediaId,Integer IdUser) {
+        return userRepository.StoredUpdateUserCollection(MediaType,MediaId,IdUser);
+    }
+
     public List<Content> getContent(List<String> Urls)
     {
         RestTemplate restTemplate = new RestTemplate();
@@ -53,7 +57,7 @@ public class UserService {
             try {
                 ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
                 contents.add(new Content(entity.getBody()));
-            }catch (HttpClientErrorException ignored){
+            } catch (RestClientException ignored){
 
             }
         });
