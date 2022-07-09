@@ -27,6 +27,12 @@ public class UserController {
         return userService.getUserByIdUser(IdUser);
     }
 
+    @Operation(summary = "Retourne un utilisateur si le login est Ok")
+    @RequestMapping(path = "login", method = RequestMethod.POST)
+    public User login(@RequestParam("Username") String Username,@RequestParam("Password") String Password) {
+      return userService.login(Username,Password);
+    }
+
     @Operation(summary = "Récupération de tous les utilisateurs")
     @RequestMapping(path = "/getAllUsers", method = RequestMethod.GET)
     public List<User> getAllUsers() {

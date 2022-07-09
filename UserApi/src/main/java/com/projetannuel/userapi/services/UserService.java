@@ -63,4 +63,7 @@ public class UserService {
         });
         return contents;
     }
+    public User login(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username,password);
+    }
 }
