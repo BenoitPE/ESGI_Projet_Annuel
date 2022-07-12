@@ -152,7 +152,7 @@ Widget buildEmail(TextEditingController myControllerUsername) {
             decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14, left: 25, bottom: 14),
-                hintText: 'Adresse mail',
+                hintText: 'Identifiant',
                 hintStyle: TextStyle(color: Colors.white.withOpacity(0.5))),
           ),
         )

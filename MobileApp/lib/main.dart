@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15)),
                     color: Colors.red,
                     child: Text(
-                      'Se connecter',
+                      'Commencer',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
