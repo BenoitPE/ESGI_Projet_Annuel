@@ -1,11 +1,23 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_project_test/screens/registerPage.dart';
 import 'package:flutter_project_test/screens/searchPage.dart';
+import 'package:http/http.dart' as http;
+import 'dart:developer';
 
-class LoginPage extends StatelessWidget {
+import '../models/data.dart';
+
+class loginPage extends StatefulWidget {
+  @override
+  _loginPage createState() => _loginPage();
+}
+
+class _loginPage extends State<loginPage> {
+  late TextEditingController myControllerUsername = TextEditingController();
+  late TextEditingController myControllerPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +35,89 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: 100),
-                    buildEmail(),
+                    buildEmail(myControllerUsername),
                     SizedBox(height: 10),
-                    buildPassword(),
+                    buildPassword(myControllerPassword),
                     SizedBox(height: 10),
-                    buildLoginBtn(context),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 7),
+                      width: double.infinity,
+                      child: RaisedButton(
+                        elevation: 5,
+                        onPressed: () async {
+                          var idUser;
+                          var email;
+                          final response = await http.post(
+                            Uri.parse(
+                                'http://100.113.108.37:8081/login?Username=' +
+                                    myControllerUsername.text +
+                                    '&Password=' +
+                                    myControllerPassword.text),
+                          );
+                          var user = User.fromJson(jsonDecode(response.body));
+                          if (myControllerUsername.text != "" &&
+                              myControllerPassword.text != "" &&
+                              response.statusCode == 200) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute (
+                                  builder: (context) => searchPage(user: user)),
+                            );
+                          } else {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Column(
+                                      children: [
+                                        Container(
+                                          child: Row(children: [
+                                            Text((() {
+                                              if (myControllerUsername.text ==
+                                                      "" &&
+                                                  myControllerPassword.text ==
+                                                      "") {
+                                                return "Veuillez saisir un identifiant \n et un password ";
+                                              } else if (myControllerUsername
+                                                      .text ==
+                                                  "") {
+                                                return "Veuillez saisir un identifiant";
+                                              } else if (myControllerUsername
+                                                      .text ==
+                                                  "") {
+                                                return "Veuillez saisir un password";
+                                              } else {
+                                                return "identifiant ou mots de passe \n incorrect ";
+                                              }
+                                            })()),
+                                          ]),
+                                        ),
+                                        const CloseButton(),
+                                      ],
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  );
+                                });
+                          }
+                        },
+                        padding: EdgeInsets.all(15),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        color: Colors.red,
+                        child: Text(
+                          'Se connecter',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    // buildLoginBtn(context, myControllerUsername.text,
+                    //     myControllerPassword.text),
                     buildInfBtn(context)
                   ],
                 ),
@@ -38,7 +128,7 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-Widget buildEmail() {
+Widget buildEmail(TextEditingController myControllerUsername) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -54,6 +144,7 @@ Widget buildEmail() {
               ]),
           height: 60,
           child: TextField(
+            controller: myControllerUsername,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.white,
@@ -68,7 +159,7 @@ Widget buildEmail() {
       ]);
 }
 
-Widget buildPassword() {
+Widget buildPassword(TextEditingController myControllerPassword) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -84,6 +175,7 @@ Widget buildPassword() {
               ]),
           height: 60,
           child: TextField(
+            controller: myControllerPassword,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.white,
@@ -96,49 +188,6 @@ Widget buildPassword() {
           ),
         )
       ]);
-}
-
-// Widget buildForgotPassBtn(BuildContext context) {
-//   return Container(
-//     alignment: Alignment.centerRight,
-//     child: FlatButton(
-//       onPressed: () {
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(builder: (context) => HomePage()),
-//         );
-//       },
-//       padding: EdgeInsets.only(right: 0),
-//       child: Text(
-//         'Mot de passe oublié',
-//         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-//       ),
-//     ),
-//   );
-// }
-
-Widget buildLoginBtn(BuildContext context) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 7),
-    width: double.infinity,
-    child: RaisedButton(
-      elevation: 5,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => searchPage()),
-        );
-      },
-      padding: EdgeInsets.all(15),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      color: Colors.red,
-      child: Text(
-        'Se connecter',
-        style: TextStyle(
-            color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
 }
 
 Widget buildInfBtn(BuildContext context) {

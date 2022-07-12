@@ -1,8 +1,14 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:developer';
+import '../models/data.dart';
 
 class profilPage extends StatelessWidget {
+  final user;
+  const profilPage({Key? key, required this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) => Stack(
         children: [
@@ -14,7 +20,6 @@ class profilPage extends StatelessWidget {
                 children: [
                   Container(
                       width: MediaQuery.of(context).size.width,
-                      //color: Colors.amber,
                       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                       alignment: Alignment.center,
                       child: Column(
@@ -37,7 +42,7 @@ class profilPage extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            'Benoit PEGAZ',
+                            user.username,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
@@ -73,16 +78,27 @@ class profilPage extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(50, 25, 25, 25),
-                                        child: Text(
-                                          '32',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 43,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
+                                          padding: EdgeInsets.fromLTRB(
+                                              50, 25, 25, 25),
+                                          child: FutureBuilder<String>(
+                                            future: nbCollection(user),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData &&
+                                                  snapshot.connectionState ==
+                                                      ConnectionState.done) {
+                                                return Text(
+                                                  snapshot.data!,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 43,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                );
+                                              }
+                                              return CircularProgressIndicator();
+                                            },
+                                          )
+                                          ),
                                       Container(
                                           padding: EdgeInsets.fromLTRB(
                                               0, 10, 15, 10),
@@ -108,13 +124,24 @@ class profilPage extends StatelessWidget {
                                       Container(
                                         padding:
                                             EdgeInsets.fromLTRB(50, 25, 25, 25),
-                                        child: Text(
-                                          '45',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 43,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                        child: FutureBuilder<String>(
+                                            future: nbWishlist(user),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData &&
+                                                  snapshot.connectionState ==
+                                                      ConnectionState.done) {
+                                                return Text(
+                                                  snapshot.data!,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 43,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                );
+                                              }
+                                              return CircularProgressIndicator();
+                                            },
+                                          )
                                       ),
                                       Container(
                                           padding: EdgeInsets.fromLTRB(
@@ -160,4 +187,29 @@ class profilPage extends StatelessWidget {
           ),
         ),
       );
+
+  Future<String> nbCollection(dynamic user) async {
+    final response = await http.get(Uri.parse(
+        'http://100.113.108.37:8081/getCollection?Id=' +
+            user.idUser.toString()));
+    if (response.statusCode == 200) {
+      var list = json.decode(response.body) as List<dynamic>;
+      return list.length.toString();
+    } else {
+      log("error load data");
+      return "";
+    }
+  }
+
+  Future<String> nbWishlist(dynamic user) async {
+    final response = await http.get(Uri.parse(
+        'http://100.113.108.37:8081/getWishlist?Id=' + user.idUser.toString()));
+    if (response.statusCode == 200) {
+      var list = json.decode(response.body) as List<dynamic>;
+      return list.length.toString();
+    } else {
+      log("error load data");
+      return "";
+    }
+  }
 }
