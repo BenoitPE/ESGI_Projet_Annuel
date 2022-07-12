@@ -70,7 +70,7 @@ class ItemsPage extends StatelessWidget {
                                         }
                                       },
                                       icon: Icon(
-                                        Icons.favorite_border_rounded,
+                                        Icons.favorite,
                                         color: Colors.white,
                                       ),
                                     ),
