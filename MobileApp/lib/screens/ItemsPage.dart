@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 import 'dart:math';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class ItemsPage extends StatelessWidget {
@@ -112,7 +112,16 @@ class ItemsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        if (item.properties['trailerUrl'] != null) {
+                                          final url = item
+                                              .properties['trailerUrl']
+                                              .toString();
+                                          await launch(url,
+                                              forceWebView: true,
+                                              enableJavaScript: true);
+                                        }
+                                      },
                                       icon: Icon(
                                         Icons.play_circle_outlined,
                                         color: Colors.white,
