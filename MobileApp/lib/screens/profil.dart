@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 import '../models/data.dart';
+import 'loginPage.dart';
 
 class profilPage extends StatelessWidget {
   final user;
@@ -54,7 +55,13 @@ class profilPage extends StatelessWidget {
                             width: double.infinity,
                             child: RaisedButton(
                               elevation: 5,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => loginPage()),
+                                );
+                              },
                               padding: EdgeInsets.all(15),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15)),
@@ -97,8 +104,7 @@ class profilPage extends StatelessWidget {
                                               }
                                               return CircularProgressIndicator();
                                             },
-                                          )
-                                          ),
+                                          )),
                                       Container(
                                           padding: EdgeInsets.fromLTRB(
                                               0, 10, 15, 10),
@@ -122,9 +128,9 @@ class profilPage extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(50, 25, 25, 25),
-                                        child: FutureBuilder<String>(
+                                          padding: EdgeInsets.fromLTRB(
+                                              50, 25, 25, 25),
+                                          child: FutureBuilder<String>(
                                             future: nbWishlist(user),
                                             builder: (context, snapshot) {
                                               if (snapshot.hasData &&
@@ -141,8 +147,7 @@ class profilPage extends StatelessWidget {
                                               }
                                               return CircularProgressIndicator();
                                             },
-                                          )
-                                      ),
+                                          )),
                                       Container(
                                           padding: EdgeInsets.fromLTRB(
                                               0, 10, 15, 10),
