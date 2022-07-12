@@ -63,14 +63,13 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  //padding: EdgeInsets.symmetric(vertical: 7),
                   width: double.infinity,
                   child: RaisedButton(
                     elevation: 5,
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => loginPage()),
                       );
                     },
                     padding: EdgeInsets.all(22),
