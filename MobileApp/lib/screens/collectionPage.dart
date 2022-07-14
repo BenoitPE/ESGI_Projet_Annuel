@@ -6,28 +6,38 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 
-import '../data.dart';
+import '../models/data.dart';
+import '../repository/data_repository.dart';
 import 'ItemsPage.dart';
 
 class collectionPage extends StatefulWidget {
+  final user;
+  const collectionPage({
+    this.user,
+  });
   @override
-  _collectionPage createState() => _collectionPage();
+  _collectionPage createState() => _collectionPage(user);
 }
 
-Future<List<Data>> ReadJsonData(MediaType media) async {
+Future<List<Data>> ReadJsonData(
+    MediaType media, dynamic _dataRepository, dynamic user) async {
   var list;
   var list2;
   var items = [];
+  List<Data> items2 = [];
 
   if (media == MediaType.Movie || media == MediaType.Tous) {
     final response =
-        await http.get(Uri.parse('http://100.113.108.37/Movie/Popular'));
+        await http.get(Uri.parse('http://100.113.108.37:8081/getCollection?Id='+user.idUser.toString()));
 
     if (response.statusCode == 200) {
       list = json.decode(response.body) as List<dynamic>;
       log(response.reasonPhrase.toString());
       list.forEach((element) {
         items.add(element);
+
+        //test cache
+        _dataRepository.addData(Data.fromJson(element));
       });
     } else {
       log(response.statusCode.toString() +
@@ -36,28 +46,34 @@ Future<List<Data>> ReadJsonData(MediaType media) async {
     }
   }
 
-  if (media == MediaType.Serie || media == MediaType.Tous) {
-    final response2 =
-        await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
+  // if (media == MediaType.Serie || media == MediaType.Tous) {
+  //   final response2 =
+  //       await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
 
-    if (response2.statusCode == 200) {
-      list2 = json.decode(response2.body) as List<dynamic>;
-      log(response2.reasonPhrase.toString());
-      list2.forEach((element) {
-        items.add(element);
-      });
-    } else {
-      log(response2.statusCode.toString() +
-          " : " +
-          response2.reasonPhrase.toString());
-    }
-  }
+  //   if (response2.statusCode == 200) {
+  //     list2 = json.decode(response2.body) as List<dynamic>;
+  //     log(response2.reasonPhrase.toString());
+  //     list2.forEach((element) {
+  //       items.add(element);
+  //     });
+  //   } else {
+  //     log(response2.statusCode.toString() +
+  //         " : " +
+  //         response2.reasonPhrase.toString());
+  //   }
+  // }
+  //test cache
+  //items2= _dataRepository.getAllDatas();
   return items.map((e) => Data.fromJson(e)).toList();
 }
 
 MediaType media = MediaType.Tous;
 
 class _collectionPage extends State<collectionPage> {
+  final DataRepository _dataRepository = DataRepository();
+
+  _collectionPage(dynamic user);
+  static get user => user;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +95,8 @@ class _collectionPage extends State<collectionPage> {
                           automaticallyImplyLeading: false,
                           title: Row(children: <Widget>[
                             Container(
-                                width: (MediaQuery.of(context).size.width/5) -7,
+                                width:
+                                    (MediaQuery.of(context).size.width / 5) - 7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -95,7 +112,8 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: (MediaQuery.of(context).size.width/5) -7,
+                                width:
+                                    (MediaQuery.of(context).size.width / 5) - 7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -111,7 +129,8 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: (MediaQuery.of(context).size.width/5) -7,
+                                width:
+                                    (MediaQuery.of(context).size.width / 5) - 7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -127,7 +146,8 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: (MediaQuery.of(context).size.width/5) -7,
+                                width:
+                                    (MediaQuery.of(context).size.width / 5) - 7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -143,7 +163,8 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                             Container(
-                                width: (MediaQuery.of(context).size.width/5) -7,
+                                width:
+                                    (MediaQuery.of(context).size.width / 5) - 7,
                                 child: TextButton(
                                     onPressed: () {
                                       setState(() {
@@ -160,7 +181,7 @@ class _collectionPage extends State<collectionPage> {
                                     ))),
                           ]))),
                   FutureBuilder(
-                    future: ReadJsonData(media),
+                    future: ReadJsonData(media, _dataRepository, widget.user),
                     builder: (context, data) {
                       if (data.hasError) {
                         return Text('error');
@@ -206,10 +227,12 @@ class _collectionPage extends State<collectionPage> {
                                                               Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(
-                                                                    builder: (context) =>
-                                                                        ItemsPage(
-                                                                            item:
-                                                                                items[index])),
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ItemsPage(
+                                                                              item: items[index],
+                                                                              user: this.widget.user,
+                                                                            )),
                                                               )))))),
                                     ],
                                   ),

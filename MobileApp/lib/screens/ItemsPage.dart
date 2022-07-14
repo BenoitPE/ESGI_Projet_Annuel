@@ -1,12 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
 import 'dart:ui';
-
+import 'package:http/http.dart' as http;
+import 'dart:developer';
+import 'dart:math';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 class ItemsPage extends StatelessWidget {
   final item;
-
-  const ItemsPage({Key? key, required this.item}) : super(key: key);
+  final user;
+  const ItemsPage({Key? key, required this.item, required this.user})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Stack(
@@ -48,9 +53,24 @@ class ItemsPage extends StatelessWidget {
                                             BorderRadius.circular(10)),
                                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        final response = await http.post(
+                                          Uri.parse(
+                                              'http://100.113.108.37:8081/addToWishlist?MediaType=' +
+                                                  item.mediaType +
+                                                  '&MediaId=' +
+                                                  item.id +
+                                                  '&Id=' +
+                                                  user.idUser.toString()),
+                                        );
+
+                                        if (response.statusCode == 200) {
+                                        } else {
+                                          throw Exception('Failed');
+                                        }
+                                      },
                                       icon: Icon(
-                                        Icons.favorite_border_rounded,
+                                        Icons.favorite,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -63,7 +83,21 @@ class ItemsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        final response = await http.post(
+                                          Uri.parse(
+                                              'http://100.113.108.37:8081/addToCollection?MediaType=' +
+                                                  item.mediaType +
+                                                  '&MediaId=' +
+                                                  item.id +
+                                                  '&Id=' +
+                                                  user.idUser.toString()),
+                                        );
+                                        if (response.statusCode == 200) {
+                                        } else {
+                                          throw Exception('Failed');
+                                        }
+                                      },
                                       icon: Icon(
                                         Icons.folder,
                                         color: Colors.white,
@@ -78,7 +112,16 @@ class ItemsPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        if (item.properties['trailerUrl'] != null) {
+                                          final url = item
+                                              .properties['trailerUrl']
+                                              .toString();
+                                          await launch(url,
+                                              forceWebView: true,
+                                              enableJavaScript: true);
+                                        }
+                                      },
                                       icon: Icon(
                                         Icons.play_circle_outlined,
                                         color: Colors.white,
@@ -113,7 +156,9 @@ class ItemsPage extends StatelessWidget {
                           ),
                         ]),
                       ),
-                      Container(height: 100,)
+                      Container(
+                        height: 100,
+                      )
                     ],
                   ),
                 ),
@@ -190,20 +235,21 @@ Widget buildCardRole(
         children: [
           Container(
             height: 150,
-            child: 
-             AspectRatio(
-                  aspectRatio: 4 / 3,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Material(
-                          child: Ink.image(
-                        image: item.properties['characters'][index]['profile_path'] != null
-                            ? NetworkImage(
-                                item.properties['characters'][index]['profile_path'])
-                            : AssetImage('image/NoUserImage.png')
-                                as ImageProvider,
-                        fit: BoxFit.cover,
-                      )))),
+            child: AspectRatio(
+                aspectRatio: 4 / 3,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Material(
+                        child: Ink.image(
+                      image: item.properties['characters'][index]
+                                  ['profile_path'] !=
+                              null
+                          ? NetworkImage(item.properties['characters'][index]
+                              ['profile_path'])
+                          : AssetImage('image/NoUserImage.png')
+                              as ImageProvider,
+                      fit: BoxFit.cover,
+                    )))),
           ),
           const SizedBox(height: 4),
           Text(

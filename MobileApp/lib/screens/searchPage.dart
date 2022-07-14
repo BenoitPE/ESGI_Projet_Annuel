@@ -3,27 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project_test/screens/ItemsPage.dart';
 import 'package:flutter_project_test/screens/profil.dart';
 import 'package:flutter_project_test/screens/wishlistPage.dart';
-import 'package:flutter_project_test/data.dart';
+import 'package:flutter_project_test/models/data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 import 'collectionPage.dart';
 
 class searchPage extends StatefulWidget {
+  final user;
+  const searchPage({
+    this.user,
+  });
+
   @override
-  _searchPage createState() => _searchPage();
+  _searchPage createState() => _searchPage(user);
 }
 
 class _searchPage extends State<searchPage> {
+  _searchPage(final user);
+
+  static get user => user;
+
   int currentIndex = 1;
-  final screens = [
-    wishlistPage(),
-    collectionPage(),
-    containerSearch(),
-    profilPage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      wishlistPage(user: this.widget.user),
+      collectionPage(user: this.widget.user),
+      containerSearch(user: this.widget.user),
+      profilPage(user:this.widget.user),
+    ];
     return Scaffold(
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -88,6 +97,7 @@ class itemSection extends StatelessWidget {
   MediaType media;
   dynamic myController;
   dynamic test;
+  dynamic user;
 
   ImageProvider<Object> urlImage(item, name) {
     if (item.imageUrl != null) {
@@ -98,7 +108,7 @@ class itemSection extends StatelessWidget {
       return AssetImage('image/NoImage.jpg') as ImageProvider;
   }
 
-  itemSection(this.name, this.titre, this.media, this.myController);
+  itemSection(this.name, this.titre, this.media, this.myController, this.user);
 
   late Future<List<Data>> futureData;
 
@@ -185,8 +195,6 @@ class itemSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     futureData = ReadJsonData(myController, media);
-    // var textController = myController.text;
-    // var textRayane = "test";
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
       child: Column(children: [
@@ -248,7 +256,9 @@ class itemSection extends StatelessWidget {
                                                                   MaterialPageRoute(
                                                                       builder: (context) =>
                                                                           ItemsPage(
-                                                                              item: items[index])),
+                                                                              item: items[index],
+                                                                              user: user,
+                                                                            )),
                                                                 ))))))),
                               ],
                             ),
@@ -268,13 +278,19 @@ class itemSection extends StatelessWidget {
 }
 
 class containerSearch extends StatefulWidget {
+  final user;
+  const containerSearch({
+    this.user,
+  });
   @override
-  _containerSearch createState() => _containerSearch();
+  _containerSearch createState() => _containerSearch(user);
 }
 
 class _containerSearch extends State<containerSearch> {
   late TextEditingController myController = TextEditingController();
   late String titre = '';
+
+  _containerSearch(user);
 
   @override
   Widget build(BuildContext context) {
@@ -309,10 +325,10 @@ class _containerSearch extends State<containerSearch> {
                     hintStyle: TextStyle(color: Colors.white)),
               )),
           SizedBox(height: 20),
-          itemSection("Films", titre, MediaType.Movie, myController.text),
-          itemSection("Série", titre, MediaType.Serie, myController.text),
-          itemSection("Animée", titre, MediaType.Anime, myController.text),
-          itemSection("Livres", titre, MediaType.Book, myController.text)
+          itemSection("Films", titre, MediaType.Movie, myController.text, this.widget.user),
+          itemSection("Série", titre, MediaType.Serie, myController.text, this.widget.user),
+          itemSection("Animée", titre, MediaType.Anime, myController.text, this.widget.user),
+          itemSection("Livres", titre, MediaType.Book, myController.text, this.widget.user)
         ])));
   }
 }
