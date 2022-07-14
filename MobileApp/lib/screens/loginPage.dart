@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_project_test/repository/user_repository.dart';
 import 'package:flutter_project_test/screens/registerPage.dart';
 import 'package:flutter_project_test/screens/searchPage.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,8 @@ import 'dart:developer';
 import '../models/data.dart';
 
 class loginPage extends StatefulWidget {
+  const loginPage({Key? key}) : super(key: key);
+
   @override
   _loginPage createState() => _loginPage();
 }
@@ -18,6 +21,8 @@ class loginPage extends StatefulWidget {
 class _loginPage extends State<loginPage> {
   late TextEditingController myControllerUsername = TextEditingController();
   late TextEditingController myControllerPassword = TextEditingController();
+  final UserRepository _userRepository = UserRepository();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +50,6 @@ class _loginPage extends State<loginPage> {
                       child: RaisedButton(
                         elevation: 5,
                         onPressed: () async {
-                          var idUser;
-                          var email;
                           final response = await http.post(
                             Uri.parse(
                                 'http://100.113.108.37:8081/login?Username=' +
@@ -54,10 +57,11 @@ class _loginPage extends State<loginPage> {
                                     '&Password=' +
                                     myControllerPassword.text),
                           );
-                          var user = User.fromJson(jsonDecode(response.body));
                           if (myControllerUsername.text != "" &&
                               myControllerPassword.text != "" &&
                               response.statusCode == 200) {
+                            var user = User.fromJson(jsonDecode(response.body));
+                            _userRepository.addUser(user);
                             Navigator.push(
                               context,
                               MaterialPageRoute (

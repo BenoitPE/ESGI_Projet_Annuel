@@ -51,25 +51,40 @@ class Data {
 }
 
 class User {
-  final dynamic idUser ;
-  final dynamic username;
-  final dynamic email ;
-  final dynamic password;
+  final int idUser ;
+  final String username;
+  final String email ;
+  final String password;
 
-  const User ({
-    this.idUser,
-    this.username,
-    this.email,
-    this.password
+  User ({
+    required this.idUser,
+    required this.username,
+    required this.email,
+    required this.password
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
+    // return User(
+    //   idUser: json['idUser'],
+    //   username: json['username'],
+    //   email: json['email'],
+    //   password: json['password'],
+    // );
+    int idUser = json['idUser'];
+    String username = json['username'];
+    String email = json['email'];
+    String password = json['password'];
     return User(
-      idUser: json['idUser'],
-      username: json['username'],
-      email: json['email'],
-      password: json['password'],
-    );
+        idUser: idUser, username: username, email: email, password: password);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'idUser': idUser,
+      'username': username,
+      'email': email,
+      'password': password,
+    };
   }
 }
 

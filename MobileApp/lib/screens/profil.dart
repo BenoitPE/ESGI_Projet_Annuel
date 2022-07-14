@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 import '../models/data.dart';
+import '../repository/user_repository.dart';
 import 'loginPage.dart';
 
 class profilPage extends StatelessWidget {
@@ -55,7 +56,12 @@ class profilPage extends StatelessWidget {
                             width: double.infinity,
                             child: RaisedButton(
                               elevation: 5,
-                              onPressed: () {
+                              onPressed: () async {
+                                final UserRepository _userRepository = UserRepository();
+                                var users = await _userRepository.getAllUser();
+                                if (users.length == 1){
+                                  _userRepository.deleteUser(users[0]);
+                                };
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

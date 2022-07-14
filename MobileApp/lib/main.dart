@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_test/repository/user_repository.dart';
 import 'package:flutter_project_test/screens/loginPage.dart';
+import 'package:flutter_project_test/screens/searchPage.dart';
+
+import 'models/data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +23,10 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+
+  final UserRepository _userRepository = UserRepository();
+  List<User> users = [];
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +74,15 @@ class HomePage extends StatelessWidget {
                   width: double.infinity,
                   child: RaisedButton(
                     elevation: 5,
-                    onPressed: () {
+                    onPressed: () async {
+                      users = await _userRepository.getAllUser();
+                      if(users.length == 1)
+                      {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => searchPage(user: users[0])),
+                      );
+                      }else 
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => loginPage()),
