@@ -1,6 +1,7 @@
 package com.projetannuel.bookapi.Wrapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GBVolumeInfoWrapper {
@@ -13,6 +14,7 @@ public class GBVolumeInfoWrapper {
     private String description;
     private String maturityRating;
     private String pageCount;
+    private List<IndustryIdentifiers> industryIdentifiers;
 
     public String getTitle() {
         return title;
@@ -40,6 +42,10 @@ public class GBVolumeInfoWrapper {
 
     public String getPageCount() { return pageCount; }
 
+    public List<IndustryIdentifiers> getIndustryIdentifiers() {
+        return industryIdentifiers;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -59,4 +65,8 @@ public class GBVolumeInfoWrapper {
     public void setMaturityRating(String maturityRating) { this.maturityRating = maturityRating; }
 
     public void setPageCount(String pageCount) { this.pageCount = pageCount; }
+
+    public void setIndustryIdentifiers(List<IndustryIdentifiers> industryIdentifiers) {
+        this.industryIdentifiers = industryIdentifiers;
+    }
 }
