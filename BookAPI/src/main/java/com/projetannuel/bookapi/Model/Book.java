@@ -12,7 +12,7 @@ public class Book {
     private String title;
     private String imageUrl;
     private String date;
-    private String adulte;
+    private String adult;
     private String overview;
     private String mediaType;
     private Properties properties;
@@ -65,18 +65,18 @@ public class Book {
         this.overview = overview;
     }
 
-    public String getAdulte() {
-        return adulte;
+    public String getAdult() {
+        return adult;
     }
 
-    public void setAdulte(String adulte) {
-        if (Objects.equals(adulte, "NOT_MATURE"))
+    public void setAdult(String adult) {
+        if (Objects.equals(adult, "NOT_MATURE"))
         {
-            this.adulte = "false";
+            this.adult = "false";
         }
         else
         {
-            this.adulte = "true";
+            this.adult = "true";
         }
     }
 

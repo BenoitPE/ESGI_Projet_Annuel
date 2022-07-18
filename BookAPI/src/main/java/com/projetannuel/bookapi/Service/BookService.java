@@ -41,7 +41,7 @@ public final class BookService {
                 book.setImageUrl(entity.getBody().getItems()[id].getVolumeInfo().getImageLinks().get("thumbnail"));
                 book.setDate(entity.getBody().getItems()[id].getVolumeInfo().getPublishedDate());
                 book.setOverview(entity.getBody().getItems()[id].getVolumeInfo().getDescription());
-                book.setAdulte(entity.getBody().getItems()[id].getVolumeInfo().getMaturityRating());
+                book.setAdult(entity.getBody().getItems()[id].getVolumeInfo().getMaturityRating());
             }
             else {
                 return book;
