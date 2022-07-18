@@ -29,14 +29,14 @@ public final class BookService {
         Book book = new Book();
         com.projetannuel.bookapi.Model.Properties properties = new com.projetannuel.bookapi.Model.Properties();
         try {
-            if (entity.getBody().getItems()[0].getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier() != null) {
+            if (entity.getBody().getItems()[id].getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier() != null) {
                 properties.setAuthorName(Arrays.toString(entity.getBody().getItems()[id].getVolumeInfo().getAuthors()));
                 properties.setEditorName(entity.getBody().getItems()[id].getVolumeInfo().getPublisher());
                 properties.setPageCount(entity.getBody().getItems()[id].getVolumeInfo().getPageCount());
 
                 book.setProperties(properties);
                 book.setMediaType();
-                book.setId(String.valueOf(entity.getBody().getItems()[0].getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier()));
+                book.setId(String.valueOf(entity.getBody().getItems()[id].getVolumeInfo().getIndustryIdentifiers().get(0).getIdentifier()));
                 book.setTitle(entity.getBody().getItems()[id].getVolumeInfo().getTitle());
                 book.setImageUrl(entity.getBody().getItems()[id].getVolumeInfo().getImageLinks().get("thumbnail"));
                 book.setDate(entity.getBody().getItems()[id].getVolumeInfo().getPublishedDate());
