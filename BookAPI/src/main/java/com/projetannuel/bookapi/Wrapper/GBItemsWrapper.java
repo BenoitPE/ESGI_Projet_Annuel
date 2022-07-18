@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class GBItemsWrapper {
 
     private GBVolumeInfoWrapper volumeInfo;
-    private String id;
 
     public GBVolumeInfoWrapper getVolumeInfo() {
         return volumeInfo;
@@ -16,11 +15,4 @@ public class GBItemsWrapper {
         this.volumeInfo = volumeInfo;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }

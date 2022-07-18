@@ -95,4 +95,5 @@ public class Book {
     public void setMediaType() {
         this.mediaType = "book";
     }
+
 }
