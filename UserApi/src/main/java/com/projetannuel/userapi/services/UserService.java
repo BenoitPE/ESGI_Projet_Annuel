@@ -57,9 +57,11 @@ public class UserService {
       Urls.forEach(url -> {
          try {
             ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
-            Content content = new Content(entity.getBody());
-            if (content.getId() != null) {
-               contents.add(content);
+            if(null != entity.getBody()) {
+               Content content = new Content(entity.getBody());
+               if (content.getId() != null) {
+                  contents.add(content);
+               }
             }
          } catch (RestClientException ignored) {
 
