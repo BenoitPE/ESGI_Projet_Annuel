@@ -49,12 +49,11 @@ public class BookController {
 	public ResponseEntity<List<Book>> getBooksFromApi() {
       List<Book> result = bookService.returnBooksFromGoogleApi();
       ResponseEntity<List<Book>> response;
-      if(0 > result.size()){
+      if(result.size() > 0){
          response = ResponseEntity.status(HttpStatus.OK).body(result);
       }else{
          response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
       }
 		return response;
 	}
-
 }
