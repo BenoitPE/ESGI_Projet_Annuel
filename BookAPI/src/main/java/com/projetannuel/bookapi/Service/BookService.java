@@ -17,8 +17,11 @@ public final class BookService {
     public List<Book> buildBookListWithWrapper(ResponseEntity<GBWrapper> entity){
         List<Book> books = new ArrayList<>();
         int i = 0;
-        while (i <10){
-            books.add(buildBookWithWrapper(entity, i));
+        while (i < 10){
+            Book book = buildBookWithWrapper(entity, i);
+            if(null != book){
+            books.add(book);
+            }
             i++;
         }
         return books;
@@ -44,11 +47,11 @@ public final class BookService {
                 book.setAdult(entity.getBody().getItems()[id].getVolumeInfo().getMaturityRating());
             }
             else {
-                return book;
+                return null;
             }
 
         } catch (NullPointerException e) {
-            return book;
+            return null;
         }
         return book;
     }
