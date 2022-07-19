@@ -24,7 +24,7 @@ public class BookController {
 	public ResponseEntity<Book> getBookFromApi(@RequestParam String isbn) {
       Book result = bookService.returnBookFromGoogleApiByIsbn(isbn);
       ResponseEntity<Book> response;
-      if(null != result){
+      if(null != result.getId()){
          response = ResponseEntity.status(HttpStatus.OK).body(result);
       }else{
          response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
@@ -37,7 +37,7 @@ public class BookController {
 	public ResponseEntity<Book> getBookFromApiByTitle(@RequestParam String title) {
       Book result = bookService.returnBookFromGoogleApiByTitle(title);
       ResponseEntity<Book> response;
-      if(null != result){
+      if(null != result.getId()){
          response = ResponseEntity.status(HttpStatus.OK).body(result);
       }else{
          response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
@@ -49,7 +49,7 @@ public class BookController {
 	public ResponseEntity<List<Book>> getBooksFromApi() {
       List<Book> result = bookService.returnBooksFromGoogleApi();
       ResponseEntity<List<Book>> response;
-      if(null != result){
+      if(0 > result.size()){
          response = ResponseEntity.status(HttpStatus.OK).body(result);
       }else{
          response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
