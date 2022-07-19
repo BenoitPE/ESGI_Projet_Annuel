@@ -89,10 +89,14 @@ public class Content
     }
 
     public Content(String str) {
-        try {
-            JSONObject json = new JSONObject(str);
-            this.parse(json);
-        }catch (JSONException ignored){
+        if(null != str) {
+            try {
+                JSONObject json = new JSONObject(str);
+                this.parse(json);
+            } catch (JSONException ignored) {
+                this.setNull();
+            }
+        }else {
             this.setNull();
         }
     }
