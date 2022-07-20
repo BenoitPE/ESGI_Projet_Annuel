@@ -1,6 +1,6 @@
 FROM rust:latest as builder
 WORKDIR /app
-COPY RustApi/ .
+COPY . .
 RUN cargo build --release
 
 
