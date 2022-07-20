@@ -13,6 +13,7 @@ class ItemsPage extends StatelessWidget {
   const ItemsPage({Key? key, required this.item, required this.user})
       : super(key: key);
 
+//widget qui crée la page item page avec différentes information comme le titre le synopsyse etc ...
   @override
   Widget build(BuildContext context) => Stack(
         children: [
@@ -113,7 +114,8 @@ class ItemsPage extends StatelessWidget {
                                             BorderRadius.circular(10)),
                                     child: IconButton(
                                       onPressed: () async {
-                                        if (item.properties['trailerUrl'] != null) {
+                                        if (item.properties['trailerUrl'] !=
+                                            null) {
                                           final url = item
                                               .properties['trailerUrl']
                                               .toString();
@@ -147,7 +149,7 @@ class ItemsPage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                item.overview,
+                                item.overview != null? item.overview : '',
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.6),
                                 ),
@@ -196,6 +198,7 @@ class rolesSection extends StatelessWidget {
 
   rolesSection({required this.item});
 
+//widget qui crée la liste pour recevoir les informations des personnages
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -214,10 +217,14 @@ class rolesSection extends StatelessWidget {
           ]),
         ),
         Container(
-            height: 210,
+            height: item.properties['authorName'] != null ?  260 : 210,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: item.properties['characters'].length,
+              itemCount: item.properties['characters'] != null
+                  ? item.properties['characters'].length
+                  : item.properties['authorName'] != null
+                      ? item.properties['authorName'].replaceAll('[', '').replaceAll(']', '').split(',').length
+                      : 0,
               separatorBuilder: (context, _) => SizedBox(width: 12),
               itemBuilder: (context, index) =>
                   buildCardRole(item: item, context: context, index: index),
@@ -227,6 +234,7 @@ class rolesSection extends StatelessWidget {
   }
 }
 
+//widget qui permet de crée l'information d'un acteurs / personnage d'un contenue
 Widget buildCardRole(
         {required item, required BuildContext context, required index}) =>
     Container(
@@ -241,20 +249,18 @@ Widget buildCardRole(
                     borderRadius: BorderRadius.circular(20),
                     child: Material(
                         child: Ink.image(
-                      image: item.properties['characters'][index]
-                                  ['profile_path'] !=
-                              null
-                          ? NetworkImage(item.properties['characters'][index]
-                              ['profile_path'])
-                          : AssetImage('image/NoUserImage.png')
-                              as ImageProvider,
+                      image: item.properties['characters']!= null && item.properties['characters'][index]['profile_path'] != null
+                      ? NetworkImage(item.properties['characters'][index]['profile_path'])
+                      : AssetImage('image/NoUserImage.png') as ImageProvider  ,                    
                       fit: BoxFit.cover,
                     )))),
           ),
           const SizedBox(height: 4),
           Text(
-              (item.properties['characters'][index]['name'] != null
+              (item.properties['characters']!= null && item.properties['characters'][index]['name'] != null
                   ? item.properties['characters'][index]['name']
+                  : item.properties['authorName'] != null
+                  ? item.properties['authorName'].replaceAll('[', '').replaceAll(']', '').split(',')[index]
                   : ''),
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -263,8 +269,10 @@ Widget buildCardRole(
                   color: Colors.white)),
           const SizedBox(height: 2),
           Text(
-              (item.properties['characters'][index]['character'] != null
+              (item.properties['characters']!= null && item.properties['characters'][index]['character'] != null
                   ? item.properties['characters'][index]['character']
+                  : item.properties['authorName'] != null
+                  ? 'Auteur'
                   : ''),
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 10, color: Colors.white),

@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:developer';
 
 import '../models/data.dart';
-import '../repository/data_repository.dart';
+//import '../repository/data_repository.dart';
 import 'ItemsPage.dart';
 
 class collectionPage extends StatefulWidget {
@@ -19,58 +19,46 @@ class collectionPage extends StatefulWidget {
   _collectionPage createState() => _collectionPage(user);
 }
 
-Future<List<Data>> ReadJsonData(
-    MediaType media, dynamic _dataRepository, dynamic user) async {
+//fonction permattant de récupérer tout les élément présent dans la wishlist
+Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
   var list;
   var list2;
   var items = [];
-  List<Data> items2 = [];
 
-  if (media == MediaType.Movie || media == MediaType.Tous) {
+    //appel de l'api
     final response =
         await http.get(Uri.parse('http://100.113.108.37:8081/getCollection?Id='+user.idUser.toString()));
 
+    // vérification de l'appel plus ajout élément dans la liste 
     if (response.statusCode == 200) {
       list = json.decode(response.body) as List<dynamic>;
       log(response.reasonPhrase.toString());
+      // verification du type pour l'affichage
       list.forEach((element) {
-        items.add(element);
-
-        //test cache
-        _dataRepository.addData(Data.fromJson(element));
+        if (media == MediaType.Movie && element['mediaType']=="Movie"){
+          items.add(element);
+        }else if  (media == MediaType.Book && element['mediaType']=="book"){
+          items.add(element);
+        }else if (media == MediaType.Anime && element['mediaType']=="anime"){
+          items.add(element);
+        }else if (media == MediaType.Serie && element['mediaType']=="Serie"){
+          items.add(element);
+        } else if (media == MediaType.Tous){
+          items.add(element);
+        }
       });
     } else {
       log(response.statusCode.toString() +
           " : " +
           response.reasonPhrase.toString());
     }
-  }
-
-  // if (media == MediaType.Serie || media == MediaType.Tous) {
-  //   final response2 =
-  //       await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
-
-  //   if (response2.statusCode == 200) {
-  //     list2 = json.decode(response2.body) as List<dynamic>;
-  //     log(response2.reasonPhrase.toString());
-  //     list2.forEach((element) {
-  //       items.add(element);
-  //     });
-  //   } else {
-  //     log(response2.statusCode.toString() +
-  //         " : " +
-  //         response2.reasonPhrase.toString());
-  //   }
-  // }
-  //test cache
-  //items2= _dataRepository.getAllDatas();
   return items.map((e) => Data.fromJson(e)).toList();
 }
 
 MediaType media = MediaType.Tous;
 
+//création des éléments dans le statefullwidget
 class _collectionPage extends State<collectionPage> {
-  final DataRepository _dataRepository = DataRepository();
 
   _collectionPage(dynamic user);
   static get user => user;
@@ -180,8 +168,10 @@ class _collectionPage extends State<collectionPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                           ]))),
+                  // se widget permet d'appeler des futurs qui permet de faire des appels asynchrone et de gérer ce qui va être retourner
+                  // en fonction du résultat
                   FutureBuilder(
-                    future: ReadJsonData(media, _dataRepository, widget.user),
+                    future: ReadJsonData(media, widget.user), //_dataRepository,
                     builder: (context, data) {
                       if (data.hasError) {
                         return Text('error');
@@ -250,6 +240,7 @@ class _collectionPage extends State<collectionPage> {
   }
 }
 
+// widget permettant de crée le text 
 class textSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

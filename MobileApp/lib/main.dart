@@ -75,6 +75,7 @@ class HomePage extends StatelessWidget {
                   child: RaisedButton(
                     elevation: 5,
                     onPressed: () async {
+                      // vérification du cache si il est remplie ou non pour renvoyer à une page différente 
                       users = await _userRepository.getAllUser();
                       if(users.length == 1)
                       {

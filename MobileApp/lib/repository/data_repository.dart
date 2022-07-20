@@ -13,4 +13,8 @@ class DataRepository {
   Future<List<Data>> getAllDatas() async {
     return await _cache.getAll();
   }
+
+  void delete() async {
+    await _cache.delete();
+  }
 }

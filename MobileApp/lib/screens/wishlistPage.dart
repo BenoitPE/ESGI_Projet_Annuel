@@ -18,50 +18,47 @@ class wishlistPage extends StatefulWidget {
   _wishlistPage createState() => _wishlistPage(user);
 }
 
+//fonction permattant de récupérer tout les élément présent dans la wishlist
 Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
   var list;
   var list2;
   var items = [];
   var user1 = user;
 
-  if (media == MediaType.Movie || media == MediaType.Tous) {
+    //appel de l'api
     final response =
         await http.get(Uri.parse('http://100.113.108.37:8081/getWishlist?Id='+user.idUser.toString()));
 
+    // vérification de l'appel plus ajout élément dans la liste 
     if (response.statusCode == 200) {
       list = json.decode(response.body) as List<dynamic>;
       log(response.reasonPhrase.toString());
+      // verification du type pour l'affichage
       list.forEach((element) {
-        items.add(element);
+        if (media == MediaType.Movie && element['mediaType']=="Movie"){
+          items.add(element);
+        }else if  (media == MediaType.Book && element['mediaType']=="book"){
+          items.add(element);
+        }else if (media == MediaType.Anime && element['mediaType']=="anime"){
+          items.add(element);
+        }else if (media == MediaType.Serie && element['mediaType']=="Serie"){
+          items.add(element);
+        } else if (media == MediaType.Tous){
+          items.add(element);
+        }
       });
     } else {
       log(response.statusCode.toString() +
           " : " +
           response.reasonPhrase.toString());
     }
-  }
 
-  // if (media == MediaType.Serie || media == MediaType.Tous) {
-  //   final response2 =
-  //       await http.get(Uri.parse('http://100.113.108.37:8081/getWishlist?Id='+user.idUser.toString()));
-
-  //   if (response2.statusCode == 200) {
-  //     list2 = json.decode(response2.body) as List<dynamic>;
-  //     log(response2.reasonPhrase.toString());
-  //     list2.forEach((element) {
-  //       items.add(element);
-  //     });
-  //   } else {
-  //     log(response2.statusCode.toString() +
-  //         " : " +
-  //         response2.reasonPhrase.toString());
-  //   }
-  // }
   return items.map((e) => Data.fromJson(e)).toList();
 }
 
 MediaType media = MediaType.Tous;
 
+//création des éléments dans le statefullwidget 
 class _wishlistPage extends State<wishlistPage> {
   _wishlistPage(dynamic user);
   static get user => user;
@@ -171,6 +168,8 @@ class _wishlistPage extends State<wishlistPage> {
                                                   .withOpacity(0.5)),
                                     ))),
                           ]))),
+                  // se widget permet d'appeler des futurs qui permet de faire des appels asynchrone et de gérer ce qui va être retourner 
+                  // en fonction du résultat 
                   FutureBuilder(
                     future: ReadJsonData(media, widget.user),
                     builder: (context, data) {
@@ -239,6 +238,7 @@ class _wishlistPage extends State<wishlistPage> {
   }
 }
 
+// widget permettant de crée le text 
 class textSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

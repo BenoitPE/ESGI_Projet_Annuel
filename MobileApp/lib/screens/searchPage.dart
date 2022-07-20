@@ -18,6 +18,7 @@ class searchPage extends StatefulWidget {
   _searchPage createState() => _searchPage(user);
 }
 
+// création d'une partie de la searchPage , le composant crée ici est la bottom bar permettant de naviger entre les pages 
 class _searchPage extends State<searchPage> {
   _searchPage(final user);
 
@@ -75,22 +76,6 @@ class _searchPage extends State<searchPage> {
   }
 }
 
-class CardItem {
-  final urlImage;
-
-  const CardItem({required this.urlImage});
-}
-
-class TestItem {
-  String label;
-  dynamic value;
-  TestItem({required this.label, this.value});
-
-  factory TestItem.fromJson(Map<String, dynamic> json) {
-    return TestItem(label: json['label'], value: json['value']);
-  }
-}
-
 class itemSection extends StatelessWidget {
   String name;
   String titre;
@@ -99,6 +84,7 @@ class itemSection extends StatelessWidget {
   dynamic test;
   dynamic user;
 
+  // fonction permettant de gérer si il manque une image dans les données pour en affichée une par défault 
   ImageProvider<Object> urlImage(item, name) {
     if (item.imageUrl != null) {
       return item.imageUrl != null
@@ -112,6 +98,7 @@ class itemSection extends StatelessWidget {
 
   late Future<List<Data>> futureData;
 
+  // fonction asynchrone permattant de faires des appels api et de traité les données récupérer 
   Future<List<Data>> ReadJsonData(String myController, MediaType media) async {
     var list;
     var list2;
@@ -119,6 +106,8 @@ class itemSection extends StatelessWidget {
     var list4;
     var items = [];
     debugPrint(myController);
+
+    // fait les appels et traintement de donnée lors d'une recherche en fonction des types de données 
     if (myController != "") {
       if (media == MediaType.Movie || media == MediaType.Tous) {
         final response = await http.get(
@@ -153,7 +142,43 @@ class itemSection extends StatelessWidget {
               response2.reasonPhrase.toString());
         }
       }
-    } else {
+
+      if (media == MediaType.Anime || media == MediaType.Tous) {
+        final response3 = await http.get(
+            Uri.parse('http://100.113.108.37/Serie/Search/' + myController));
+
+        if (response3.statusCode == 200) {
+          list3 = json.decode(response3.body) as List<dynamic>;
+          log(response3.reasonPhrase.toString());
+          list3.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response3.statusCode.toString() +
+              " : " +
+              response3.reasonPhrase.toString());
+        }
+      }
+
+      if (media == MediaType.Book || media == MediaType.Tous) {
+        final response4 = await http.get(
+            Uri.parse('http://100.113.108.37:8080/getBookFromApiByTitle?title=' + myController));
+
+        if (response4.statusCode == 200) {
+          list4 = json.decode(response4.body) as List<dynamic>;
+          log(response4.reasonPhrase.toString());
+          list4.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response4.statusCode.toString() +
+              " : " +
+              response4.reasonPhrase.toString());
+        }
+      }
+    } 
+    // fait les appels et traintement de donnée si il n'y as pas de recherche éffectuée 
+    else {
       if (media == MediaType.Movie || media == MediaType.Tous) {
         final response =
             await http.get(Uri.parse('http://100.113.108.37/Movie/Popular'));
@@ -187,11 +212,46 @@ class itemSection extends StatelessWidget {
               response2.reasonPhrase.toString());
         }
       }
+
+      if (media == MediaType.Anime || media == MediaType.Tous) {
+        final response3 = await http.get(
+            Uri.parse('http://100.113.108.37/Serie/Search/'));
+
+        if (response3.statusCode == 200) {
+          list3 = json.decode(response3.body) as List<dynamic>;
+          log(response3.reasonPhrase.toString());
+          list3.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response3.statusCode.toString() +
+              " : " +
+              response3.reasonPhrase.toString());
+        }
+      }
+
+      if (media == MediaType.Book || media == MediaType.Tous) {
+        final response4 = await http.get(
+            Uri.parse('http://100.113.108.37:8080/getBooksFromApi'));
+
+        if (response4.statusCode == 200) {
+          list4 = json.decode(response4.body) as List<dynamic>;
+          log(response4.reasonPhrase.toString());
+          list4.forEach((element) {
+            items.add(element);
+          });
+        } else {
+          log(response4.statusCode.toString() +
+              " : " +
+              response4.reasonPhrase.toString());
+        }
+      }
     }
 
     return items.map((e) => Data.fromJson(e)).toList();
   }
 
+  // ensemble de widget permettant l'affichage des données des différents type de donnée 
   @override
   Widget build(BuildContext context) {
     futureData = ReadJsonData(myController, media);
@@ -218,6 +278,8 @@ class itemSection extends StatelessWidget {
             ),
           ]),
         ),
+        // se widget permet d'appeler des futurs qui permet de faire des appels asynchrone et de gérer ce qui va être retourner 
+        // en fonction du résultat 
         FutureBuilder(
           future: futureData,
           builder: (context, data) {
@@ -286,6 +348,7 @@ class containerSearch extends StatefulWidget {
   _containerSearch createState() => _containerSearch(user);
 }
 
+//création des éléments dans le statefullwidget ici la partie recherche et appeles les widgets ItemSection
 class _containerSearch extends State<containerSearch> {
   late TextEditingController myController = TextEditingController();
   late String titre = '';

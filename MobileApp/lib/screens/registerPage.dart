@@ -12,6 +12,7 @@ class registerPage extends StatelessWidget {
   late TextEditingController myControllerPassword = TextEditingController();
   late TextEditingController myControllerEmail = TextEditingController();
 
+//widget qui construit la page registerpage avec différents widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +41,7 @@ class registerPage extends StatelessWidget {
                       width: double.infinity,
                       child: RaisedButton(
                         elevation: 5,
+                        // parti asynchrone permettant d'enregister un utilisateur dans la bdd
                         onPressed: () async {
                           final response = await http.post(
                             Uri.parse('http://100.113.108.37:8081/addUser'),
@@ -63,6 +65,7 @@ class registerPage extends StatelessWidget {
                                   builder: (context) => loginPage()),
                             );
                           } else {
+                            //une popup d'alerte permet de prevenir si il manque des informations renseignée
                             showDialog(
                                 context: context,
                                 barrierDismissible: false,
@@ -71,7 +74,6 @@ class registerPage extends StatelessWidget {
                                     title: Column(
                                       children: [
                                         Container(
-                                          //height: MediaQuery.of(context).size.height/6,
                                           child: Row(children: [
                                             Text((() {
                                               if (myControllerUsername.text == "" &&
@@ -130,6 +132,7 @@ class registerPage extends StatelessWidget {
   }
 }
 
+//widget qui crée la partie username
 Widget buildUsername(myControllerUsername) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,6 +164,7 @@ Widget buildUsername(myControllerUsername) {
       ]);
 }
 
+//widget qui crée la partie password
 Widget buildPassword(myControllerPassword) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,6 +196,7 @@ Widget buildPassword(myControllerPassword) {
       ]);
 }
 
+//widget qui crée la partie email 
 Widget buildEmail(myControllerEmail) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,88 +227,3 @@ Widget buildEmail(myControllerEmail) {
         )
       ]);
 }
-
-// Widget buildInscriptionBtn(BuildContext context) {
-//   return Container(
-//     padding: EdgeInsets.symmetric(vertical: 7),
-//     width: double.infinity,
-//     child: RaisedButton(
-//       elevation: 5,
-//       onPressed: () async {
-//                           final response = await http.post(
-//                             Uri.parse(
-//                                 'http://100.113.108.37:8081/login?Username=' +
-//                                     myControllerUsername.text +
-//                                     '&Password=' +
-//                                     myControllerPassword.text),
-//                             headers: {
-//                               'Content-Type': 'application/json; charset=UTF-8',
-//                             },
-//                             body: jsonEncode({
-//                               //'idUser': idUser,
-//                               'username': myControllerUsername.text,
-//                               //'email': email,
-//                               'password': myControllerPassword.text,
-//                             }),
-//                           );
-
-//                           if (myControllerUsername.text != "" &&
-//                               myControllerPassword.text != "" &&
-//                               response.statusCode == 200) {
-//                             Navigator.push(
-//                               context,
-//                               MaterialPageRoute(
-//                                   builder: (context) => searchPage()),
-//                             );
-//                           } else {
-//                             showDialog(
-//                                 context: context,
-//                                 barrierDismissible: false,
-//                                 builder: (BuildContext context) {
-//                                   return AlertDialog(
-//                                     title: Column(
-//                                       children: [
-//                                         Container(
-//                                           //height: MediaQuery.of(context).size.height/6,
-//                                           child: Row(children: [
-//                                             Text((() {
-//                                               if (myControllerUsername.text ==
-//                                                       "" &&
-//                                                   myControllerPassword.text ==
-//                                                       "") {
-//                                                 return "Veuillez saisir un identifiant \n et un password ";
-//                                               } else if (myControllerUsername
-//                                                       .text ==
-//                                                   "") {
-//                                                 return "Veuillez saisir un identifiant";
-//                                               } else if (myControllerUsername
-//                                                       .text ==
-//                                                   "") {
-//                                                 return "Veuillez saisir un password";
-//                                               } else {
-//                                                 return "identifant ou mots de passe déja utilisée ";
-//                                               }
-//                                             })()),
-//                                           ]),
-//                                         ),
-//                                         const CloseButton(),
-//                                       ],
-//                                     ),
-//                                     shape: RoundedRectangleBorder(
-//                                       borderRadius: BorderRadius.circular(20),
-//                                     ),
-//                                   );
-//                                 });
-//                           }
-//                         },,
-//       padding: EdgeInsets.all(15),
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-//       color: Colors.red,
-//       child: Text(
-//         "S'inscrire",
-//         style: TextStyle(
-//             color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-//       ),
-//     ),
-//   );
-// }

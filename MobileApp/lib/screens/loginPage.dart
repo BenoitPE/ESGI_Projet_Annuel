@@ -40,7 +40,7 @@ class _loginPage extends State<loginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: 100),
-                    buildEmail(myControllerUsername),
+                    buildUseName(myControllerUsername),
                     SizedBox(height: 10),
                     buildPassword(myControllerPassword),
                     SizedBox(height: 10),
@@ -49,6 +49,7 @@ class _loginPage extends State<loginPage> {
                       width: double.infinity,
                       child: RaisedButton(
                         elevation: 5,
+                        // parti asynchrone permettant de se connecter vérification cotée api 
                         onPressed: () async {
                           final response = await http.post(
                             Uri.parse(
@@ -68,6 +69,7 @@ class _loginPage extends State<loginPage> {
                                   builder: (context) => searchPage(user: user)),
                             );
                           } else {
+                            //une popup d'alerte permet de prevenir si il manque des informations renseignée
                             showDialog(
                                 context: context,
                                 barrierDismissible: false,
@@ -120,8 +122,6 @@ class _loginPage extends State<loginPage> {
                         ),
                       ),
                     ),
-                    // buildLoginBtn(context, myControllerUsername.text,
-                    //     myControllerPassword.text),
                     buildInfBtn(context)
                   ],
                 ),
@@ -132,7 +132,8 @@ class _loginPage extends State<loginPage> {
   }
 }
 
-Widget buildEmail(TextEditingController myControllerUsername) {
+//widget qui crée la partie username 
+Widget buildUseName(TextEditingController myControllerUsername) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -163,6 +164,7 @@ Widget buildEmail(TextEditingController myControllerUsername) {
       ]);
 }
 
+//widget qui crée la partie mot de passe  
 Widget buildPassword(TextEditingController myControllerPassword) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,6 +196,7 @@ Widget buildPassword(TextEditingController myControllerPassword) {
       ]);
 }
 
+//widget qui permet de renvoyer vers la page registerPage afin de s'enregistrer 
 Widget buildInfBtn(BuildContext context) {
   return Container(
     alignment: Alignment.center,
