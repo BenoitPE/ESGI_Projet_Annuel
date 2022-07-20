@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_test/repository/user_repository.dart';
-import 'package:flutter_project_test/screens/loginPage.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
+import 'package:Watchlist/repository/user_repository.dart';
+import 'package:Watchlist/screens/loginPage.dart';
+import 'package:Watchlist/screens/searchPage.dart';
 
 import 'models/data.dart';
 

@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_project_test/repository/user_repository.dart';
-import 'package:flutter_project_test/screens/registerPage.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
+import 'package:Watchlist/repository/user_repository.dart';
+import 'package:Watchlist/screens/registerPage.dart';
+import 'package:Watchlist/screens/searchPage.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer';
-
 import '../models/data.dart';
 
 class loginPage extends StatefulWidget {
@@ -47,6 +42,7 @@ class _loginPage extends State<loginPage> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 7),
                       width: double.infinity,
+                      // ignore: deprecated_member_use
                       child: RaisedButton(
                         elevation: 5,
                         // parti asynchrone permettant de se connecter vérification cotée api 
@@ -200,6 +196,7 @@ Widget buildPassword(TextEditingController myControllerPassword) {
 Widget buildInfBtn(BuildContext context) {
   return Container(
     alignment: Alignment.center,
+    // ignore: deprecated_member_use
     child: FlatButton(
       onPressed: () {
         Navigator.push(

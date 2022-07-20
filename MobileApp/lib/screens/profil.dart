@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
-import '../models/data.dart';
 import '../repository/user_repository.dart';
 import 'loginPage.dart';
 
@@ -56,6 +53,7 @@ class profilPage extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                             width: double.infinity,
+                            // ignore: deprecated_member_use
                             child: RaisedButton(
                               elevation: 5,
                               onPressed: () async {
@@ -179,7 +177,6 @@ class profilPage extends StatelessWidget {
       );
 
   //widget qui crée le fond d'écran
-  @override
   Widget buildBackground() => ShaderMask(
         shaderCallback: (bounds) => LinearGradient(
           colors: [Colors.transparent, Colors.black],

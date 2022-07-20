@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_project_test/screens/ItemsPage.dart';
-import 'package:flutter_project_test/screens/profil.dart';
-import 'package:flutter_project_test/screens/wishlistPage.dart';
-import 'package:flutter_project_test/models/data.dart';
+import 'package:Watchlist/screens/ItemsPage.dart';
+import 'package:Watchlist/screens/profil.dart';
+import 'package:Watchlist/screens/wishlistPage.dart';
+import 'package:Watchlist/models/data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 import 'collectionPage.dart';
@@ -22,6 +22,7 @@ class searchPage extends StatefulWidget {
 class _searchPage extends State<searchPage> {
   _searchPage(final user);
 
+  // ignore: unused_element
   static get user => user;
 
   int currentIndex = 1;
@@ -76,6 +77,7 @@ class _searchPage extends State<searchPage> {
   }
 }
 
+// ignore: must_be_immutable
 class itemSection extends StatelessWidget {
   String name;
   String titre;
@@ -91,7 +93,7 @@ class itemSection extends StatelessWidget {
           ? NetworkImage(item.imageUrl)
           : AssetImage('image/NoImage.jpg') as ImageProvider;
     } else
-      return AssetImage('image/NoImage.jpg') as ImageProvider;
+      return AssetImage('image/NoImage.jpg');
   }
 
   itemSection(this.name, this.titre, this.media, this.myController, this.user);

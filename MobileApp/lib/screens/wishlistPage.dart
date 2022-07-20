@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' as rootBundle;
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
@@ -21,9 +20,7 @@ class wishlistPage extends StatefulWidget {
 //fonction permattant de récupérer tout les élément présent dans la wishlist
 Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
   var list;
-  var list2;
   var items = [];
-  var user1 = user;
 
     //appel de l'api
     final response =
@@ -61,6 +58,7 @@ MediaType media = MediaType.Tous;
 //création des éléments dans le statefullwidget 
 class _wishlistPage extends State<wishlistPage> {
   _wishlistPage(dynamic user);
+  // ignore: unused_element
   static get user => user;
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,9 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_project_test/screens/loginPage.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
+import 'package:Watchlist/screens/loginPage.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer';
 
+// ignore: must_be_immutable
 class registerPage extends StatelessWidget {
   late TextEditingController myControllerUsername = TextEditingController();
   late TextEditingController myControllerPassword = TextEditingController();
@@ -39,6 +36,7 @@ class registerPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 7),
                       width: double.infinity,
+                      // ignore: deprecated_member_use
                       child: RaisedButton(
                         elevation: 5,
                         // parti asynchrone permettant d'enregister un utilisateur dans la bdd

@@ -1,10 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-import 'dart:math';
-import 'dart:ui';
 import 'package:http/http.dart' as http;
-import 'dart:developer';
-import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
@@ -107,7 +102,8 @@ class ItemsPage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(width: 25),
-                                  Container(
+                                  item.properties['trailerUrl'] !=null
+                                  ? Container(
                                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     decoration: BoxDecoration(
                                         color: Colors.red.withOpacity(0.7),
@@ -120,6 +116,7 @@ class ItemsPage extends StatelessWidget {
                                           final url = item
                                               .properties['trailerUrl']
                                               .toString();
+                                          // ignore: deprecated_member_use
                                           await launch(url,
                                               forceWebView: true,
                                               enableJavaScript: true);
@@ -130,7 +127,8 @@ class ItemsPage extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                     ),
-                                  ),
+                                  )
+                                  : Container()
                                 ],
                               )
                             ],
@@ -169,7 +167,6 @@ class ItemsPage extends StatelessWidget {
         ],
       );
 
-  @override
   Widget buildBackground() => ShaderMask(
         shaderCallback: (bounds) => LinearGradient(
           colors: [Colors.transparent, Colors.black],
