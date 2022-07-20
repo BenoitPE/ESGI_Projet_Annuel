@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                       text:
-                          "Films, séries TV, animées et \nlivres, listez tout ce que vous \navez pour ne plus jamais \nl'oublier",
+                          "Films, séries TV, animés et \nlivres, listez tout ce que vous \navez pour ne plus jamais \nl'oublier",
                       style: TextStyle(color: Color(0xFF616161), fontSize: 25)),
                 ],
               ),

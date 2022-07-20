@@ -89,12 +89,12 @@ class _loginPage extends State<loginPage> {
                                                       .text ==
                                                   "") {
                                                 return "Veuillez saisir un identifiant";
-                                              } else if (myControllerUsername
+                                              } else if (myControllerPassword
                                                       .text ==
                                                   "") {
                                                 return "Veuillez saisir un password";
                                               } else {
-                                                return "identifiant ou mots de passe \n incorrect ";
+                                                return "identifiant ou mots \nde passe incorrect ";
                                               }
                                             })()),
                                           ]),

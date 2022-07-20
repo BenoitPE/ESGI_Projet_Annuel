@@ -212,7 +212,7 @@ class profilPage extends StatelessWidget {
       return list.length.toString();
     } else {
       log("error load data");
-      return "";
+      return "0";
     }
   }
 
@@ -225,7 +225,7 @@ class profilPage extends StatelessWidget {
       return list.length.toString();
     } else {
       log("error load data");
-      return "";
+      return "0";
     }
   }
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:http/http.dart' as http;
@@ -31,7 +32,7 @@ class ItemsPage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Column(
                             children: [
-                              Text('Série TV',
+                              Text(item.mediaType,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15)),
@@ -149,7 +150,7 @@ class ItemsPage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                item.overview != null? item.overview : '',
+                                item.overview != null? item.overview: '',
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.6),
                                 ),
