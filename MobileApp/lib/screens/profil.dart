@@ -1,16 +1,15 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
-import '../models/data.dart';
 import '../repository/user_repository.dart';
 import 'loginPage.dart';
 
 class profilPage extends StatelessWidget {
   final user;
   const profilPage({Key? key, required this.user}) : super(key: key);
+
+  //widget qui permet de crée l'affichage du la page profil
   @override
   Widget build(BuildContext context) => Stack(
         children: [
@@ -54,6 +53,7 @@ class profilPage extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                             width: double.infinity,
+                            // ignore: deprecated_member_use
                             child: RaisedButton(
                               elevation: 5,
                               onPressed: () async {
@@ -176,7 +176,7 @@ class profilPage extends StatelessWidget {
         ],
       );
 
-  @override
+  //widget qui crée le fond d'écran
   Widget buildBackground() => ShaderMask(
         shaderCallback: (bounds) => LinearGradient(
           colors: [Colors.transparent, Colors.black],
@@ -199,6 +199,7 @@ class profilPage extends StatelessWidget {
         ),
       );
 
+//futur qui appel l'api afin davoir le nombre d'élement détenue par l'utilisateur dans sa collection 
   Future<String> nbCollection(dynamic user) async {
     final response = await http.get(Uri.parse(
         'http://100.113.108.37:8081/getCollection?Id=' +
@@ -208,10 +209,11 @@ class profilPage extends StatelessWidget {
       return list.length.toString();
     } else {
       log("error load data");
-      return "";
+      return "0";
     }
   }
 
+//futur qui appel l'api afin davoir le nombre d'élement détenue par l'utilisateur dans sa collection 
   Future<String> nbWishlist(dynamic user) async {
     final response = await http.get(Uri.parse(
         'http://100.113.108.37:8081/getWishlist?Id=' + user.idUser.toString()));
@@ -220,7 +222,7 @@ class profilPage extends StatelessWidget {
       return list.length.toString();
     } else {
       log("error load data");
-      return "";
+      return "0";
     }
   }
 }

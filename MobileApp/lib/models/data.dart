@@ -9,33 +9,31 @@ class Data {
   final dynamic overview;
   final dynamic properties;
 
-  const Data({
-    this.mediaType,
-    this.id,
-    this.title,
-    this.date,
-    this.adult,
-    this.imageUrl,
-    this.genres,
-    this.overview,
-    this.properties
-  });
+  const Data(
+      {this.mediaType,
+      this.id,
+      this.title,
+      this.date,
+      this.adult,
+      this.imageUrl,
+      this.genres,
+      this.overview,
+      this.properties});
 
   factory Data.fromJson(Map<String, dynamic> json) {
     return Data(
-      mediaType: json['mediaType'],
-      id: json['id'],
-      title: json['title'],
-      date: json['date'],
-      adult: json['adult'],
-      imageUrl: json['imageUrl'],
-      genres: json['genres'],
-      overview: json['overview'],
-      properties:json['properties']
-    );
+        mediaType: json['mediaType'],
+        id: json['id'],
+        title: json['title'],
+        date: json['date'],
+        adult: json['adult'],
+        imageUrl: json['imageUrl'],
+        genres: json['genres'],
+        overview: json['overview'],
+        properties: json['properties']);
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJsonDatabase() {
     return {
       'mediaType': mediaType,
       'id': id,
@@ -43,33 +41,58 @@ class Data {
       'date': date,
       'adult': adult,
       'imageUrl': imageUrl,
-      'genres': genres,
+      'genres': "",
       'overview': overview,
-      'properties': properties,
+      'properties': properties['trailerUrl'],
+    };
+  }
+}
+
+class Characters {
+  final dynamic gender;
+  final dynamic name;
+  final dynamic character;
+  final dynamic profile_path;
+  final dynamic idProperties;
+
+  Characters({this.gender, this.character, this.name, this.profile_path, this.idProperties});
+
+  factory Characters.fromJson(Map<String, dynamic> json) {
+    int gender = json['gender'];
+    String character = json['character'];
+    String name = json['name'];
+    String profile_path = json['profile_path'];
+    return Characters(
+        gender: gender,
+        character: character,
+        name: name,
+        profile_path: profile_path);
+  }
+
+  Map<String, dynamic> toJsonDatabaseCharacters(dynamic element) {
+    return {
+      'gender': gender,
+      'character': character,
+      'name': name,
+      'profile_path': profile_path,
+      'idProperties' : element.id
     };
   }
 }
 
 class User {
-  final int idUser ;
+  final int idUser;
   final String username;
-  final String email ;
+  final String email;
   final String password;
 
-  User ({
-    required this.idUser,
-    required this.username,
-    required this.email,
-    required this.password
-  });
+  User(
+      {required this.idUser,
+      required this.username,
+      required this.email,
+      required this.password});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    // return User(
-    //   idUser: json['idUser'],
-    //   username: json['username'],
-    //   email: json['email'],
-    //   password: json['password'],
-    // );
     int idUser = json['idUser'];
     String username = json['username'];
     String email = json['email'];

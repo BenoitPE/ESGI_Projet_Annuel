@@ -1,6 +1,6 @@
 
 
-import 'package:flutter_project_test/models/data.dart';
+import 'package:Watchlist/models/data.dart';
 import '../providers/data_cache_provider.dart';
 
 class DataRepository {
@@ -12,5 +12,9 @@ class DataRepository {
 
   Future<List<Data>> getAllDatas() async {
     return await _cache.getAll();
+  }
+
+  void delete() async {
+    await _cache.delete();
   }
 }

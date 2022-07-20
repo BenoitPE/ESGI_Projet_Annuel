@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_test/repository/user_repository.dart';
-import 'package:flutter_project_test/screens/loginPage.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
+import 'package:Watchlist/repository/user_repository.dart';
+import 'package:Watchlist/screens/loginPage.dart';
+import 'package:Watchlist/screens/searchPage.dart';
 
 import 'models/data.dart';
 
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                       text:
-                          "Films, séries TV, animées et \nlivres, listez tout ce que vous \navez pour ne plus jamais \nl'oublier",
+                          "Films, séries TV, animés et \nlivres, listez tout ce que vous \navez pour ne plus jamais \nl'oublier",
                       style: TextStyle(color: Color(0xFF616161), fontSize: 25)),
                 ],
               ),
@@ -75,6 +75,7 @@ class HomePage extends StatelessWidget {
                   child: RaisedButton(
                     elevation: 5,
                     onPressed: () async {
+                      // vérification du cache si il est remplie ou non pour renvoyer à une page différente 
                       users = await _userRepository.getAllUser();
                       if(users.length == 1)
                       {
