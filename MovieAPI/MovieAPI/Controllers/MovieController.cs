@@ -70,13 +70,16 @@ namespace MovieAPI.Controllers
             if(search.Results.Count > 9)
                 search.Results = search.Results.GetRange(0, 9);
 
-            List<Content> movieList = new List<Content>();
+            List<Content> contents = new List<Content>();
             for (int i = 0; i < search.Results.Count; i++)
             {
-                movieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
+                Content content = (Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value;
+                if(!String.IsNullOrWhiteSpace(content?.Date))
+                    contents.Add(content);
             }
+            contents = MovieAPI.Models.Content.MergeSort(contents);
 
-            return Ok(movieList);
+            return Ok(contents);
         }
 
         /// <summary>
@@ -90,8 +93,6 @@ namespace MovieAPI.Controllers
             if (!response.IsSuccessStatusCode)
                 return NotFound();
 
-            string? res = await response.Content.ReadAsStringAsync();
-
             MovieSearch? search = JsonSerializer.Deserialize<MovieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
@@ -102,13 +103,16 @@ namespace MovieAPI.Controllers
             if (search.Results.Count > 9)
                 search.Results = search.Results.GetRange(0, 9);
 
-            List<Content> movieList = new List<Content>();
+            List<Content> contents = new List<Content>();
             for (int i = 0; i < search.Results.Count; i++)
             {
-                movieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
+                Content content = (Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value;
+                if (!String.IsNullOrWhiteSpace(content?.Date))
+                    contents.Add(content);
             }
+            contents = MovieAPI.Models.Content.MergeSort(contents);
 
-            return Ok(movieList);
+            return Ok(contents);
         }
     }
 }
