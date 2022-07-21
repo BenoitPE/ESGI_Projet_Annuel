@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_project_test/repository/user_repository.dart';
-import 'package:flutter_project_test/screens/registerPage.dart';
-import 'package:flutter_project_test/screens/searchPage.dart';
+import 'package:Watchlist/repository/user_repository.dart';
+import 'package:Watchlist/screens/registerPage.dart';
+import 'package:Watchlist/screens/searchPage.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer';
-
 import '../models/data.dart';
 
 class loginPage extends StatefulWidget {
@@ -40,15 +35,17 @@ class _loginPage extends State<loginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: 100),
-                    buildEmail(myControllerUsername),
+                    buildUseName(myControllerUsername),
                     SizedBox(height: 10),
                     buildPassword(myControllerPassword),
                     SizedBox(height: 10),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 7),
                       width: double.infinity,
+                      // ignore: deprecated_member_use
                       child: RaisedButton(
                         elevation: 5,
+                        // parti asynchrone permettant de se connecter vérification cotée api 
                         onPressed: () async {
                           final response = await http.post(
                             Uri.parse(
@@ -68,6 +65,7 @@ class _loginPage extends State<loginPage> {
                                   builder: (context) => searchPage(user: user)),
                             );
                           } else {
+                            //une popup d'alerte permet de prevenir si il manque des informations renseignée
                             showDialog(
                                 context: context,
                                 barrierDismissible: false,
@@ -87,12 +85,12 @@ class _loginPage extends State<loginPage> {
                                                       .text ==
                                                   "") {
                                                 return "Veuillez saisir un identifiant";
-                                              } else if (myControllerUsername
+                                              } else if (myControllerPassword
                                                       .text ==
                                                   "") {
                                                 return "Veuillez saisir un password";
                                               } else {
-                                                return "identifiant ou mots de passe \n incorrect ";
+                                                return "identifiant ou mots \nde passe incorrect ";
                                               }
                                             })()),
                                           ]),
@@ -120,8 +118,6 @@ class _loginPage extends State<loginPage> {
                         ),
                       ),
                     ),
-                    // buildLoginBtn(context, myControllerUsername.text,
-                    //     myControllerPassword.text),
                     buildInfBtn(context)
                   ],
                 ),
@@ -132,7 +128,8 @@ class _loginPage extends State<loginPage> {
   }
 }
 
-Widget buildEmail(TextEditingController myControllerUsername) {
+//widget qui crée la partie username 
+Widget buildUseName(TextEditingController myControllerUsername) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -163,6 +160,7 @@ Widget buildEmail(TextEditingController myControllerUsername) {
       ]);
 }
 
+//widget qui crée la partie mot de passe  
 Widget buildPassword(TextEditingController myControllerPassword) {
   return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,9 +192,11 @@ Widget buildPassword(TextEditingController myControllerPassword) {
       ]);
 }
 
+//widget qui permet de renvoyer vers la page registerPage afin de s'enregistrer 
 Widget buildInfBtn(BuildContext context) {
   return Container(
     alignment: Alignment.center,
+    // ignore: deprecated_member_use
     child: FlatButton(
       onPressed: () {
         Navigator.push(

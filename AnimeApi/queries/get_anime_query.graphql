@@ -1,0 +1,36 @@
+query ($id: Int, $search: String) {
+   Page {
+    media (id: $id, search: $search, type: ANIME, sort : TITLE_ENGLISH) {
+       id
+       title {
+          english
+         }
+      characters(sort: ROLE) {
+            nodes {
+            id
+            gender
+            name {
+               userPreferred
+            }
+            image {
+               medium
+            }
+            }
+         }
+       genres
+       description(asHtml: false)
+       episodes
+       duration
+       coverImage {
+          large
+       }
+       genres
+       isAdult
+       startDate {
+         year
+         month
+         day
+      }
+    }
+   }
+ }
