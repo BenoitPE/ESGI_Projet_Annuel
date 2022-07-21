@@ -56,7 +56,7 @@ class ItemsPage extends StatelessWidget {
                                               'http://100.113.108.37:8081/addToWishlist?MediaType=' +
                                                   item.mediaType +
                                                   '&MediaId=' +
-                                                  item.id +
+                                                  item.id.toString() +
                                                   '&Id=' +
                                                   user.idUser.toString()),
                                         );
@@ -86,7 +86,7 @@ class ItemsPage extends StatelessWidget {
                                               'http://100.113.108.37:8081/addToCollection?MediaType=' +
                                                   item.mediaType +
                                                   '&MediaId=' +
-                                                  item.id +
+                                                  item.id.toString() +
                                                   '&Id=' +
                                                   user.idUser.toString()),
                                         );
@@ -148,7 +148,7 @@ class ItemsPage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                item.overview != null? item.overview: '',
+                                item.overview != null? item.overview.replaceAll('<br>', ''): '',
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.6),
                                 ),
@@ -215,7 +215,7 @@ class rolesSection extends StatelessWidget {
           ]),
         ),
         Container(
-            height: item.properties['authorName'] != null ?  260 : 210,
+            height: item.properties['authorName'] != null ?  260 : 220,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: item.properties['characters'] != null
@@ -249,7 +249,9 @@ Widget buildCardRole(
                         child: Ink.image(
                       image: item.properties['characters']!= null && item.properties['characters'][index]['profile_path'] != null
                       ? NetworkImage(item.properties['characters'][index]['profile_path'])
-                      : AssetImage('image/NoUserImage.png') as ImageProvider  ,                    
+                      : item.properties['characters'][index]['imageUrl'] != null
+                      ? NetworkImage(item.properties['characters'][index]['imageUrl'])
+                      :AssetImage('image/NoUserImage.png') as ImageProvider  ,                    
                       fit: BoxFit.cover,
                     )))),
           ),
