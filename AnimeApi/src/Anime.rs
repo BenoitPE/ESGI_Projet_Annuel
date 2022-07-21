@@ -5,7 +5,7 @@ use serde_json::Value;
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Anime {
-    id: Option<i64>,
+    id: Option<String>,
     title: Option<String>,
     overview: Option<String>,
     date: Option<String>,
@@ -42,7 +42,7 @@ pub fn parse(datas: Value) -> String {
                     anime.mediaType = Some("anime".to_string());
 
                     if let Some(id) = item["id"].as_i64() {
-                        anime.id = Some(id);
+                        anime.id = Some(id.to_string());
                     }
 
                     if let Some(title) = item["title"].as_object().unwrap()["english"].as_str() {
@@ -136,7 +136,10 @@ pub fn parse(datas: Value) -> String {
     }
     if VecAnime.len() <= 0 {
         "".to_string()
-    } else {
+    } else if VecAnime.len() == 1 {
+        serde_json::to_string(&VecAnime[0]).unwrap()
+    }
+    else {
         serde_json::to_string(&VecAnime).unwrap()
     }
 }

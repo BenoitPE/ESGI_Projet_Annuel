@@ -6,6 +6,7 @@ import com.projetannuel.userapi.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @Operation(summary = "Récupération d'un utilisateur")
-    @RequestMapping(path = "getUser", method = RequestMethod.GET)
+    @RequestMapping(path = "getUser", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> get(@RequestParam("Id") Integer IdUser) {
         User result = userService.getUserByIdUser(IdUser);
         ResponseEntity response;
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     @Operation(summary = "Retourne un utilisateur si le login est Ok")
-    @RequestMapping(path = "login", method = RequestMethod.POST)
+    @RequestMapping(path = "login", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> login(@RequestParam("Username") String Username,@RequestParam("Password") String Password) {
         User result = userService.login(Username,Password);
         ResponseEntity response;
@@ -57,7 +58,7 @@ public class UserController {
     }
 
     @Operation(summary = "Récupération de tous les utilisateurs")
-    @RequestMapping(path = "/getAllUsers", method = RequestMethod.GET)
+    @RequestMapping(path = "/getAllUsers", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> result = userService.getAllUser();
         ResponseEntity response;
@@ -70,7 +71,7 @@ public class UserController {
     }
 
      @Operation(summary = "Séléction de la collection d'un utilisateur à partir de son identifiant")
-    @RequestMapping(path = "/getCollection", method = RequestMethod.GET)
+    @RequestMapping(path = "/getCollection", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
     public ResponseEntity<List<Content>> getUserCollectionByIdUser(@RequestParam("Id") Integer IdUser) {
          List<Content> result = userService.getUserCollectionByIdUser(IdUser);
          ResponseEntity response;
@@ -82,7 +83,7 @@ public class UserController {
          return response;
     }
     @Operation(summary = "Séléction de la wishlist d'un utilisateur à partir de son identifiant")
-    @RequestMapping(path = "/getWishlist", method = RequestMethod.GET)
+    @RequestMapping(path = "/getWishlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Content>> getUserWishlistByIdUser(@RequestParam("Id") Integer IdUser) {
         List<Content> result = userService.getUserWishlistByIdUser(IdUser);
         ResponseEntity response;
