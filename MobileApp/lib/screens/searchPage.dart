@@ -25,7 +25,7 @@ class _searchPage extends State<searchPage> {
   // ignore: unused_element
   static get user => user;
 
-  int currentIndex = 1;
+  int currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
