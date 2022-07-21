@@ -1,6 +1,6 @@
 query ($id: Int, $search: String) {
    Page {
-    media (id: $id, search: $search, type: ANIME, sort : TITLE_ENGLISH) {
+    media (id: $id, search: $search, type: ANIME, sort : POPULARITY_DESC) {
        id
        title {
           english
