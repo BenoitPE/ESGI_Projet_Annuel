@@ -4,6 +4,7 @@ query ($id: Int, $search: String) {
        id
        title {
           english
+          romaji
          }
       characters(sort: ROLE) {
             nodes {
