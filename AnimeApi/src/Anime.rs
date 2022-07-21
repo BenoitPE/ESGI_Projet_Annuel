@@ -47,6 +47,10 @@ pub fn parse(datas: Value) -> String {
 
                     if let Some(title) = item["title"].as_object().unwrap()["english"].as_str() {
                         anime.title = Some(title.to_string());
+                    } else {
+                        if let Some(title) = item["title"].as_object().unwrap()["romaji"].as_str() {
+                            anime.title = Some(title.to_string());
+                        }
                     }
 
                     if let Some(description) = item["description"].as_str() {
