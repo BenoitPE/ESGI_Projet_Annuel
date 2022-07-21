@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
 
   final UserRepository _userRepository = UserRepository();
@@ -72,6 +73,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
+                  // ignore: deprecated_member_use
                   child: RaisedButton(
                     elevation: 5,
                     onPressed: () async {

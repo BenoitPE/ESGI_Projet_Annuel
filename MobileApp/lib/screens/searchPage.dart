@@ -25,7 +25,7 @@ class _searchPage extends State<searchPage> {
   // ignore: unused_element
   static get user => user;
 
-  int currentIndex = 1;
+  int currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -147,13 +147,15 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Anime || media == MediaType.Tous) {
         final response3 = await http.get(
-            Uri.parse('http://100.113.108.37/Serie/Search/' + myController));
+            Uri.parse('http://100.113.108.37:8083/anime?name=' + myController));
 
         if (response3.statusCode == 200) {
           list3 = json.decode(response3.body) as List<dynamic>;
           log(response3.reasonPhrase.toString());
           list3.forEach((element) {
-            items.add(element);
+            if(element['adult']== false){
+              items.add(element);
+            }      
           });
         } else {
           log(response3.statusCode.toString() +

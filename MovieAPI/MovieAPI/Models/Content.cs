@@ -66,5 +66,62 @@
             Properties.Add("characters", serie.Credits?.Cast);
             Properties.Add("seasons", serie.Seasons);
         }
+
+        private static bool compareStringDate(string date1, string date2)
+        {
+            return Convert.ToDateTime(date1) > Convert.ToDateTime(date2);
+        }
+
+        private static List<Content> Merge(List<Content> left, List<Content> right)
+        {
+            List<Content> result = new List<Content>();
+            while (left.Count > 0 || right.Count > 0)
+            {
+                if (left.Count > 0 && right.Count > 0)
+                {
+                    if (compareStringDate(left.First().Date, right.First().Date))
+                    {
+                        result.Add(left.First());
+                        left.Remove(left.First());
+                    }
+                    else
+                    {
+                        result.Add(right.First());
+                        right.Remove(right.First());
+                    }
+                }
+                else if (left.Count > 0)
+                {
+                    result.Add(left.First());
+                    left.Remove(left.First());
+                }
+                else if (right.Count > 0)
+                {
+                    result.Add(right.First());
+                    right.Remove(right.First());
+                }
+            }
+            return result;
+        }
+
+        public static List<Content> MergeSort(List<Content> unsorted)
+        {
+            if (unsorted.Count <= 1)
+                return unsorted;
+
+            List<Content> left = new List<Content>();
+            List<Content> right = new List<Content>();
+
+            int middle = unsorted.Count / 2;
+            for (int i = 0; i < middle; i++)  //Dividing the unsorted list
+                left.Add(unsorted[i]);
+
+            for (int i = middle; i < unsorted.Count; i++)
+                right.Add(unsorted[i]);
+
+            left = MergeSort(left);
+            right = MergeSort(right);
+            return Merge(left, right);
+        }
     }
 }

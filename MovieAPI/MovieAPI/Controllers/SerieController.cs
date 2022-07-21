@@ -70,13 +70,16 @@ namespace MovieAPI.Controllers
             if (search.Results.Count > 9)
                 search.Results = search.Results.GetRange(0, 9);
 
-            List<Content> serieList = new List<Content>();
+            List<Content> contents = new List<Content>();
             for (int i = 0; i < search.Results.Count; i++)
             {
-                serieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
+                Content content = (Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value;
+                if (!String.IsNullOrWhiteSpace(content?.Date))
+                    contents.Add(content);
             }
+            contents = MovieAPI.Models.Content.MergeSort(contents);
 
-            return Ok(serieList);
+            return Ok(contents);
         }
 
         /// <summary>
@@ -102,13 +105,16 @@ namespace MovieAPI.Controllers
             if (search.Results.Count > 9)
                 search.Results = search.Results.GetRange(0, 9);
 
-            List<Content> serieList = new List<Content>();
+            List<Content> contents = new List<Content>();
             for (int i = 0; i < search.Results.Count; i++)
             {
-                serieList.Add((Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value);
+                Content content = (Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value;
+                if (!String.IsNullOrWhiteSpace(content?.Date))
+                    contents.Add(content);
             }
+            contents = MovieAPI.Models.Content.MergeSort(contents);
 
-            return Ok(serieList);
+            return Ok(contents);
         }
     }
 }
