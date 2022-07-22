@@ -31,7 +31,7 @@ Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
     final response = await http
         .get(Uri.parse('http://100.113.108.37:8081/getCollection?Id=' +
             user.idUser.toString()))
-        .timeout(const Duration(seconds: 30));
+        .timeout(const Duration(seconds: 10));
 
     // vérification de l'appel plus ajout élément dans la liste
     if (response.statusCode == 200) {
