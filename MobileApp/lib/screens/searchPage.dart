@@ -166,14 +166,12 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Book || media == MediaType.Tous) {
         final response4 = await http.get(
-            Uri.parse('http://100.113.108.37:8080/getBookFromApiByTitle?title=' + myController));
+            Uri.parse('http://100.113.108.37:8080/getBookFromApiByTitle?title=' + myController)); //http://100.113.108.37:8080/getBookFromApiByTitle?title=Harry%20Potter
 
         if (response4.statusCode == 200) {
-          list4 = json.decode(response4.body) as List<dynamic>;
+          list4 = json.decode(response4.body);
           log(response4.reasonPhrase.toString());
-          list4.forEach((element) {
-            items.add(element);
-          });
+          items.add(list4);
         } else {
           log(response4.statusCode.toString() +
               " : " +

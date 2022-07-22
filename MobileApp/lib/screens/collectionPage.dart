@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Watchlist/repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
@@ -22,42 +23,83 @@ class collectionPage extends StatefulWidget {
 Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
   var list;
   var items = [];
+  List<Data> itemsCache = [];
+  final DataRepository _dataRepository = DataRepository();
 
+  try {
     //appel de l'api
-    final response =
-        await http.get(Uri.parse('http://100.113.108.37:8081/getCollection?Id='+user.idUser.toString()));
+    final response = await http
+        .get(Uri.parse('http://100.113.108.37:8081/getCollection?Id=' +
+            user.idUser.toString()))
+        .timeout(const Duration(seconds: 30));
 
-    // vérification de l'appel plus ajout élément dans la liste 
+    // vérification de l'appel plus ajout élément dans la liste
     if (response.statusCode == 200) {
       list = json.decode(response.body) as List<dynamic>;
       log(response.reasonPhrase.toString());
+      _dataRepository.deleteAll();
       // verification du type pour l'affichage
       list.forEach((element) {
-        if (media == MediaType.Movie && element['mediaType']=="Movie"){
+        if (media == MediaType.Movie && element['mediaType'] == "Movie") {
           items.add(element);
-        }else if  (media == MediaType.Book && element['mediaType']=="book"){
+        } else if (media == MediaType.Book && element['mediaType'] == "book") {
           items.add(element);
-        }else if (media == MediaType.Anime && element['mediaType']=="anime"){
+        } else if (media == MediaType.Anime &&
+            element['mediaType'] == "anime") {
           items.add(element);
-        }else if (media == MediaType.Serie && element['mediaType']=="Serie"){
+        } else if (media == MediaType.Serie &&
+            element['mediaType'] == "Serie") {
           items.add(element);
-        } else if (media == MediaType.Tous){
+        } else if (media == MediaType.Tous) {
           items.add(element);
         }
+        Data data = new Data.fromJson(element);
+        _dataRepository.addData(data);
       });
     } else {
-      log(response.statusCode.toString() +
-          " : " +
-          response.reasonPhrase.toString());
+      // log(response.statusCode.toString() +
+      //     " : " +
+      //     response.reasonPhrase.toString());
+      var list2 = await _dataRepository.getAllData();
+      list2.forEach((element) {
+        if (media == MediaType.Movie && element.mediaType == "Movie") {
+          itemsCache.add(element);
+        } else if (media == MediaType.Book && element.mediaType == "book") {
+          itemsCache.add(element);
+        } else if (media == MediaType.Anime && element.mediaType == "anime") {
+          itemsCache.add(element);
+        } else if (media == MediaType.Serie && element.mediaType == "Serie") {
+          itemsCache.add(element);
+        } else if (media == MediaType.Tous) {
+          itemsCache.add(element);
+        }
+      });
+      return itemsCache;
     }
-  return items.map((e) => Data.fromJson(e)).toList();
+    return items.map((e) => Data.fromJson(e)).toList();
+  } catch (e) {
+    var list2 = await _dataRepository.getAllData();
+    list2.forEach((element) {
+      if (media == MediaType.Movie && element.mediaType == "Movie") {
+        itemsCache.add(element);
+      } else if (media == MediaType.Book && element.mediaType == "book") {
+        itemsCache.add(element);
+      } else if (media == MediaType.Anime && element.mediaType == "anime") {
+        itemsCache.add(element);
+      } else if (media == MediaType.Serie && element.mediaType == "Serie") {
+        itemsCache.add(element);
+      } else if (media == MediaType.Tous) {
+        itemsCache.add(element);
+      }
+    });
+    return itemsCache;
+  }
 }
 
 MediaType media = MediaType.Tous;
 
 //création des éléments dans le statefullwidget
 class _collectionPage extends State<collectionPage> {
-
   _collectionPage(dynamic user);
   // ignore: unused_element
   static get user => user;
@@ -189,6 +231,22 @@ class _collectionPage extends State<collectionPage> {
                               crossAxisSpacing: 8,
                               itemBuilder: (context, index) {
                                 var categorieData = items;
+                                var ink = Ink.image(
+                                    image: categorieData[index].imageUrl != null
+                                        ? NetworkImage(items[index].imageUrl)
+                                        : AssetImage('image/NoImage.jpg')
+                                            as ImageProvider,
+                                    fit: BoxFit.cover,
+                                    child: InkWell(
+                                        onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ItemsPage(
+                                                        item: items[index],
+                                                        user: this.widget.user,
+                                                      )),
+                                            )));
                                 return Container(
                                   height: 200,
                                   child: Column(
@@ -198,31 +256,7 @@ class _collectionPage extends State<collectionPage> {
                                           child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(20),
-                                              child: Material(
-                                                  child: Ink.image(
-                                                      image: categorieData[
-                                                                      index]
-                                                                  .imageUrl !=
-                                                              null
-                                                          ? NetworkImage(
-                                                              items[index]
-                                                                  .imageUrl)
-                                                          : AssetImage(
-                                                                  'image/NoImage.jpg')
-                                                              as ImageProvider,
-                                                      fit: BoxFit.cover,
-                                                      child: InkWell(
-                                                          onTap: () =>
-                                                              Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            ItemsPage(
-                                                                              item: items[index],
-                                                                              user: this.widget.user,
-                                                                            )),
-                                                              )))))),
+                                              child: Material(child: ink))),
                                     ],
                                   ),
                                 );
@@ -239,7 +273,7 @@ class _collectionPage extends State<collectionPage> {
   }
 }
 
-// widget permettant de crée le text 
+// widget permettant de crée le text
 class textSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

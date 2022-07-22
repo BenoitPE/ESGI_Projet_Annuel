@@ -102,33 +102,40 @@ class ItemsPage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(width: 25),
-                                  item.properties['trailerUrl'] !=null
-                                  ? Container(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.red.withOpacity(0.7),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: IconButton(
-                                      onPressed: () async {
-                                        if (item.properties['trailerUrl'] !=
-                                            null) {
-                                          final url = item
-                                              .properties['trailerUrl']
-                                              .toString();
-                                          // ignore: deprecated_member_use
-                                          await launch(url,
-                                              forceWebView: true,
-                                              enableJavaScript: true);
-                                        }
-                                      },
-                                      icon: Icon(
-                                        Icons.play_circle_outlined,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  )
-                                  : Container()
+                                  (item.properties['trailerUrl'] != null &&
+                                          item.properties['trailerUrl'] != '')
+                                      ? Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  Colors.red.withOpacity(0.7),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: IconButton(
+                                            onPressed: () async {
+                                              if (item.properties[
+                                                          'trailerUrl'] !=
+                                                      null &&
+                                                  item.properties[
+                                                          'trailerUrl'] !=
+                                                      '') {
+                                                final url = item
+                                                    .properties['trailerUrl']
+                                                    .toString();
+                                                // ignore: deprecated_member_use
+                                                await launch(url,
+                                                    forceWebView: true,
+                                                    enableJavaScript: true);
+                                              }
+                                            },
+                                            icon: Icon(
+                                              Icons.play_circle_outlined,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        )
+                                      : Container()
                                 ],
                               )
                             ],
@@ -148,7 +155,11 @@ class ItemsPage extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                item.overview != null? item.overview.replaceAll('<br>', ''): '',
+                                item.overview != null
+                                    ? item.overview
+                                        .replaceAll('<br>', '')
+                                        .replaceAll('<i>', '')
+                                    : '',
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.6),
                                 ),
@@ -215,14 +226,20 @@ class rolesSection extends StatelessWidget {
           ]),
         ),
         Container(
-            height: item.properties['authorName'] != null ?  260 : 220,
+            height: item.properties['authorName'] != null ? 260 : 220,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: item.properties['characters'] != null
                   ? item.properties['characters'].length
-                  : item.properties['authorName'] != null
-                      ? item.properties['authorName'].replaceAll('[', '').replaceAll(']', '').split(',').length
-                      : 0,
+                  : item.properties['personnages'] != null
+                      ? item.properties['personnages'].length
+                      : item.properties['authorName'] != null
+                          ? item.properties['authorName']
+                              .replaceAll('[', '')
+                              .replaceAll(']', '')
+                              .split(',')
+                              .length
+                          : 0,
               separatorBuilder: (context, _) => SizedBox(width: 12),
               itemBuilder: (context, index) =>
                   buildCardRole(item: item, context: context, index: index),
@@ -247,21 +264,40 @@ Widget buildCardRole(
                     borderRadius: BorderRadius.circular(20),
                     child: Material(
                         child: Ink.image(
-                      image: item.properties['characters']!= null && item.properties['characters'][index]['profile_path'] != null
-                      ? NetworkImage(item.properties['characters'][index]['profile_path'])
-                      : item.properties['characters'][index]['imageUrl'] != null
-                      ? NetworkImage(item.properties['characters'][index]['imageUrl'])
-                      :AssetImage('image/NoUserImage.png') as ImageProvider  ,                    
+                      image: item.properties['characters'] != null &&
+                              item.properties['characters'][index]
+                                      ['profile_path'] !=
+                                  null
+                          ? NetworkImage(item.properties['characters'][index]
+                              ['profile_path'])
+                          : item.properties['personnages'] != null &&
+                                  item.properties['personnages'][index]
+                                          .imageUrl !=
+                                      null &&
+                                  item.properties['personnages'][index]
+                                          .imageUrl !=
+                                      ""
+                              ? NetworkImage(item
+                                  .properties['personnages'][index].imageUrl)
+                              : AssetImage('image/NoUserImage.png')
+                                  as ImageProvider,
                       fit: BoxFit.cover,
                     )))),
           ),
           const SizedBox(height: 4),
           Text(
-              (item.properties['characters']!= null && item.properties['characters'][index]['name'] != null
+              (item.properties['characters'] != null &&
+                      item.properties['characters'][index]['name'] != null
                   ? item.properties['characters'][index]['name']
-                  : item.properties['authorName'] != null
-                  ? item.properties['authorName'].replaceAll('[', '').replaceAll(']', '').split(',')[index]
-                  : ''),
+                  : item.properties['personnages'] != null &&
+                          item.properties['personnages'][index].name != null
+                      ? item.properties['personnages'][index].name
+                      : item.properties['authorName'] != null
+                          ? item.properties['authorName']
+                              .replaceAll('[', '')
+                              .replaceAll(']', '')
+                              .split(',')[index]
+                          : ''),
               textAlign: TextAlign.left,
               style: TextStyle(
                   fontSize: 13,
@@ -269,11 +305,16 @@ Widget buildCardRole(
                   color: Colors.white)),
           const SizedBox(height: 2),
           Text(
-              (item.properties['characters']!= null && item.properties['characters'][index]['character'] != null
+              (item.properties['characters'] != null &&
+                      item.properties['characters'][index]['character'] != null
                   ? item.properties['characters'][index]['character']
-                  : item.properties['authorName'] != null
-                  ? 'Auteur'
-                  : ''),
+                  : item.properties['personnages'] != null &&
+                          item.properties['personnages'][index].character !=
+                              null
+                      ? item.properties['personnages'][index].character
+                      : item.properties['authorName'] != null
+                          ? 'Auteur'
+                          : ''),
               textAlign: TextAlign.left,
               style: TextStyle(fontSize: 10, color: Colors.white),
               maxLines: 2)
