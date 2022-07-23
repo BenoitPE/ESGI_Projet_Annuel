@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  05/07/2022 10:59:00                      */
+/* Date de crï¿½ation :  24/07/2022 00:00:00                      */
 /*==============================================================*/
 
 
@@ -37,7 +37,7 @@ create table MEDIATYPE
 /*==============================================================*/
 create table USER
 (
-   IDUSER               int not null,
+   IDUSER               int not null AUTO_INCREMENT,
    USERNAME             varchar(30) not null,
    EMAIL                varchar(320) not null,
    PASSWORD             varchar(128) not null,
@@ -52,6 +52,8 @@ create table USERMEDIA
    IDUSER               int not null,
    IDMEDIA              varchar(100) not null,
    MEDIATYPE            varchar(50) not null,
+   COLLECTION           bit(1) not null,
+   WISHLIST             bit(1) not null,
    primary key (IDUSER, IDMEDIA, MEDIATYPE)
 );
 
@@ -63,4 +65,4 @@ alter table USERMEDIA add constraint FK_USERMEDIA foreign key (IDUSER)
 
 alter table USERMEDIA add constraint FK_USERMEDIA2 foreign key (IDMEDIA, MEDIATYPE)
       references MEDIA (IDMEDIA, MEDIATYPE) on delete restrict on update restrict;
-
+      
