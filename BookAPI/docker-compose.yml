@@ -1,9 +1,10 @@
+version: '3.1'
 services:
   bookapi:
     image : bookapi:latest
+    restart: always
     container_name: bookapi
     ports:
-      - 8080:8080
+      - 8083:8080
     environment:
       - TZ=Europe/Paris
-    restart: unless-stopped

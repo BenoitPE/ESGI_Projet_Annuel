@@ -1,10 +1,10 @@
+version: '3.1'
 services:
   movieapi:
-    image : movieapi:latest 
+    image : movieapi:latest
+    restart: always
     container_name: movieapi
     ports:
-     - 80:80
-     - 443:443
+     - 8082:80
     environment:
       - TZ=Europe/Paris
-    restart: unless-stopped

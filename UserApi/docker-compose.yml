@@ -1,9 +1,10 @@
+version: '3.1'
 services:
   userapi:
-    image : userapi:latest
+    image: userapi:latest
+    restart: always
     container_name: userapi
     ports:
       - 8081:8081
     environment:
       - TZ=Europe/Paris
-    restart: unless-stopped

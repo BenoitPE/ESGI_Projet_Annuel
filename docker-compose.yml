@@ -16,7 +16,7 @@ services:
     image : bookapi:latest
     container_name: bookapi
     ports:
-      - 8080:8080
+      - 8083:8080
     environment:
       - TZ=Europe/Paris
   movieapi:
@@ -24,7 +24,7 @@ services:
     image : movieapi:latest
     container_name: movieapi
     ports:
-     - 80:80
+     - 8082:80
     environment:
       - TZ=Europe/Paris
   animeapi:
@@ -32,6 +32,6 @@ services:
     image : animeapi:latest
     container_name: animeapi
     ports:
-      - 8083:8000
+      - 8084:8000
     environment:
       - TZ=Europe/Paris
