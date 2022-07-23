@@ -1,9 +1,10 @@
+version: '3.1'
 services:
   animeapi:
     image : animeapi:latest
+    restart: always
     container_name: animeapi
     ports:
-      - 8083:8000
+      - 8084:8000
     environment:
       - TZ=Europe/Paris
-    restart: always
