@@ -1,4 +1,4 @@
-package com.projetannuel.userapi;
+package com.projetannuel.bookapi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class OpenAPIConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         License license = new License().name("Apache 2.0").url("https://springdoc.org/");
-        Info info = new Info().title("User REST API").version("v1").license(license);
+        Info info = new Info().title("Book REST API").version("v1").license(license);
         List<Server> servers = new ArrayList<Server>();
         servers.add(new Server().url("/"));
         return new OpenAPI().info(info).servers(servers);
