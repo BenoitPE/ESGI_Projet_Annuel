@@ -23,14 +23,6 @@ public class UserService {
       return userRepository.save(user);
    }
 
-   public User getUserByIdUser(Integer Id) {
-      return userRepository.findByIdUser(Id);
-   }
-
-   public List<User> getAllUser() {
-      return userRepository.findAll();
-   }
-
    public List<Content> getUserCollectionByIdUser(Integer IdUser) {
 
       List<String> Urls = userRepository.getUserCollectionByIdUser(IdUser);
