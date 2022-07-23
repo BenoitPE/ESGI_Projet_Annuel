@@ -32,19 +32,6 @@ public class UserController {
         return response;
     }
 
-    @Operation(summary = "Récupération d'un utilisateur")
-    @RequestMapping(path = "getUser", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<User> get(@RequestParam("Id") Integer IdUser) {
-        User result = userService.getUserByIdUser(IdUser);
-        ResponseEntity response;
-        if (null != result) {
-            response = ResponseEntity.status(HttpStatus.OK).body(result);
-        } else {
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return response;
-    }
-
     @Operation(summary = "Retourne un utilisateur si le login est Ok")
     @RequestMapping(path = "login", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> login(@RequestParam("Username") String Username,@RequestParam("Password") String Password) {
@@ -54,19 +41,6 @@ public class UserController {
             response = ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
             response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return response;
-    }
-
-    @Operation(summary = "Récupération de tous les utilisateurs")
-    @RequestMapping(path = "/getAllUsers", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> result = userService.getAllUser();
-        ResponseEntity response;
-        if (0 != result.size()) {
-            response = ResponseEntity.status(HttpStatus.OK).body(result);
-        } else {
-            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
         return response;
     }

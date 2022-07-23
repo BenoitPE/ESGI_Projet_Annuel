@@ -33,13 +33,30 @@ class Data {
         properties: json['properties']);
   }
 
+  factory Data.fromJsonCache(Map<String, dynamic> json) {
+    var properties = Map<String, dynamic>();
+    properties['personnages']= <Characters> [];
+    properties['trailerUrl']= json['properties'] != null? json['properties']:'';
+    return Data(
+        mediaType: json['mediaType'],
+        id: json['id'],
+        title: json['title'],
+        date: json['date'],
+        adult: json['adult'],
+        imageUrl: json['imageUrl'],
+        genres: json['genres'],
+        overview: json['overview'],
+        properties: properties
+        );
+  }
+
   Map<String, dynamic> toJsonDatabase() {
     return {
       'mediaType': mediaType,
       'id': id,
       'title': title,
       'date': date,
-      'adult': adult,
+      'adult': adult.toString(),
       'imageUrl': imageUrl,
       'genres': "",
       'overview': overview,
@@ -52,29 +69,45 @@ class Characters {
   final dynamic gender;
   final dynamic name;
   final dynamic character;
-  final dynamic profile_path;
+  final dynamic imageUrl;
   final dynamic idProperties;
 
-  Characters({this.gender, this.character, this.name, this.profile_path, this.idProperties});
+  Characters({this.gender, this.character, this.name, this.imageUrl, this.idProperties});
 
   factory Characters.fromJson(Map<String, dynamic> json) {
-    int gender = json['gender'];
-    String character = json['character'];
-    String name = json['name'];
-    String profile_path = json['profile_path'];
+    dynamic gender = (json['genre']!= null ? json['genre'] :'');
+    dynamic character = (json['characters'] != null ? json['characters'] :json['characters'] != null ? json['authorName'] :'');
+    dynamic name = (json['name'] != null ? json['name']  :'');
+    dynamic imageUrl = (json['profile_path'] != null ? json['profile_path'] :'');
+    dynamic idProperties = (json['idProperties'] != null ? json['idProperties'] :'');
     return Characters(
         gender: gender,
         character: character,
         name: name,
-        profile_path: profile_path);
+        imageUrl: imageUrl,
+        idProperties: idProperties );
+  }
+
+  factory Characters.fromJsonBook(String authorName) {
+    dynamic gender = '';
+    dynamic character = '';
+    dynamic name = authorName ;
+    dynamic imageUrl = '';
+    dynamic idProperties ='';
+    return Characters(
+        gender: gender,
+        character: character,
+        name: name,
+        imageUrl: imageUrl,
+        idProperties: idProperties );
   }
 
   Map<String, dynamic> toJsonDatabaseCharacters(dynamic element) {
     return {
-      'gender': gender,
-      'character': character,
+      'genre': gender,
+      'characters': character,
       'name': name,
-      'profile_path': profile_path,
+      'profile_path': imageUrl,
       'idProperties' : element.id
     };
   }

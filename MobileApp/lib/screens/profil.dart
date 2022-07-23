@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:Watchlist/repository/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
@@ -58,7 +59,9 @@ class profilPage extends StatelessWidget {
                               elevation: 5,
                               onPressed: () async {
                                 final UserRepository _userRepository = UserRepository();
+                                final DataRepository _dataReposirory = DataRepository();
                                 var users = await _userRepository.getAllUser();
+                                await _dataReposirory.deleteAll();
                                 if (users.length == 1){
                                   _userRepository.deleteUser(users[0]);
                                 };
