@@ -10,14 +10,24 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class UserService {
-   @Autowired
-   private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-   public User createOrUpdate(User user) {
-      return userRepository.save(user);
-   }
+    public User createUser(User user) {
+        user.setEmail(user.getEmail().trim());
+        user.setPassword(user.getPassword().trim());
+        user.setUsername(user.getUsername().trim());
 
-   public User login(String username, String password) {
-      return userRepository.findByUsernameAndPassword(username, password);
-   }
+        User result = new User();
+
+        if (userRepository.findByUsername(user.getUsername()) == null &&
+                (!user.getUsername().isBlank() && !user.getPassword().isBlank())) {
+            result = userRepository.save(user);
+        }
+        return result;
+    }
+
+    public User login(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
 }
