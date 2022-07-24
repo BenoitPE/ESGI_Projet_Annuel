@@ -46,7 +46,7 @@ class _searchPage extends State<searchPage> {
         items: [
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.favorite_border_rounded,
+                Icons.favorite,
                 color: Colors.white,
               ),
               label: ("Mes souhaits"),
