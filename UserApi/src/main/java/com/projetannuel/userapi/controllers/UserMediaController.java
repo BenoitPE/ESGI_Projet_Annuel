@@ -56,7 +56,7 @@ public class UserMediaController {
      */
     @Operation(summary = "Séléction de la wishlist d'un utilisateur à partir de son identifiant")
     @RequestMapping(path = "/getWishlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Content>> getUserWishlistByIdUser(@RequestParam("idUser") final Integer idUser) {
+    public ResponseEntity<List<Content>> getUserWishlistByIdUser(@RequestParam("Id") final Integer idUser) {
         List<Content> result = usermediaService.getUserWishlistByIdUser(idUser);
         ResponseEntity response;
         if (0 != result.size()) {
@@ -77,9 +77,9 @@ public class UserMediaController {
      */
     @Operation(summary = "Ajout d'un media dans la wishlist d'un utilisateur")
     @RequestMapping(path = "/addToWishlist", method = RequestMethod.POST)
-    public ResponseEntity<String> addToUserWishlist(@RequestParam("mediaType") final String mediaType,
-                                                    @RequestParam("mediaId") final String mediaId,
-                                                    @RequestParam("idUser") final Integer idUser) {
+    public ResponseEntity<String> addToUserWishlist(@RequestParam("MediaType") final String mediaType,
+                                                    @RequestParam("MediaId") final String mediaId,
+                                                    @RequestParam("Id") final Integer idUser) {
         String result = usermediaService.addToUserWishlist(mediaType, mediaId, idUser);
         ResponseEntity response;
         if (0 == result.length()) {
@@ -100,9 +100,9 @@ public class UserMediaController {
      */
     @Operation(summary = "Ajout d'un media dans la collection d'un utilisateur")
     @RequestMapping(path = "/addToCollection", method = RequestMethod.POST)
-    public ResponseEntity<String> addToUserCollection(@RequestParam("mediaType") final String mediaType,
-                                                      @RequestParam("mediaId") final String mediaId,
-                                                      @RequestParam("idUser") final Integer idUser) {
+    public ResponseEntity<String> addToUserCollection(@RequestParam("MediaType") final String mediaType,
+                                                      @RequestParam("MediaId") final String mediaId,
+                                                      @RequestParam("Id") final Integer idUser) {
         String result = usermediaService.addToUserCollection(mediaType, mediaId, idUser);
         ResponseEntity response;
         if (0 == result.length()) {
