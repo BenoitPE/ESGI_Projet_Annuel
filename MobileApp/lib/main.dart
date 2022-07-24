@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:Watchlist/repository/user_repository.dart';
 import 'package:Watchlist/screens/loginPage.dart';
 import 'package:Watchlist/screens/searchPage.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'models/data.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 

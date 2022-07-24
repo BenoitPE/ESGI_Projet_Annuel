@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../models/data.dart';
 import 'ItemsPage.dart';
@@ -26,9 +27,10 @@ Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
   final WhislistRepository _whislistRepository = WhislistRepository();
 
   try {
+    var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
     //appel de l'api
     final response = await http
-        .get(Uri.parse('http://100.113.108.37:8081/getWishlist?Id=' +
+        .get(Uri.parse(userApiUrl.toString() + '/getWishlist?Id=' +
             user.idUser.toString()))
         .timeout(const Duration(seconds: 10));
 

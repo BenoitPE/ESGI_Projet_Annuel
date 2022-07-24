@@ -7,6 +7,7 @@ import 'package:Watchlist/models/data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 import 'collectionPage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class searchPage extends StatefulWidget {
   final user;
@@ -107,13 +108,16 @@ class itemSection extends StatelessWidget {
     var list3;
     var list4;
     var items = [];
+    var movieApiUrl = dotenv.env['MOVIEAPI_URL'] != null ? dotenv.env['MOVIEAPI_URL'] : '';
+    var bookApiUrl = dotenv.env['BOOKAPI_URL'] != null ? dotenv.env['BOOKAPI_URL'] : '';
+    var animeApiUrl = dotenv.env['ANIMEAPI_URL'] != null ? dotenv.env['ANIMEAPI_URL'] : '';
     debugPrint(myController);
 
     // fait les appels et traintement de donnée lors d'une recherche en fonction des types de données 
     if (myController != "") {
       if (media == MediaType.Movie || media == MediaType.Tous) {
         final response = await http.get(
-            Uri.parse('http://100.113.108.37/Movie/Search/' + myController));
+            Uri.parse(movieApiUrl.toString() + '/Movie/Search/' + myController));
 
         if (response.statusCode == 200) {
           list = json.decode(response.body) as List<dynamic>;
@@ -130,7 +134,7 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Serie || media == MediaType.Tous) {
         final response2 = await http.get(
-            Uri.parse('http://100.113.108.37/Serie/Search/' + myController));
+            Uri.parse(movieApiUrl.toString() + '/Serie/Search/' + myController));
 
         if (response2.statusCode == 200) {
           list2 = json.decode(response2.body) as List<dynamic>;
@@ -147,7 +151,7 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Anime || media == MediaType.Tous) {
         final response3 = await http.get(
-            Uri.parse('http://100.113.108.37:8083/anime?name=' + myController));
+            Uri.parse(animeApiUrl.toString() + '/anime?name=' + myController));
 
         if (response3.statusCode == 200) {
           list3 = json.decode(response3.body) as List<dynamic>;
@@ -166,7 +170,7 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Book || media == MediaType.Tous) {
         final response4 = await http.get(
-            Uri.parse('http://100.113.108.37:8080/getBookFromApiByTitle?title=' + myController)); //http://100.113.108.37:8080/getBookFromApiByTitle?title=Harry%20Potter
+            Uri.parse(bookApiUrl.toString() + '/getBookFromApiByTitle?title=' + myController)); //https://bookapi.youges.fr/getBookFromApiByTitle?title=Harry%20Potter
 
         if (response4.statusCode == 200) {
           list4 = json.decode(response4.body);
@@ -183,7 +187,7 @@ class itemSection extends StatelessWidget {
     else {
       if (media == MediaType.Movie || media == MediaType.Tous) {
         final response =
-            await http.get(Uri.parse('http://100.113.108.37/Movie/Popular'));
+            await http.get(Uri.parse(movieApiUrl.toString() + '/Movie/Popular'));
 
         if (response.statusCode == 200) {
           list = json.decode(response.body) as List<dynamic>;
@@ -200,7 +204,7 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Serie || media == MediaType.Tous) {
         final response2 =
-            await http.get(Uri.parse('http://100.113.108.37/Serie/Popular'));
+            await http.get(Uri.parse(movieApiUrl.toString() + '/Serie/Popular'));
 
         if (response2.statusCode == 200) {
           list2 = json.decode(response2.body) as List<dynamic>;
@@ -217,7 +221,7 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Anime || media == MediaType.Tous) {
         final response3 = await http.get(
-            Uri.parse('http://100.113.108.37/Serie/Search/'));
+            Uri.parse(movieApiUrl.toString() + '/Serie/Search/'));
 
         if (response3.statusCode == 200) {
           list3 = json.decode(response3.body) as List<dynamic>;
@@ -234,7 +238,7 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Book || media == MediaType.Tous) {
         final response4 = await http.get(
-            Uri.parse('http://100.113.108.37:8080/getBooksFromApi'));
+            Uri.parse(bookApiUrl.toString() + '/getBooksFromApi'));
 
         if (response4.statusCode == 200) {
           list4 = json.decode(response4.body) as List<dynamic>;

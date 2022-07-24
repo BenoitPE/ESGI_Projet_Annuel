@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:Watchlist/screens/loginPage.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // ignore: must_be_immutable
 class registerPage extends StatelessWidget {
@@ -41,8 +42,9 @@ class registerPage extends StatelessWidget {
                         elevation: 5,
                         // parti asynchrone permettant d'enregister un utilisateur dans la bdd
                         onPressed: () async {
+                          var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
                           final response = await http.post(
-                            Uri.parse('http://100.113.108.37:8081/addUser'),
+                            Uri.parse(userApiUrl.toString() + '/addUser'),
                             headers: {
                               'Content-Type': 'application/json; charset=UTF-8',
                             },
