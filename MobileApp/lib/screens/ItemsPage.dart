@@ -28,7 +28,7 @@ class ItemsPage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Column(
                             children: [
-                              Text(item.mediaType,
+                              Text(capitalize(item.mediaType),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15)),
@@ -52,15 +52,18 @@ class ItemsPage extends StatelessWidget {
                                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     child: IconButton(
                                       onPressed: () async {
-                                        var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
+                                        var userApiUrl =
+                                            dotenv.env['USERAPI_URL'] != null
+                                                ? dotenv.env['USERAPI_URL']
+                                                : '';
                                         final response = await http.post(
-                                          Uri.parse(
-                                              userApiUrl.toString() + '/addToWishlist?MediaType=' +
-                                                  item.mediaType +
-                                                  '&MediaId=' +
-                                                  item.id.toString() +
-                                                  '&Id=' +
-                                                  user.idUser.toString()),
+                                          Uri.parse(userApiUrl.toString() +
+                                              '/addToWishlist?MediaType=' +
+                                              item.mediaType +
+                                              '&MediaId=' +
+                                              item.id.toString() +
+                                              '&Id=' +
+                                              user.idUser.toString()),
                                         );
 
                                         if (response.statusCode == 200) {
@@ -83,15 +86,18 @@ class ItemsPage extends StatelessWidget {
                                             BorderRadius.circular(10)),
                                     child: IconButton(
                                       onPressed: () async {
-                                        var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
+                                        var userApiUrl =
+                                            dotenv.env['USERAPI_URL'] != null
+                                                ? dotenv.env['USERAPI_URL']
+                                                : '';
                                         final response = await http.post(
-                                          Uri.parse(
-                                              userApiUrl.toString() + '/addToCollection?MediaType=' +
-                                                  item.mediaType +
-                                                  '&MediaId=' +
-                                                  item.id.toString() +
-                                                  '&Id=' +
-                                                  user.idUser.toString()),
+                                          Uri.parse(userApiUrl.toString() +
+                                              '/addToCollection?MediaType=' +
+                                              item.mediaType +
+                                              '&MediaId=' +
+                                              item.id.toString() +
+                                              '&Id=' +
+                                              user.idUser.toString()),
                                         );
                                         if (response.statusCode == 200) {
                                         } else {
@@ -203,6 +209,8 @@ class ItemsPage extends StatelessWidget {
           ),
         ),
       );
+
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 }
 
 class rolesSection extends StatelessWidget {
