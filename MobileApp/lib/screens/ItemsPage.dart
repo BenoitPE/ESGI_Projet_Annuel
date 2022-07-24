@@ -1,9 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:Watchlist/screens/searchPage.dart';
+import 'package:Watchlist/screens/wishlistPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import '../models/data.dart';
+import '../repository/data_repository.dart';
+import '../repository/whislist_repositor.dart';
 
 class ItemsPage extends StatelessWidget {
   final item;
@@ -46,90 +54,9 @@ class ItemsPage extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.6),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    child: IconButton(
-                                      onPressed: () async {
-                                        var userApiUrl =
-                                            dotenv.env['USERAPI_URL'] != null
-                                                ? dotenv.env['USERAPI_URL']
-                                                : '';
-                                        final response = await http.post(
-                                          Uri.parse(userApiUrl.toString() +
-                                              '/addToWishlist?MediaType=' +
-                                              item.mediaType +
-                                              '&MediaId=' +
-                                              item.id.toString() +
-                                              '&Id=' +
-                                              user.idUser.toString()),
-                                        );
-
-                                        if (response.statusCode == 200) {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    searchPage(
-                                                      user: user,
-                                                      index: 0,
-                                                    )),
-                                          );
-                                        } else {
-                                          throw Exception('Failed');
-                                        }
-                                      },
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
+                                  buttonWhislist(context, user, item),
                                   SizedBox(width: 25),
-                                  Container(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                    decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.6),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: IconButton(
-                                      onPressed: () async {
-                                        var userApiUrl =
-                                            dotenv.env['USERAPI_URL'] != null
-                                                ? dotenv.env['USERAPI_URL']
-                                                : '';
-                                        final response = await http.post(
-                                          Uri.parse(userApiUrl.toString() +
-                                              '/addToCollection?MediaType=' +
-                                              item.mediaType +
-                                              '&MediaId=' +
-                                              item.id.toString() +
-                                              '&Id=' +
-                                              user.idUser.toString()),
-                                        );
-                                        if (response.statusCode == 200) {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    searchPage(
-                                                      user: user,
-                                                      index: 1,
-                                                    )),
-                                          );
-                                        } else {
-                                          throw Exception('Failed');
-                                        }
-                                      },
-                                      icon: Icon(
-                                        Icons.folder,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
+                                  buttonCollectionlist(context, user, item),
                                   SizedBox(width: 25),
                                   (item.properties['trailerUrl'] != null &&
                                           item.properties['trailerUrl'] != '')
@@ -229,6 +156,300 @@ class ItemsPage extends StatelessWidget {
           ),
         ),
       );
+
+  //fonction permattant de récupérer tout les élément présent dans la wishlist
+  Future<List<Data>> ReadJsonDataWhislist(dynamic user) async {
+    var list;
+    var items = [];
+    List<Data> itemsCache = [];
+    final WhislistRepository _whislistRepository = WhislistRepository();
+
+    try {
+      var userApiUrl =
+          dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
+      final response = await http
+          .get(Uri.parse(userApiUrl.toString() +
+              '/getWishlist?Id=' +
+              user.idUser.toString()))
+          .timeout(const Duration(seconds: 10));
+
+      if (response.statusCode == 200) {
+        list = json.decode(response.body) as List<dynamic>;
+        log(response.reasonPhrase.toString());
+        _whislistRepository.deleteAll();
+        list.forEach((element) {
+          items.add(element);
+          Data data = new Data.fromJson(element);
+          _whislistRepository.addData(data);
+        });
+      } else {
+        var list2 = await _whislistRepository.getAllData();
+        list2.forEach((element) {
+          itemsCache.add(element);
+        });
+        return itemsCache;
+      }
+      return items.map((e) => Data.fromJson(e)).toList();
+    } catch (e) {
+      var list2 = await _whislistRepository.getAllData();
+      list2.forEach((element) {
+        itemsCache.add(element);
+      });
+      return itemsCache;
+    }
+  }
+
+  Widget buttonWhislist(
+    context,
+    user,
+    item,
+  ) {
+    return FutureBuilder(
+      future: ReadJsonDataWhislist(user),
+      builder: (context, data) {
+        if (data.hasError) {
+          return Text('error');
+        } else if (data.hasData) {
+          var items = data.data as List<Data>;
+          var present;
+          items.forEach((element) {
+            if (element.id == item.id) {
+              present = true;
+            }
+          });
+          if (present == true) {
+            return Container(
+              decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: IconButton(
+                onPressed: () async {
+                  var userApiUrl = dotenv.env['USERAPI_URL'] != null
+                      ? dotenv.env['USERAPI_URL']
+                      : '';
+                  final response = await http.post(
+                    Uri.parse(userApiUrl.toString() +
+                        '/addToWishlist?MediaType=' +
+                        item.mediaType +
+                        '&MediaId=' +
+                        item.id.toString() +
+                        '&Id=' +
+                        user.idUser.toString()),
+                  );
+
+                  if (response.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => searchPage(
+                                user: user,
+                                index: 0,
+                              )),
+                    );
+                  } else {
+                    throw Exception('Failed');
+                  }
+                },
+                icon: Icon(
+                  Icons.favorite,
+                  color: Colors.white,
+                ),
+              ),
+            );
+          } else {
+            return Container(
+              decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: IconButton(
+                onPressed: () async {
+                  var userApiUrl = dotenv.env['USERAPI_URL'] != null
+                      ? dotenv.env['USERAPI_URL']
+                      : '';
+                  final response = await http.post(
+                    Uri.parse(userApiUrl.toString() +
+                        '/addToWishlist?MediaType=' +
+                        item.mediaType +
+                        '&MediaId=' +
+                        item.id.toString() +
+                        '&Id=' +
+                        user.idUser.toString()),
+                  );
+
+                  if (response.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => searchPage(
+                                user: user,
+                                index: 0,
+                              )),
+                    );
+                  } else {
+                    throw Exception('Failed');
+                  }
+                },
+                icon: Icon(
+                  Icons.favorite,
+                  color: Colors.white,
+                ),
+              ),
+            );
+          }
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  //fonction permattant de récupérer tout les élément présent dans la wishlist
+  Future<List<Data>> ReadJsonData(dynamic user) async {
+    var list;
+    var items = [];
+    List<Data> itemsCache = [];
+    final DataRepository _dataRepository = DataRepository();
+    var userApiUrl =
+        dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
+
+    try {
+      final response = await http
+          .get(Uri.parse(userApiUrl.toString() +
+              '/getCollection?Id=' +
+              user.idUser.toString()))
+          .timeout(const Duration(seconds: 10));
+
+      if (response.statusCode == 200) {
+        list = json.decode(response.body) as List<dynamic>;
+        log(response.reasonPhrase.toString());
+        _dataRepository.deleteAll();
+        list.forEach((element) {
+          items.add(element);
+          Data data = new Data.fromJson(element);
+          _dataRepository.addData(data);
+        });
+      } else {
+        var list2 = await _dataRepository.getAllData();
+        list2.forEach((element) {
+          itemsCache.add(element);
+        });
+        return itemsCache;
+      }
+      return items.map((e) => Data.fromJson(e)).toList();
+    } catch (e) {
+      var list2 = await _dataRepository.getAllData();
+      list2.forEach((element) {
+        itemsCache.add(element);
+      });
+      return itemsCache;
+    }
+  }
+
+  Widget buttonCollectionlist(
+    context,
+    user,
+    item,
+  ) {
+    return FutureBuilder(
+      future: ReadJsonData(user),
+      builder: (context, data) {
+        if (data.hasError) {
+          return Text('error');
+        } else if (data.hasData) {
+          var items = data.data as List<Data>;
+          var present;
+          items.forEach((element) {
+            if (element.id == item.id) {
+              present = true;
+            }
+          });
+          if (present == true) {
+            return Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(10)),
+              child: IconButton(
+                onPressed: () async {
+                  var userApiUrl = dotenv.env['USERAPI_URL'] != null
+                      ? dotenv.env['USERAPI_URL']
+                      : '';
+                  final response = await http.post(
+                    Uri.parse(userApiUrl.toString() +
+                        '/addToCollection?MediaType=' +
+                        item.mediaType +
+                        '&MediaId=' +
+                        item.id.toString() +
+                        '&Id=' +
+                        user.idUser.toString()),
+                  );
+                  if (response.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => searchPage(
+                                user: user,
+                                index: 1,
+                              )),
+                    );
+                  } else {
+                    throw Exception('Failed');
+                  }
+                },
+                icon: Icon(
+                  Icons.folder,
+                  color: Colors.white,
+                ),
+              ),
+            );
+          } else {
+            return Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(10)),
+              child: IconButton(
+                onPressed: () async {
+                  var userApiUrl = dotenv.env['USERAPI_URL'] != null
+                      ? dotenv.env['USERAPI_URL']
+                      : '';
+                  final response = await http.post(
+                    Uri.parse(userApiUrl.toString() +
+                        '/addToCollection?MediaType=' +
+                        item.mediaType +
+                        '&MediaId=' +
+                        item.id.toString() +
+                        '&Id=' +
+                        user.idUser.toString()),
+                  );
+                  if (response.statusCode == 200) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => searchPage(
+                                user: user,
+                                index: 1,
+                              )),
+                    );
+                  } else {
+                    throw Exception('Failed');
+                  }
+                },
+                icon: Icon(
+                  Icons.folder,
+                  color: Colors.white,
+                ),
+              ),
+            );
+          }
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
 
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 }
