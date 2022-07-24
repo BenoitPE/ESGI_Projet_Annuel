@@ -30,7 +30,7 @@ query ($page: Int, $perPage: Int) {
             episodes
             duration
             coverImage {
-                large
+                extraLarge
             }
             genres
             isAdult

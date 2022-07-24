@@ -65,7 +65,7 @@ pub fn parse(datas: Value) -> String {
                         anime.properties.duration = Some(duration);
                     }
 
-                    if let Some(cover) = item["coverImage"].as_object().unwrap()["large"].as_str() {
+                    if let Some(cover) = item["coverImage"].as_object().unwrap()["extraLarge"].as_str() {
                         anime.imageUrl = Some(cover.to_string());
                     }
 

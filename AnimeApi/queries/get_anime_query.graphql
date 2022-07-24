@@ -23,7 +23,7 @@ query ($id: Int, $search: String) {
             episodes
             duration
             coverImage {
-                large
+                extraLarge
             }
             genres
             isAdult
