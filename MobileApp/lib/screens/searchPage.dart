@@ -19,7 +19,7 @@ class searchPage extends StatefulWidget {
   _searchPage createState() => _searchPage(user);
 }
 
-// création d'une partie de la searchPage , le composant crée ici est la bottom bar permettant de naviger entre les pages 
+// création d'une partie de la searchPage , le composant crée ici est la bottom bar permettant de naviger entre les pages
 class _searchPage extends State<searchPage> {
   _searchPage(final user);
 
@@ -34,7 +34,7 @@ class _searchPage extends State<searchPage> {
       wishlistPage(user: this.widget.user),
       collectionPage(user: this.widget.user),
       containerSearch(user: this.widget.user),
-      profilPage(user:this.widget.user),
+      profilPage(user: this.widget.user),
     ];
     return Scaffold(
       body: screens[currentIndex],
@@ -49,28 +49,28 @@ class _searchPage extends State<searchPage> {
                 Icons.favorite_border_rounded,
                 color: Colors.white,
               ),
-              label: ("wishlist"),
+              label: ("Mes souhaits"),
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.folder,
                 color: Colors.white,
               ),
-              label: ("collection"),
+              label: ("Ma collection"),
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.search,
                 color: Colors.white,
               ),
-              label: ("search"),
+              label: ("Rechercher"),
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.people,
                 color: Colors.white,
               ),
-              label: ("profil"),
+              label: ("Mon profil"),
               backgroundColor: Colors.black),
         ],
       ),
@@ -87,7 +87,7 @@ class itemSection extends StatelessWidget {
   dynamic test;
   dynamic user;
 
-  // fonction permettant de gérer si il manque une image dans les données pour en affichée une par défault 
+  // fonction permettant de gérer si il manque une image dans les données pour en affichée une par défault
   ImageProvider<Object> urlImage(item, name) {
     if (item.imageUrl != null) {
       return item.imageUrl != null
@@ -101,23 +101,26 @@ class itemSection extends StatelessWidget {
 
   late Future<List<Data>> futureData;
 
-  // fonction asynchrone permattant de faires des appels api et de traité les données récupérer 
+  // fonction asynchrone permattant de faires des appels api et de traité les données récupérer
   Future<List<Data>> ReadJsonData(String myController, MediaType media) async {
     var list;
     var list2;
     var list3;
     var list4;
     var items = [];
-    var movieApiUrl = dotenv.env['MOVIEAPI_URL'] != null ? dotenv.env['MOVIEAPI_URL'] : '';
-    var bookApiUrl = dotenv.env['BOOKAPI_URL'] != null ? dotenv.env['BOOKAPI_URL'] : '';
-    var animeApiUrl = dotenv.env['ANIMEAPI_URL'] != null ? dotenv.env['ANIMEAPI_URL'] : '';
+    var movieApiUrl =
+        dotenv.env['MOVIEAPI_URL'] != null ? dotenv.env['MOVIEAPI_URL'] : '';
+    var bookApiUrl =
+        dotenv.env['BOOKAPI_URL'] != null ? dotenv.env['BOOKAPI_URL'] : '';
+    var animeApiUrl =
+        dotenv.env['ANIMEAPI_URL'] != null ? dotenv.env['ANIMEAPI_URL'] : '';
     debugPrint(myController);
 
-    // fait les appels et traintement de donnée lors d'une recherche en fonction des types de données 
+    // fait les appels et traintement de donnée lors d'une recherche en fonction des types de données
     if (myController != "") {
       if (media == MediaType.Movie || media == MediaType.Tous) {
-        final response = await http.get(
-            Uri.parse(movieApiUrl.toString() + '/Movie/Search/' + myController));
+        final response = await http.get(Uri.parse(
+            movieApiUrl.toString() + '/Movie/Search/' + myController));
 
         if (response.statusCode == 200) {
           list = json.decode(response.body) as List<dynamic>;
@@ -133,8 +136,8 @@ class itemSection extends StatelessWidget {
       }
 
       if (media == MediaType.Serie || media == MediaType.Tous) {
-        final response2 = await http.get(
-            Uri.parse(movieApiUrl.toString() + '/Serie/Search/' + myController));
+        final response2 = await http.get(Uri.parse(
+            movieApiUrl.toString() + '/Serie/Search/' + myController));
 
         if (response2.statusCode == 200) {
           list2 = json.decode(response2.body) as List<dynamic>;
@@ -157,9 +160,9 @@ class itemSection extends StatelessWidget {
           list3 = json.decode(response3.body) as List<dynamic>;
           log(response3.reasonPhrase.toString());
           list3.forEach((element) {
-            if(element['adult']== false){
+            if (element['adult'] == false) {
               items.add(element);
-            }      
+            }
           });
         } else {
           log(response3.statusCode.toString() +
@@ -169,8 +172,9 @@ class itemSection extends StatelessWidget {
       }
 
       if (media == MediaType.Book || media == MediaType.Tous) {
-        final response4 = await http.get(
-            Uri.parse(bookApiUrl.toString() + '/getBookFromApiByTitle?title=' + myController)); //https://bookapi.youges.fr/getBookFromApiByTitle?title=Harry%20Potter
+        final response4 = await http.get(Uri.parse(bookApiUrl.toString() +
+            '/getBookFromApiByTitle?title=' +
+            myController)); //https://bookapi.youges.fr/getBookFromApiByTitle?title=Harry%20Potter
 
         if (response4.statusCode == 200) {
           list4 = json.decode(response4.body);
@@ -182,12 +186,12 @@ class itemSection extends StatelessWidget {
               response4.reasonPhrase.toString());
         }
       }
-    } 
-    // fait les appels et traintement de donnée si il n'y as pas de recherche éffectuée 
+    }
+    // fait les appels et traintement de donnée si il n'y as pas de recherche éffectuée
     else {
       if (media == MediaType.Movie || media == MediaType.Tous) {
-        final response =
-            await http.get(Uri.parse(movieApiUrl.toString() + '/Movie/Popular'));
+        final response = await http
+            .get(Uri.parse(movieApiUrl.toString() + '/Movie/Popular'));
 
         if (response.statusCode == 200) {
           list = json.decode(response.body) as List<dynamic>;
@@ -203,8 +207,8 @@ class itemSection extends StatelessWidget {
       }
 
       if (media == MediaType.Serie || media == MediaType.Tous) {
-        final response2 =
-            await http.get(Uri.parse(movieApiUrl.toString() + '/Serie/Popular'));
+        final response2 = await http
+            .get(Uri.parse(movieApiUrl.toString() + '/Serie/Popular'));
 
         if (response2.statusCode == 200) {
           list2 = json.decode(response2.body) as List<dynamic>;
@@ -220,8 +224,8 @@ class itemSection extends StatelessWidget {
       }
 
       if (media == MediaType.Anime || media == MediaType.Tous) {
-        final response3 = await http.get(
-            Uri.parse(movieApiUrl.toString() + '/Serie/Search/'));
+        final response3 = await http
+            .get(Uri.parse(movieApiUrl.toString() + '/Serie/Search/'));
 
         if (response3.statusCode == 200) {
           list3 = json.decode(response3.body) as List<dynamic>;
@@ -237,8 +241,8 @@ class itemSection extends StatelessWidget {
       }
 
       if (media == MediaType.Book || media == MediaType.Tous) {
-        final response4 = await http.get(
-            Uri.parse(bookApiUrl.toString() + '/getBooksFromApi'));
+        final response4 = await http
+            .get(Uri.parse(bookApiUrl.toString() + '/getBooksFromApi'));
 
         if (response4.statusCode == 200) {
           list4 = json.decode(response4.body) as List<dynamic>;
@@ -257,7 +261,7 @@ class itemSection extends StatelessWidget {
     return items.map((e) => Data.fromJson(e)).toList();
   }
 
-  // ensemble de widget permettant l'affichage des données des différents type de donnée 
+  // ensemble de widget permettant l'affichage des données des différents type de donnée
   @override
   Widget build(BuildContext context) {
     futureData = ReadJsonData(myController, media);
@@ -284,8 +288,8 @@ class itemSection extends StatelessWidget {
             ),
           ]),
         ),
-        // se widget permet d'appeler des futurs qui permet de faire des appels asynchrone et de gérer ce qui va être retourner 
-        // en fonction du résultat 
+        // se widget permet d'appeler des futurs qui permet de faire des appels asynchrone et de gérer ce qui va être retourner
+        // en fonction du résultat
         FutureBuilder(
           future: futureData,
           builder: (context, data) {
@@ -322,11 +326,12 @@ class itemSection extends StatelessWidget {
                                                                 Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          ItemsPage(
-                                                                              item: items[index],
-                                                                              user: user,
-                                                                            )),
+                                                                      builder:
+                                                                          (context) =>
+                                                                              ItemsPage(
+                                                                                item: items[index],
+                                                                                user: user,
+                                                                              )),
                                                                 ))))))),
                               ],
                             ),
@@ -394,10 +399,14 @@ class _containerSearch extends State<containerSearch> {
                     hintStyle: TextStyle(color: Colors.white)),
               )),
           SizedBox(height: 20),
-          itemSection("Films", titre, MediaType.Movie, myController.text, this.widget.user),
-          itemSection("Série", titre, MediaType.Serie, myController.text, this.widget.user),
-          itemSection("Animée", titre, MediaType.Anime, myController.text, this.widget.user),
-          itemSection("Livres", titre, MediaType.Book, myController.text, this.widget.user)
+          itemSection("Films", titre, MediaType.Movie, myController.text,
+              this.widget.user),
+          itemSection("Série", titre, MediaType.Serie, myController.text,
+              this.widget.user),
+          itemSection("Animée", titre, MediaType.Anime, myController.text,
+              this.widget.user),
+          itemSection("Livres", titre, MediaType.Book, myController.text,
+              this.widget.user)
         ])));
   }
 }
