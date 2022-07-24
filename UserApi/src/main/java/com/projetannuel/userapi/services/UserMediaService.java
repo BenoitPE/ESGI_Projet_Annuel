@@ -17,90 +17,141 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type User media service.
+ */
 @Service
 @Transactional
 public class UserMediaService {
-   @Autowired
-   private UserMediaRepository userMediaRepository;
+    /**
+     * Autowire of user media repository.
+     */
+    @Autowired
+    private UserMediaRepository userMediaRepository;
 
-   @Autowired
-   private UserRepository userRepository;
+    /**
+     * Autowire of user repository.
+     */
+    @Autowired
+    private UserRepository userRepository;
 
-   @Autowired
-   private MediaRepository mediaRepository;
+    /**
+     * Autowire of media repository.
+     */
+    @Autowired
+    private MediaRepository mediaRepository;
 
-   @Autowired
-   private MediaTypeRepository mediaTypeRepository;
+    /**
+     * Autowire of media type repository.
+     */
+    @Autowired
+    private MediaTypeRepository mediaTypeRepository;
 
-   public List<Content> getUserCollectionByIdUser(Integer IdUser) {
-      List<String> Urls = userMediaRepository.getUserCollectionByIdUser(IdUser);
-      return getContent(Urls);
-   }
+    /**
+     * Gets user collection by id user.
+     *
+     * @param idUser the id user
+     * @return the user collection by id user
+     */
+    public List<Content> getUserCollectionByIdUser(final Integer idUser) {
+        List<String> urls = userMediaRepository.getUserCollectionByIdUser(idUser);
+        return getContent(urls);
+    }
 
-   public List<Content> getUserWishlistByIdUser(Integer IdUser) {
-      List<String> Urls = userMediaRepository.getUserWishlistByIdUser(IdUser);
-      return getContent(Urls);
-   }
+    /**
+     * Gets user wishlist by id user.
+     *
+     * @param idUser the id user
+     * @return the user wishlist by id user
+     */
+    public List<Content> getUserWishlistByIdUser(final Integer idUser) {
+        List<String> urls = userMediaRepository.getUserWishlistByIdUser(idUser);
+        return getContent(urls);
+    }
 
-   public String addToUserWishlist(String MediaType, String MediaId, Integer IdUser) {
-      String result = "";
-      if (mediaTypeRepository.getMediaTypeByName(MediaType) != null) {
-         if (mediaRepository.findMediaByIdMediaAndMediaType(MediaId, MediaType) == null) {
-            mediaRepository.save(new Media(MediaId, MediaType));
-         }
-         if (userRepository.findByIdUser(IdUser) != null) {
-            if (userMediaRepository.getUserMediaByIdMediaAndMediaTypeAndIdUserAndWishlist(MediaId, MediaType, IdUser, true) != null) {
-               userMediaRepository.deleteUserMediaByIdUserAndIdMediaAndMediaType(IdUser,MediaId,MediaType);
+    /**
+     * Add to user wishlist string.
+     *
+     * @param mediaType the media type
+     * @param mediaId   the media id
+     * @param idUser    the id user
+     * @return the string
+     */
+    public String addToUserWishlist(final String mediaType, final String mediaId, final Integer idUser) {
+        String result = "";
+        if (mediaTypeRepository.getMediaTypeByName(mediaType) != null) {
+            if (mediaRepository.findMediaByIdMediaAndMediaType(mediaId, mediaType) == null) {
+                mediaRepository.save(new Media(mediaId, mediaType));
+            }
+            if (userRepository.findByIdUser(idUser) != null) {
+                if (userMediaRepository.getUserMediaByIdMediaAndMediaTypeAndIdUserAndWishlist(mediaId, mediaType,
+                        idUser, true) != null) {
+                    userMediaRepository.deleteUserMediaByIdUserAndIdMediaAndMediaType(idUser, mediaId, mediaType);
+                } else {
+                    userMediaRepository.save(new UserMedia(idUser, mediaId, mediaType, false, true));
+                }
             } else {
-               userMediaRepository.save(new UserMedia(IdUser, MediaId, MediaType, false, true));
+                result = "L'utilisateur n'existe pas";
             }
-         } else {
-            result = "L'utilisateur n'existe pas";
-         }
-      } else {
-         result = "Le type de media n'existe pas";
-      }
-      return result;
-   }
+        } else {
+            result = "Le type de media n'existe pas";
+        }
+        return result;
+    }
 
-   public String addToUserCollection(String MediaType, String MediaId, Integer IdUser) {
-      String result = "";
-      if (mediaTypeRepository.getMediaTypeByName(MediaType) != null) {
-         if (mediaRepository.findMediaByIdMediaAndMediaType(MediaId, MediaType) == null) {
-            mediaRepository.save(new Media(MediaId, MediaType));
-         }
-         if (userRepository.findByIdUser(IdUser) != null) {
-            if (userMediaRepository.getUserMediaByIdMediaAndMediaTypeAndIdUserAndCollection(MediaId, MediaType, IdUser, true) != null) {
-               userMediaRepository.deleteUserMediaByIdUserAndIdMediaAndMediaType(IdUser,MediaId,MediaType);
+    /**
+     * Add to user collection string.
+     *
+     * @param mediaType the media type
+     * @param mediaId   the media id
+     * @param idUser    the id user
+     * @return the string
+     */
+    public String addToUserCollection(final String mediaType, final String mediaId, final Integer idUser) {
+        String result = "";
+        if (mediaTypeRepository.getMediaTypeByName(mediaType) != null) {
+            if (mediaRepository.findMediaByIdMediaAndMediaType(mediaId, mediaType) == null) {
+                mediaRepository.save(new Media(mediaId, mediaType));
+            }
+            if (userRepository.findByIdUser(idUser) != null) {
+                if (userMediaRepository.getUserMediaByIdMediaAndMediaTypeAndIdUserAndCollection(mediaId, mediaType,
+                        idUser, true) != null) {
+                    userMediaRepository.deleteUserMediaByIdUserAndIdMediaAndMediaType(idUser, mediaId, mediaType);
+                } else {
+                    userMediaRepository.save(new UserMedia(idUser, mediaId, mediaType, true, false));
+                }
             } else {
-               userMediaRepository.save(new UserMedia(IdUser, MediaId, MediaType, true, false));
+                result = "L'utilisateur n'existe pas";
             }
-         } else {
-            result = "L'utilisateur n'existe pas";
-         }
-      } else {
-         result = "Le type de media n'existe pas";
-      }
-      return result;
-   }
+        } else {
+            result = "Le type de media n'existe pas";
+        }
+        return result;
+    }
 
-   public List<Content> getContent(List<String> Urls) {
-      RestTemplate restTemplate = new RestTemplate();
-      List<Content> contents = new ArrayList<Content>();
-      Urls.forEach(url -> {
-         try {
-            ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
-            if(null != entity.getBody()) {
-               Content content = new Content(entity.getBody());
-               if (content.getId() != null) {
-                  contents.add(content);
-               }
+    /**
+     * Gets content.
+     *
+     * @param urls the urls
+     * @return the content
+     */
+    public List<Content> getContent(final List<String> urls) {
+        RestTemplate restTemplate = new RestTemplate();
+        List<Content> contents = new ArrayList<Content>();
+        urls.forEach(url -> {
+            try {
+                ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
+                if (null != entity.getBody()) {
+                    Content content = new Content(entity.getBody());
+                    if (content.getId() != null) {
+                        contents.add(content);
+                    }
+                }
+            } catch (RestClientException ignored) {
+
             }
-         } catch (RestClientException ignored) {
-
-         }
-      });
-      return contents;
-   }
+        });
+        return contents;
+    }
 
 }
