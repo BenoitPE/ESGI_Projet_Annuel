@@ -50,23 +50,47 @@ class _loginPage extends State<loginPage> {
                         // parti asynchrone permettant de se connecter vérification cotée api 
                         onPressed: () async {
                           var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
+                          if (myControllerUsername.text != "" &&
+                              myControllerPassword.text != "") {
                           final response = await http.post(
                             Uri.parse(
                                 userApiUrl.toString() + '/login?Username=' +
                                     myControllerUsername.text +
                                     '&Password=' +
                                     myControllerPassword.text),
-                          );
-                          if (myControllerUsername.text != "" &&
-                              myControllerPassword.text != "" &&
-                              response.statusCode == 200) {
-                            var user = User.fromJson(jsonDecode(response.body));
-                            _userRepository.addUser(user);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute (
-                                  builder: (context) => searchPage(user: user)),
                             );
+                          if(response.statusCode == 200) {
+                              var user = User.fromJson(jsonDecode(response.body));
+                              _userRepository.addUser(user);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute (
+                                    builder: (context) => searchPage(user: user)),
+                              );
+                            } else {
+                                showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Column(
+                                      children: [
+                                        Container(
+                                          child: Row(children: [
+                                            Text((() {
+                                              return "identifiant ou mots \nde passe incorrect  ";
+                                            })()),
+                                          ]),
+                                        ),
+                                        const CloseButton(),
+                                      ],
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  );
+                                });
+                            }
                           } else {
                             //une popup d'alerte permet de prevenir si il manque des informations renseignée
                             showDialog(
@@ -88,12 +112,8 @@ class _loginPage extends State<loginPage> {
                                                       .text ==
                                                   "") {
                                                 return "Veuillez saisir un identifiant";
-                                              } else if (myControllerPassword
-                                                      .text ==
-                                                  "") {
-                                                return "Veuillez saisir un password";
                                               } else {
-                                                return "identifiant ou mots \nde passe incorrect ";
+                                                return "Veuillez saisir un password";
                                               }
                                             })()),
                                           ]),
