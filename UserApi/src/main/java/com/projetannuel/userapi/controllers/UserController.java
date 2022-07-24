@@ -56,8 +56,8 @@ public class UserController {
      */
     @Operation(summary = "Retourne un utilisateur si le login est Ok")
     @RequestMapping(path = "login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<User> login(@RequestParam("username") final String username,
-                                      @RequestParam("password") final String password) {
+    public ResponseEntity<User> login(@RequestParam("Username") final String username,
+                                      @RequestParam("Password") final String password) {
         User result = userService.login(username, password);
         ResponseEntity response;
         if (null != result) {
