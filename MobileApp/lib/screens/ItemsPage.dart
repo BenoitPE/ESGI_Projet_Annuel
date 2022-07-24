@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:Watchlist/screens/searchPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class ItemsPage extends StatelessWidget {
 
   const ItemsPage({Key? key, required this.item, required this.user})
       : super(key: key);
+
 //widget qui crée la page item page avec différentes information comme le titre le synopsyse etc ...
   @override
   Widget build(BuildContext context) => Stack(
@@ -67,6 +69,15 @@ class ItemsPage extends StatelessWidget {
                                         );
 
                                         if (response.statusCode == 200) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    searchPage(
+                                                      user: user,
+                                                      index: 0,
+                                                    )),
+                                          );
                                         } else {
                                           throw Exception('Failed');
                                         }
@@ -100,6 +111,15 @@ class ItemsPage extends StatelessWidget {
                                               user.idUser.toString()),
                                         );
                                         if (response.statusCode == 200) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    searchPage(
+                                                      user: user,
+                                                      index: 1,
+                                                    )),
+                                          );
                                         } else {
                                           throw Exception('Failed');
                                         }

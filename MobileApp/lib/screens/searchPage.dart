@@ -11,22 +11,28 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class searchPage extends StatefulWidget {
   final user;
+  final index;
   const searchPage({
     this.user,
+    this.index
   });
 
   @override
-  _searchPage createState() => _searchPage(user);
+  _searchPage createState() => _searchPage(user,index);
 }
 
 // création d'une partie de la searchPage , le composant crée ici est la bottom bar permettant de naviger entre les pages
 class _searchPage extends State<searchPage> {
-  _searchPage(final user);
+  _searchPage(final user,final index);
 
-  // ignore: unused_element
-  static get user => user;
+  int  currentIndex = 999;
 
-  int currentIndex = 2;
+  int calculateIndex(index,currentIndex){
+    if (currentIndex != 999){
+      return currentIndex;
+    }
+    return index;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +42,16 @@ class _searchPage extends State<searchPage> {
       containerSearch(user: this.widget.user),
       profilPage(user: this.widget.user),
     ];
+
+    var index = this.widget.index;
+    //currentIndex = this.widget.index as int;
+
     return Scaffold(
-      body: screens[currentIndex],
+      body: screens[calculateIndex(index,currentIndex)],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() {
-          currentIndex = index;
+        currentIndex: calculateIndex(index,currentIndex),
+        onTap: (position) => setState(() {
+          currentIndex = position;
         }),
         items: [
           BottomNavigationBarItem(
