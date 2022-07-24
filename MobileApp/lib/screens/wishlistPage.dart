@@ -287,7 +287,7 @@ class textSection extends StatelessWidget {
     return Container(
       height: 50,
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      child: const Text('Wishlist',
+      child: const Text('Liste de souhaits',
           style: TextStyle(
               color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
     );
