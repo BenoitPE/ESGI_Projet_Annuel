@@ -19,7 +19,7 @@ pub struct Anime {
 struct Character {
     gender: Option<String>,
     id: Option<i64>,
-    imageUrl: Option<String>,
+    profile_path: Option<String>,
     name: Option<String>,
 }
 
@@ -115,7 +115,7 @@ pub fn parse(datas: Value) -> String {
                                         character.id = Some(id);
                                     }
                                     if let Some(image) = node["image"].as_object().unwrap()["medium"].as_str() {
-                                        character.imageUrl = Some(image.to_string());
+                                        character.profile_path = Some(image.to_string());
                                     }
                                     if let Some(name) = node["name"].as_object().unwrap()["userPreferred"].as_str() {
                                         character.name = Some(name.to_string());
