@@ -65,7 +65,7 @@ class _loginPage extends State<loginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute (
-                                    builder: (context) => searchPage(user: user)),
+                                    builder: (context) => searchPage(user: user, index: 2)),
                               );
                             } else {
                                 showDialog(
