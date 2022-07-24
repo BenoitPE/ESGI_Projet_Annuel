@@ -1,60 +1,59 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MovieAPI.Models;
+﻿using MovieAPI.Models;
 using System.Text.Json;
 
 namespace MovieAPI.Services
 {
-    public class MovieService
+    public class SerieService
     {
         /// <summary>
-        /// Get a movie
+        /// Get a serie
         /// </summary>
-        /// <param name="id">The movie Id</param>
-        /// <returns>Content with movie properties</returns>
+        /// <param name="id">The serie Id</param>
+        /// <returns>Content with Serie properties</returns>
         public async Task<Content?> Get(int id)
         {
-            HttpResponseMessage response = await TMDBApi.Get($"movie/{id}");
+            HttpResponseMessage response = await TMDBApi.Get($"tv/{id}");
 
             // Checks if the response from TMDB Api is correct
             if (!response.IsSuccessStatusCode)
                 return null;
 
-            // Deserializing the response into Movie
-            Movie? movie = JsonSerializer.Deserialize<Movie>(
+            // Deserializing the response into Serie
+            Serie? serie = JsonSerializer.Deserialize<Serie>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
             // Checks if success
-            if (movie == null)
+            if (serie == null)
                 return null;
 
-            // Adds movie credits
-            movie.Credits = JsonSerializer.Deserialize<Credits>(
-                await (await TMDBApi.Get($"movie/{id}/credits")).Content.ReadAsStringAsync(),
+            // Adds Serie credits
+            serie.Credits = JsonSerializer.Deserialize<Credits>(
+                await (await TMDBApi.Get($"tv/{id}/credits")).Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
             // Takes the first nine characters
-            if (movie.Credits != null && movie.Credits.Cast != null && movie.Credits.Cast.Count > 9)
-                movie.Credits.Cast = movie.Credits.Cast.Take(9).ToList();
+            if (serie.Credits != null && serie.Credits.Cast != null && serie.Credits.Cast.Count > 9)
+                serie.Credits.Cast = serie.Credits.Cast.Take(9).ToList();
 
-            return new Content(movie);
+            return new Content(serie);
         }
 
         /// <summary>
-        /// Search a movie
+        /// Search a content
         /// </summary>
         /// <param name="query">The query (e.g: "Spiderm")</param>
         /// <returns>A list of Content</returns>
         public async Task<List<Content>?> Search(string query)
         {
-            HttpResponseMessage response = await TMDBApi.Search($"search/movie", query);
+            HttpResponseMessage response = await TMDBApi.Search($"search/tv", query);
 
             // Checks if the response from TMDB Api is correct
             if (!response.IsSuccessStatusCode)
                 return null;
 
-            // Deserializing the response into MovieSearch
-            MovieSearch? search = JsonSerializer.Deserialize<MovieSearch>(
+            // Deserializing the response into SerieSearch
+            SerieSearch? search = JsonSerializer.Deserialize<SerieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 
@@ -82,19 +81,19 @@ namespace MovieAPI.Services
         }
 
         /// <summary>
-        /// Get popular movies
+        /// Get popular series
         /// </summary>
         /// <returns>A list of Content</returns>
         public async Task<List<Content>?> Popular()
         {
-            HttpResponseMessage response = await TMDBApi.Popular("movie");
+            HttpResponseMessage response = await TMDBApi.Popular("tv");
 
             // Checks if the response from TMDB Api is correct
             if (!response.IsSuccessStatusCode)
                 return null;
 
-            // Deserializing the response into MovieSearch
-            MovieSearch? search = JsonSerializer.Deserialize<MovieSearch>(
+            // Deserializing the response into SerieSearch
+            SerieSearch? search = JsonSerializer.Deserialize<SerieSearch>(
                 await response.Content.ReadAsStringAsync(),
                 TMDBApi.JsonSerializerOptions);
 

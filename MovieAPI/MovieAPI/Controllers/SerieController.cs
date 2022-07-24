@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieAPI.Models;
+using MovieAPI.Services;
 using System.Text.Json;
 
 namespace MovieAPI.Controllers
@@ -9,6 +10,7 @@ namespace MovieAPI.Controllers
     public class SerieController : ControllerBase
     {
         private readonly IConfiguration _config;
+        private SerieService _serieService;
 
         /// <summary>
         /// <see cref="SerieController"/> constructor
@@ -17,67 +19,35 @@ namespace MovieAPI.Controllers
         public SerieController(IConfiguration config)
         {
             _config = config;
+            _serieService = new SerieService();
         }
 
         /// <summary>
         /// Get a serie
         /// </summary>
         /// <param name="id">The serie Id</param>
-        /// <returns>Serie details</returns>
+        /// <returns>IActionResult</returns>
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id = 154521)
         {
-            HttpResponseMessage response = await TMDBApi.Get($"tv/{id}");
-            if (!response.IsSuccessStatusCode)
+            Content? content = await _serieService.Get(id);
+            if (content == null)
                 return NotFound();
 
-            Serie? serie = JsonSerializer.Deserialize<Serie>(
-                await response.Content.ReadAsStringAsync(),
-                TMDBApi.JsonSerializerOptions);
-
-            if (serie == null)
-                return NotFound();
-
-            serie.Credits = JsonSerializer.Deserialize<Credits>(
-                await (await TMDBApi.Get($"tv/{id}/credits")).Content.ReadAsStringAsync(),
-                TMDBApi.JsonSerializerOptions);
-
-            if (serie.Credits != null && serie.Credits.Cast != null && serie.Credits.Cast.Count > 9)
-                serie.Credits.Cast = serie.Credits.Cast.Take(9).ToList();
-
-            return Ok(new Content(serie));
+            return Ok(content);
         }
 
         /// <summary>
         /// Search a content
         /// </summary>
         /// <param name="query">The query (e.g: "Spiderm")</param>
-        /// <returns>A list of serie</returns>
+        /// <returns>IActionResult</returns>
         [HttpGet("Search/{query}")]
         public async Task<IActionResult> Search(string query = "Spiderman")
         {
-            HttpResponseMessage response = await TMDBApi.Search($"search/tv", query);
-            if (!response.IsSuccessStatusCode)
+            List<Content>? contents = await _serieService.Search(query);
+            if (contents == null)
                 return NotFound();
-
-            SerieSearch? search = JsonSerializer.Deserialize<SerieSearch>(
-                await response.Content.ReadAsStringAsync(),
-                TMDBApi.JsonSerializerOptions);
-
-            if (search == null || search.Results == null || search.Results.Count == 0)
-                return Ok(new List<Content>());
-
-            if (search.Results.Count > 9)
-                search.Results = search.Results.GetRange(0, 9);
-
-            List<Content> contents = new List<Content>();
-            for (int i = 0; i < search.Results.Count; i++)
-            {
-                Content content = (Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value;
-                if (!String.IsNullOrWhiteSpace(content?.Date))
-                    contents.Add(content);
-            }
-            contents = MovieAPI.Models.Content.MergeSort(contents);
 
             return Ok(contents);
         }
@@ -85,34 +55,13 @@ namespace MovieAPI.Controllers
         /// <summary>
         /// Get popular series
         /// </summary>
-        /// <returns>A list of series</returns>
+        /// <returns>IActionResult</returns>
         [HttpGet("Popular")]
         public async Task<IActionResult> Popular()
         {
-            HttpResponseMessage response = await TMDBApi.Popular("tv");
-            if (!response.IsSuccessStatusCode)
+            List<Content>? contents = await _serieService.Popular();
+            if (contents == null)
                 return NotFound();
-
-            string? res = await response.Content.ReadAsStringAsync();
-
-            SerieSearch? search = JsonSerializer.Deserialize<SerieSearch>(
-                await response.Content.ReadAsStringAsync(),
-                TMDBApi.JsonSerializerOptions);
-
-            if (search == null || search.Results == null || search.Results.Count == 0)
-                return Ok(new List<Content>());
-
-            if (search.Results.Count > 9)
-                search.Results = search.Results.GetRange(0, 9);
-
-            List<Content> contents = new List<Content>();
-            for (int i = 0; i < search.Results.Count; i++)
-            {
-                Content content = (Content)(await Get((int)search.Results[i].Id) as OkObjectResult).Value;
-                if (!String.IsNullOrWhiteSpace(content?.Date))
-                    contents.Add(content);
-            }
-            contents = MovieAPI.Models.Content.MergeSort(contents);
 
             return Ok(contents);
         }

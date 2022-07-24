@@ -10,7 +10,7 @@ namespace MovieAPI.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private MovieService movieService;
+        private MovieService _movieService;
 
         /// <summary>
         /// <see cref="MovieController"/> constructor
@@ -19,7 +19,7 @@ namespace MovieAPI.Controllers
         public MovieController(IConfiguration config)
         {
             _config = config;
-            movieService = new MovieService();
+            _movieService = new MovieService();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace MovieAPI.Controllers
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id = 634649)
         {
-            Content? content = await movieService.Get(id);
+            Content? content = await _movieService.Get(id);
             if(content == null)
                 return NotFound();
 
@@ -45,7 +45,7 @@ namespace MovieAPI.Controllers
         [HttpGet("Search/{query}")]
         public async Task<IActionResult> Search(string query = "Spiderman")
         {
-            List<Content>? contents = await movieService.Search(query);
+            List<Content>? contents = await _movieService.Search(query);
             if (contents == null)
                 return NotFound();
 
@@ -59,7 +59,7 @@ namespace MovieAPI.Controllers
         [HttpGet("Popular")]
         public async Task<IActionResult> Popular()
         {
-            List<Content>? contents = await movieService.Popular();
+            List<Content>? contents = await _movieService.Popular();
             if (contents == null)
                 return NotFound();
 
