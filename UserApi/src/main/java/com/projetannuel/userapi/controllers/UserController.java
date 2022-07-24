@@ -18,8 +18,8 @@ public class UserController {
 
     @Operation(summary = "Ajout d'un utilisateur")
     @RequestMapping(path = "addUser", method = RequestMethod.POST)
-    public ResponseEntity<User> createOrUpdate(@RequestBody User user) {
-        User result = userService.createOrUpdate(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User result = userService.createUser(user);
         ResponseEntity response;
         if (null != result) {
             response = ResponseEntity.status(HttpStatus.OK).body(result);
