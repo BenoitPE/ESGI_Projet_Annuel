@@ -15,6 +15,8 @@ public interface UserMediaRepository extends JpaRepository<UserMedia, String> {
 
     UserMedia getUserMediaByIdMediaAndMediaTypeAndIdUserAndWishlist(String MediaId, String MediaType, Integer UserId, Boolean Wishlist);
 
+    String deleteUserMediaByIdUserAndIdMediaAndMediaType(Integer UserId,String MediaId, String MediaType);
+
     @Query(value = "SELECT CONCAT(MEDIATYPE.SERVERURL,USERMEDIA.IDMEDIA) AS Url FROM USERMEDIA\n" +
             "JOIN MEDIATYPE\n" +
             "\tON  MEDIATYPE.NAME = USERMEDIA.MEDIATYPE\n" +
