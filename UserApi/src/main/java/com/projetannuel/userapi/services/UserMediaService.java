@@ -50,7 +50,7 @@ public class UserMediaService {
          }
          if (userRepository.findByIdUser(IdUser) != null) {
             if (userMediaRepository.getUserMediaByIdMediaAndMediaTypeAndIdUserAndWishlist(MediaId, MediaType, IdUser, true) != null) {
-               userMediaRepository.save(new UserMedia(IdUser, MediaId, MediaType, false, false));
+               userMediaRepository.deleteUserMediaByIdUserAndIdMediaAndMediaType(IdUser,MediaId,MediaType);
             } else {
                userMediaRepository.save(new UserMedia(IdUser, MediaId, MediaType, false, true));
             }
@@ -71,7 +71,7 @@ public class UserMediaService {
          }
          if (userRepository.findByIdUser(IdUser) != null) {
             if (userMediaRepository.getUserMediaByIdMediaAndMediaTypeAndIdUserAndCollection(MediaId, MediaType, IdUser, true) != null) {
-               userMediaRepository.save(new UserMedia(IdUser, MediaId, MediaType, false, false));
+               userMediaRepository.deleteUserMediaByIdUserAndIdMediaAndMediaType(IdUser,MediaId,MediaType);
             } else {
                userMediaRepository.save(new UserMedia(IdUser, MediaId, MediaType, true, false));
             }
