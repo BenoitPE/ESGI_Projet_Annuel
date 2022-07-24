@@ -225,7 +225,7 @@ class itemSection extends StatelessWidget {
 
       if (media == MediaType.Anime || media == MediaType.Tous) {
         final response3 = await http
-            .get(Uri.parse(movieApiUrl.toString() + '/Serie/Search/'));
+            .get(Uri.parse(animeApiUrl.toString() + '/popular'));
 
         if (response3.statusCode == 200) {
           list3 = json.decode(response3.body) as List<dynamic>;
