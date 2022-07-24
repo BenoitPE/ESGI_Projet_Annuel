@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:developer';
 import '../repository/user_repository.dart';
 import 'loginPage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class profilPage extends StatelessWidget {
   final user;
@@ -204,8 +205,9 @@ class profilPage extends StatelessWidget {
 
 //futur qui appel l'api afin davoir le nombre d'élement détenue par l'utilisateur dans sa collection 
   Future<String> nbCollection(dynamic user) async {
+    var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
     final response = await http.get(Uri.parse(
-        'http://100.113.108.37:8081/getCollection?Id=' +
+        userApiUrl.toString() + '/getCollection?Id=' +
             user.idUser.toString()));
     if (response.statusCode == 200) {
       var list = json.decode(response.body) as List<dynamic>;
@@ -218,8 +220,9 @@ class profilPage extends StatelessWidget {
 
 //futur qui appel l'api afin davoir le nombre d'élement détenue par l'utilisateur dans sa collection 
   Future<String> nbWishlist(dynamic user) async {
+    var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
     final response = await http.get(Uri.parse(
-        'http://100.113.108.37:8081/getWishlist?Id=' + user.idUser.toString()));
+        userApiUrl.toString() + '/getWishlist?Id=' + user.idUser.toString()));
     if (response.statusCode == 200) {
       var list = json.decode(response.body) as List<dynamic>;
       return list.length.toString();

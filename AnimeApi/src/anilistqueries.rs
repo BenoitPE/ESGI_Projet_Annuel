@@ -1,4 +1,4 @@
-use serde_json::json;
+use serde_json::{json, Value};
 use reqwest::Client;
 use std::fs::File;
 use std::io::Read;
@@ -13,10 +13,8 @@ pub fn read_query(filename: String) -> String {
     graphql_query
 }
 
-pub async fn get_anime_request(data: String, requestType: String) -> serde_json::Value {
+pub async fn get_anime_request(json: Value) -> serde_json::Value {
     let client = Client::new();
-    let graphql_query = read_query("get_anime_query.graphql".to_string());
-    let json = json!({"query": graphql_query, "variables": {requestType: data}});
     // Make HTTP post request
     let resp = client.post("https://graphql.anilist.co/")
         .header("Content-Type", "application/json")
@@ -33,5 +31,13 @@ pub async fn get_anime_request(data: String, requestType: String) -> serde_json:
 }
 
 pub async fn get_anime(data: String, requestType: String) -> String {
-    Anime::parse(get_anime_request(data, requestType).await)
+    let graphql_query = read_query("get_anime_query.graphql".to_string());
+    let json = json!({"query": graphql_query, "variables": {requestType: data}});
+    Anime::parse(get_anime_request(json).await)
+}
+
+pub async fn get_trending_anime() -> String {
+    let graphql_query = read_query("get_trending_anime_query.graphql".to_string());
+    let json = json!({"query": graphql_query, "variables": {"page": 1,"perPage": 10}});
+    Anime::parse(get_anime_request(json).await)
 }

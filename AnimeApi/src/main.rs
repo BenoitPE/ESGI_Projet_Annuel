@@ -21,6 +21,12 @@ async fn get_anime_by_name(name: String) -> String {
         .await
 }
 
+#[get("/popular")]
+async fn get_trending() -> String {
+    anilistqueries::get_trending_anime()
+        .await
+}
+
 #[catch(default)]
 fn default_catcher(status: Status, req: &Request<'_>) -> status::Custom<String> {
     let msg = format!("{} ({})", status, req.uri());
@@ -29,7 +35,7 @@ fn default_catcher(status: Status, req: &Request<'_>) -> status::Custom<String> 
 
 fn rocket() -> Rocket<Build> {
     rocket::build()
-        .mount("/", routes![get_anime_by_id,get_anime_by_name])
+        .mount("/", routes![get_trending,get_anime_by_id,get_anime_by_name])
         .register("/", catchers![default_catcher])
 }
 

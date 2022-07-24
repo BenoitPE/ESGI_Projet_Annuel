@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../models/data.dart';
 //import '../repository/data_repository.dart';
@@ -25,11 +26,12 @@ Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
   var items = [];
   List<Data> itemsCache = [];
   final DataRepository _dataRepository = DataRepository();
+  var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
 
   try {
     //appel de l'api
     final response = await http
-        .get(Uri.parse('http://100.113.108.37:8081/getCollection?Id=' +
+        .get(Uri.parse(userApiUrl.toString() + '/getCollection?Id=' +
             user.idUser.toString()))
         .timeout(const Duration(seconds: 10));
 

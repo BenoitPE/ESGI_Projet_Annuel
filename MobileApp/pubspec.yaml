@@ -38,6 +38,7 @@ dependencies:
   http: ^0.13.4
   sqflite: ^2.0.2+1
   url_launcher: ^6.1.4
+  flutter_dotenv: ^5.0.2
   
 
 dev_dependencies:
@@ -70,6 +71,7 @@ flutter:
   assets : 
     - jsonfile/
     - image/
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:

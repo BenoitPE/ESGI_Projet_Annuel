@@ -5,8 +5,10 @@ import 'package:Watchlist/screens/registerPage.dart';
 import 'package:Watchlist/screens/searchPage.dart';
 import 'package:http/http.dart' as http;
 import '../models/data.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class loginPage extends StatefulWidget {
+
   const loginPage({Key? key}) : super(key: key);
 
   @override
@@ -47,9 +49,10 @@ class _loginPage extends State<loginPage> {
                         elevation: 5,
                         // parti asynchrone permettant de se connecter vérification cotée api 
                         onPressed: () async {
+                          var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
                           final response = await http.post(
                             Uri.parse(
-                                'http://100.113.108.37:8081/login?Username=' +
+                                userApiUrl.toString() + '/login?Username=' +
                                     myControllerUsername.text +
                                     '&Password=' +
                                     myControllerPassword.text),

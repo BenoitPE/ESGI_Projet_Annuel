@@ -2,13 +2,14 @@
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ItemsPage extends StatelessWidget {
   final item;
   final user;
+
   const ItemsPage({Key? key, required this.item, required this.user})
       : super(key: key);
-
 //widget qui crée la page item page avec différentes information comme le titre le synopsyse etc ...
   @override
   Widget build(BuildContext context) => Stack(
@@ -51,9 +52,10 @@ class ItemsPage extends StatelessWidget {
                                     padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     child: IconButton(
                                       onPressed: () async {
+                                        var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
                                         final response = await http.post(
                                           Uri.parse(
-                                              'http://100.113.108.37:8081/addToWishlist?MediaType=' +
+                                              userApiUrl.toString() + '/addToWishlist?MediaType=' +
                                                   item.mediaType +
                                                   '&MediaId=' +
                                                   item.id.toString() +
@@ -81,9 +83,10 @@ class ItemsPage extends StatelessWidget {
                                             BorderRadius.circular(10)),
                                     child: IconButton(
                                       onPressed: () async {
+                                        var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
                                         final response = await http.post(
                                           Uri.parse(
-                                              'http://100.113.108.37:8081/addToCollection?MediaType=' +
+                                              userApiUrl.toString() + '/addToCollection?MediaType=' +
                                                   item.mediaType +
                                                   '&MediaId=' +
                                                   item.id.toString() +
