@@ -43,7 +43,11 @@ class registerPage extends StatelessWidget {
                         // parti asynchrone permettant d'enregister un utilisateur dans la bdd
                         onPressed: () async {
                           var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
-                          final response = await http.post(
+                          
+                          if (myControllerUsername.text != "" &&
+                              myControllerPassword.text != "" &&
+                              myControllerEmail.text != "") {
+                            final response = await http.post(
                             Uri.parse(userApiUrl.toString() + '/addUser'),
                             headers: {
                               'Content-Type': 'application/json; charset=UTF-8',
@@ -54,16 +58,36 @@ class registerPage extends StatelessWidget {
                               'password': myControllerPassword.text,
                             }),
                           );
-
-                          if (myControllerUsername.text != "" &&
-                              myControllerPassword.text != "" &&
-                              myControllerEmail.text != "" &&
-                              response.statusCode == 200) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => loginPage()),
-                            );
+                            if(response.statusCode == 200){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => loginPage()),
+                              );
+                            } else {
+                                showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Column(
+                                      children: [
+                                        Container(
+                                          child: Row(children: [
+                                            Text((() {
+                                                return "identifant déja utilisée \n ou invalide";
+                                            })()),
+                                          ]),
+                                        ),
+                                        const CloseButton(),
+                                      ],
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  );
+                                });
+                            }
                           } else {
                             //une popup d'alerte permet de prevenir si il manque des informations renseignée
                             showDialog(
@@ -86,16 +110,12 @@ class registerPage extends StatelessWidget {
                                                       .text ==
                                                   "") {
                                                 return "Veuillez saisir un identifiant";
-                                              } else if (myControllerUsername
+                                              } else if (myControllerPassword
                                                       .text ==
                                                   "") {
                                                 return "Veuillez saisir un password";
-                                              } else if (myControllerEmail
-                                                      .text ==
-                                                  "") {
-                                                return "Veuillez saisir un Email";
                                               } else {
-                                                return "identifant ou mots de passe \n déja utilisée ";
+                                                return "Veuillez saisir un Email";
                                               }
                                             })()),
                                           ]),

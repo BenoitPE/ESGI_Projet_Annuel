@@ -1,6 +1,6 @@
 use serde_json;
 use serde::{Serialize, Deserialize};
-use chrono::{DateTime, TimeZone, Utc};
+use chrono::{TimeZone};
 use serde_json::Value;
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
@@ -32,7 +32,7 @@ struct Properties {
 }
 
 pub fn parse(datas: Value) -> String {
-    let mut VecAnime: Vec<Anime> = Vec::new();
+    let mut vec_anime: Vec<Anime> = Vec::new();
     if let Some(data) = datas["data"].as_object() {
         if let Some(page) = data["Page"].as_object() {
             if let Some(medias) = page["media"].as_array() {
@@ -65,37 +65,37 @@ pub fn parse(datas: Value) -> String {
                         anime.properties.duration = Some(duration);
                     }
 
-                    if let Some(cover) = item["coverImage"].as_object().unwrap()["large"].as_str() {
+                    if let Some(cover) = item["coverImage"].as_object().unwrap()["extraLarge"].as_str() {
                         anime.imageUrl = Some(cover.to_string());
                     }
 
-                    if let Some(isAdult) = item["isAdult"].as_bool() {
-                        anime.adult = Some(isAdult);
+                    if let Some(is_adult) = item["isAdult"].as_bool() {
+                        anime.adult = Some(is_adult);
                     }
 
                     if let Some(genres) = item["genres"].as_array() {
-                        let mut vecGenres: Vec<String> = vec![];
+                        let mut vec_genres: Vec<String> = vec![];
 
                         for genre in genres {
-                            vecGenres.push(genre.as_str().unwrap().to_string());
+                            vec_genres.push(genre.as_str().unwrap().to_string());
                         }
-                        if vecGenres.len() > 0 {
-                            anime.properties.genres = Some(vecGenres);
+                        if vec_genres.len() > 0 {
+                            anime.properties.genres = Some(vec_genres);
                         }
                     }
 
-                    if let Some(startDate) = item["startDate"].as_object() {
+                    if let Some(start_date) = item["startDate"].as_object() {
                         let mut year: i64 = 0;
                         let mut month: i64 = 1;
                         let mut day: i64 = 1;
 
-                        if let Some(tmpyear) = item["startDate"].as_object().unwrap()["year"].as_i64() {
+                        if let Some(tmpyear) = start_date["year"].as_i64() {
                             year = Some(tmpyear).unwrap();
                         }
-                        if let Some(tmpmonth) = item["startDate"].as_object().unwrap()["month"].as_i64() {
+                        if let Some(tmpmonth) = start_date["month"].as_i64() {
                             month = Some(tmpmonth).unwrap();
                         }
-                        if let Some(tmpday) = item["startDate"].as_object().unwrap()["day"].as_i64() {
+                        if let Some(tmpday) = start_date["day"].as_i64() {
                             day = Some(tmpday).unwrap();
                         }
                         if year != 0 {
@@ -104,7 +104,7 @@ pub fn parse(datas: Value) -> String {
 
                         if let Some(characters) = item["characters"].as_object() {
                             if let Some(nodes) = characters["nodes"].as_array() {
-                                let mut vecCharacter: Vec<Character> = vec![];
+                                let mut vec_character: Vec<Character> = vec![];
 
                                 for node in nodes {
                                     let mut character = Character::default();
@@ -120,26 +120,26 @@ pub fn parse(datas: Value) -> String {
                                     if let Some(name) = node["name"].as_object().unwrap()["userPreferred"].as_str() {
                                         character.name = Some(name.to_string());
                                     }
-                                    vecCharacter.push(character);
+                                    vec_character.push(character);
                                 }
 
-                                if vecCharacter.len() > 0 {
-                                    anime.properties.characters = Some(vecCharacter);
+                                if vec_character.len() > 0 {
+                                    anime.properties.characters = Some(vec_character);
                                 }
                             }
                         }
                     }
-                    VecAnime.push(anime);
+                    vec_anime.push(anime);
                 }
             }
         }
     }
-    if VecAnime.len() <= 0 {
+    if vec_anime.len() <= 0 {
         "".to_string()
-    } else if VecAnime.len() == 1 {
-        serde_json::to_string(&VecAnime[0]).unwrap()
+    } else if vec_anime.len() == 1 {
+        serde_json::to_string(&vec_anime[0]).unwrap()
     }
     else {
-        serde_json::to_string(&VecAnime).unwrap()
+        serde_json::to_string(&vec_anime).unwrap()
     }
 }

@@ -2,12 +2,11 @@
 extern crate rocket;
 
 mod anilistqueries;
-mod Anime;
+mod anime;
 
 use rocket::{Rocket, Request, Build};
 use rocket::response::{status};
 use rocket::http::Status;
-use serde_json::json;
 
 #[get("/anime?<id>", rank = 1)]
 async fn get_anime_by_id(id: i64) -> String {
