@@ -21,10 +21,10 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User result = userService.createUser(user);
         ResponseEntity response;
-        if (null != result) {
+        if (null != result.getIdUser()) {
             response = ResponseEntity.status(HttpStatus.OK).body(result);
         } else {
-            response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
         return response;
     }
