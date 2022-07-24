@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
                       {
                         Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => searchPage(user: users[0])),
+                        MaterialPageRoute(builder: (context) => searchPage(user: users[0], index: 2,)),
                       );
                       }else 
                       Navigator.push(

@@ -8,17 +8,29 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ * The type User api application.
+ */
 @SpringBootApplication
 @Configuration
 @EntityScan("com.projetannuel.userapi")
 @EnableJpaRepositories("com.projetannuel.userapi.repositories")
 public class UserApiApplication extends SpringBootServletInitializer {
-    public static void main(String[] args) {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(final String[] args) {
         SpringApplication.run(UserApiApplication.class, args);
     }
+
+    /**
+     * Spring Application Builder.
+     */
     @Override
     protected SpringApplicationBuilder
-    configure(SpringApplicationBuilder builder) {
+    configure(final SpringApplicationBuilder builder) {
         return builder.sources(UserApiApplication.class);
     }
 }

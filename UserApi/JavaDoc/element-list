@@ -1,0 +1,7 @@
+com.projetannuel.userapi
+com.projetannuel.userapi.controllers
+com.projetannuel.userapi.entities
+com.projetannuel.userapi.IdClass
+com.projetannuel.userapi.Models
+com.projetannuel.userapi.repositories
+com.projetannuel.userapi.services

@@ -2,7 +2,7 @@ use serde_json::{json, Value};
 use reqwest::Client;
 use std::fs::File;
 use std::io::Read;
-use crate::Anime;
+use crate::anime;
 
 pub fn read_query(filename: String) -> String {
     let mut graphql_query = String::new();
@@ -30,14 +30,14 @@ pub async fn get_anime_request(json: Value) -> serde_json::Value {
     result
 }
 
-pub async fn get_anime(data: String, requestType: String) -> String {
+pub async fn get_anime(data: String, request_type: String) -> String {
     let graphql_query = read_query("get_anime_query.graphql".to_string());
-    let json = json!({"query": graphql_query, "variables": {requestType: data}});
-    Anime::parse(get_anime_request(json).await)
+    let json = json!({"query": graphql_query, "variables": {request_type: data}});
+    anime::parse(get_anime_request(json).await)
 }
 
 pub async fn get_trending_anime() -> String {
     let graphql_query = read_query("get_trending_anime_query.graphql".to_string());
     let json = json!({"query": graphql_query, "variables": {"page": 1,"perPage": 10}});
-    Anime::parse(get_anime_request(json).await)
+    anime::parse(get_anime_request(json).await)
 }
