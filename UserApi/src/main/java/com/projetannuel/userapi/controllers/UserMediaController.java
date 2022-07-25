@@ -158,4 +158,42 @@ public class UserMediaController {
         }
         return response;
     }
+
+    /**
+     * Count media in user collection response entity.
+     *
+     * @param idUser the id user
+     * @return the response entity
+     */
+    @Operation(summary = "Compte le nombre d'élément dans la collection d'un utilisateur à partir de son identifiant")
+    @RequestMapping(path = "/countMediaInUserCollection", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Integer> countMediaInUserCollection(@RequestParam("Id") final Integer idUser) {
+        Integer result = usermediaService.countMediaInUserCollection(idUser);
+        ResponseEntity response;
+        if (null != result && 0 <= result) {
+            response = ResponseEntity.status(HttpStatus.OK).body(result);
+        } else {
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        return response;
+    }
+
+    /**
+     * Count media in user wishlist response entity.
+     *
+     * @param idUser the id user
+     * @return the response entity
+     */
+    @Operation(summary = "Compte le nombre d'élément dans la wishlist d'un utilisateur à partir de son identifiant")
+    @RequestMapping(path = "/countMediaInUserWishlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Integer> countMediaInUserWishlist(@RequestParam("Id") final Integer idUser) {
+        Integer result = usermediaService.countMediaInUserWishlist(idUser);
+        ResponseEntity response;
+        if (null != result && 0 <= result) {
+            response = ResponseEntity.status(HttpStatus.OK).body(result);
+        } else {
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        return response;
+    }
 }

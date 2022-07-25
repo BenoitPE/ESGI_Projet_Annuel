@@ -52,6 +52,7 @@ public interface UserMediaRepository extends JpaRepository<UserMedia, String> {
             + "AND USERMEDIA.MEDIATYPE = :mediaType", nativeQuery = true)
     Boolean isMediaInUserCollection(String mediaId, String mediaType, Integer userId);
 
+
     /**
      * Is media in user wishlist boolean.
      *
@@ -65,6 +66,30 @@ public interface UserMediaRepository extends JpaRepository<UserMedia, String> {
             + "AND USERMEDIA.IDMEDIA = :mediaId\n"
             + "AND USERMEDIA.MEDIATYPE = :mediaType", nativeQuery = true)
     Boolean isMediaInUserWishlist(String mediaId, String mediaType, Integer userId);
+
+
+    /**
+     * Count media in user collection integer.
+     *
+     * @param userId the user id
+     * @return the integer
+     */
+    @Query(value = "SELECT COUNT(*) FROM USERMEDIA\n"
+            + "WHERE USERMEDIA.IDUSER = :userId\n"
+            + "AND USERMEDIA.COLLECTION = 1", nativeQuery = true)
+    Integer countMediaInUserCollection(Integer userId);
+
+
+    /**
+     * Count media in user wishlist integer.
+     *
+     * @param userId the user id
+     * @return the integer
+     */
+    @Query(value = "SELECT COUNT(*) FROM USERMEDIA\n"
+            + "WHERE USERMEDIA.IDUSER = :userId\n"
+            + "AND USERMEDIA.WISHLIST = 1", nativeQuery = true)
+    Integer countMediaInUserWishlist(Integer userId);
 
     /**
      * Delete user media by id user and id media and media type string.

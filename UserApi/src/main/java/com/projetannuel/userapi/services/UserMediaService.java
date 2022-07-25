@@ -93,6 +93,28 @@ public class UserMediaService {
         return userMediaRepository.isMediaInUserWishlist(mediaId, mediaType, idUser);
     }
 
+
+    /**
+     * Count media in user collection integer.
+     *
+     * @param idUser the id user
+     * @return the integer
+     */
+    public Integer countMediaInUserCollection(final Integer idUser) {
+        return userMediaRepository.countMediaInUserCollection(idUser);
+    }
+
+
+    /**
+     * Count media in user wishlist integer.
+     *
+     * @param idUser the id user
+     * @return the integer
+     */
+    public Integer countMediaInUserWishlist(final Integer idUser) {
+        return userMediaRepository.countMediaInUserWishlist(idUser);
+    }
+
     /**
      * Add to user wishlist string.
      *
