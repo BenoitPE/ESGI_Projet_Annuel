@@ -209,11 +209,11 @@ class profilPage extends StatelessWidget {
   Future<String> nbCollection(dynamic user) async {
     var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
     final response = await http.get(Uri.parse(
-        userApiUrl.toString() + '/getCollection?Id=' +
+        userApiUrl.toString() + '/countMediaInUserCollection?Id=' +
             user.idUser.toString()));
     if (response.statusCode == 200) {
-      var list = json.decode(response.body) as List<dynamic>;
-      return list.length.toString();
+      var count = json.decode(response.body) as int;
+      return count.toString();
     } else {
       log("error load data");
       return "0";
@@ -224,10 +224,10 @@ class profilPage extends StatelessWidget {
   Future<String> nbWishlist(dynamic user) async {
     var userApiUrl = dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
     final response = await http.get(Uri.parse(
-        userApiUrl.toString() + '/getWishlist?Id=' + user.idUser.toString()));
+        userApiUrl.toString() + '/countMediaInUserWishlist?Id=' + user.idUser.toString()));
     if (response.statusCode == 200) {
-      var list = json.decode(response.body) as List<dynamic>;
-      return list.length.toString();
+      var count = json.decode(response.body) as int;
+      return count.toString();
     } else {
       log("error load data");
       return "0";
