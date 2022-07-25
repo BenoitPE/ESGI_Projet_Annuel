@@ -194,8 +194,7 @@ class profilPage extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(
-                  'https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive.jpg'),
+              image: AssetImage('image/backgroundBlack.webp'),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.3),
