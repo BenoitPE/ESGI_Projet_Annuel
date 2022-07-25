@@ -39,6 +39,34 @@ public interface UserMediaRepository extends JpaRepository<UserMedia, String> {
                                                                     Boolean wishlist);
 
     /**
+     * Is media in user collection boolean.
+     *
+     * @param mediaId   the media id
+     * @param mediaType the media type
+     * @param userId    the user id
+     * @return the boolean
+     */
+    @Query(value = "SELECT USERMEDIA.COLLECTION\n"
+            + "FROM USERMEDIA WHERE USERMEDIA.IDUSER = :userId \n"
+            + "AND USERMEDIA.IDMEDIA = :mediaId\n"
+            + "AND USERMEDIA.MEDIATYPE = :mediaType", nativeQuery = true)
+    Boolean isMediaInUserCollection(String mediaId, String mediaType, Integer userId);
+
+    /**
+     * Is media in user wishlist boolean.
+     *
+     * @param mediaId   the media id
+     * @param mediaType the media type
+     * @param userId    the user id
+     * @return the boolean
+     */
+    @Query(value = "SELECT USERMEDIA.WISHLIST\n"
+            + "FROM USERMEDIA WHERE USERMEDIA.IDUSER = :userId \n"
+            + "AND USERMEDIA.IDMEDIA = :mediaId\n"
+            + "AND USERMEDIA.MEDIATYPE = :mediaType", nativeQuery = true)
+    Boolean isMediaInUserWishlist(String mediaId, String mediaType, Integer userId);
+
+    /**
      * Delete user media by id user and id media and media type string.
      *
      * @param userId    the user id

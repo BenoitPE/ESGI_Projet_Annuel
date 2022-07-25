@@ -112,4 +112,50 @@ public class UserMediaController {
         }
         return response;
     }
+
+    /**
+     * Is media in user collection response entity.
+     *
+     * @param mediaType the media type
+     * @param mediaId   the media id
+     * @param idUser    the id user
+     * @return the response entity
+     */
+    @Operation(summary = "True si le media est dans la collection d'un utilisateur")
+    @RequestMapping(path = "/isMediaInCollection", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> isMediaInUserCollection(@RequestParam("MediaType") final String mediaType,
+                                                           @RequestParam("MediaId") final String mediaId,
+                                                           @RequestParam("Id") final Integer idUser) {
+        Boolean result = usermediaService.isMediaInUserCollection(mediaType, mediaId, idUser);
+        ResponseEntity response;
+        if (null != result) {
+            response = ResponseEntity.status(HttpStatus.OK).body(result);
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return response;
+    }
+
+    /**
+     * Is media in user wishlist response entity.
+     *
+     * @param mediaType the media type
+     * @param mediaId   the media id
+     * @param idUser    the id user
+     * @return the response entity
+     */
+    @Operation(summary = "True si le media est dans la wishlist d'un utilisateur")
+    @RequestMapping(path = "/isMediaInWishlist", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> isMediaInUserWishlist(@RequestParam("MediaType") final String mediaType,
+                                                           @RequestParam("MediaId") final String mediaId,
+                                                           @RequestParam("Id") final Integer idUser) {
+        Boolean result = usermediaService.isMediaInUserWishlist(mediaType, mediaId, idUser);
+        ResponseEntity response;
+        if (null != result) {
+            response = ResponseEntity.status(HttpStatus.OK).body(result);
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return response;
+    }
 }

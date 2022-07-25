@@ -70,6 +70,30 @@ public class UserMediaService {
     }
 
     /**
+     * Is media in user collection list.
+     *
+     * @param mediaType the media type
+     * @param mediaId   the media id
+     * @param idUser    the id user
+     * @return the list
+     */
+    public Boolean isMediaInUserCollection(final String mediaType, final String mediaId, final Integer idUser) {
+        return userMediaRepository.isMediaInUserCollection(mediaId, mediaType, idUser);
+    }
+
+    /**
+     * Is media in user wishlist list.
+     *
+     * @param mediaType the media type
+     * @param mediaId   the media id
+     * @param idUser    the id user
+     * @return the list
+     */
+    public Boolean isMediaInUserWishlist(final String mediaType, final String mediaId, final Integer idUser) {
+        return userMediaRepository.isMediaInUserWishlist(mediaId, mediaType, idUser);
+    }
+
+    /**
      * Add to user wishlist string.
      *
      * @param mediaType the media type
