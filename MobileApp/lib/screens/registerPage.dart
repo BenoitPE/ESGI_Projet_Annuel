@@ -202,7 +202,7 @@ Widget buildPassword(myControllerPassword) {
           height: 60,
           child: TextField(
             controller: myControllerPassword,
-            keyboardType: TextInputType.emailAddress,
+            obscureText: true,
             style: TextStyle(
               color: Colors.white,
             ),

@@ -57,24 +57,24 @@ Future<List<Data>> ReadJsonData(MediaType media, dynamic user) async {
         Data data = new Data.fromJson(element);
         _whislistRepository.addData(data);
       });
-    } else {
+    } else if(response.statusCode != 204) {
       // log(response.statusCode.toString() +
       //     " : " +
       //     response.reasonPhrase.toString());
-      var list2 = await _whislistRepository.getAllData();
-      list2.forEach((element) {
-        if (media == MediaType.Movie && element.mediaType == "Movie") {
-          itemsCache.add(element);
-        } else if (media == MediaType.Book && element.mediaType == "book") {
-          itemsCache.add(element);
-        } else if (media == MediaType.Anime && element.mediaType == "anime") {
-          itemsCache.add(element);
-        } else if (media == MediaType.Serie && element.mediaType == "Serie") {
-          itemsCache.add(element);
-        } else if (media == MediaType.Tous) {
-          itemsCache.add(element);
-        }
-      });
+      // var list2 = await _whislistRepository.getAllData();
+      // list2.forEach((element) {
+      //   if (media == MediaType.Movie && element.mediaType == "Movie") {
+      //     itemsCache.add(element);
+      //   } else if (media == MediaType.Book && element.mediaType == "book") {
+      //     itemsCache.add(element);
+      //   } else if (media == MediaType.Anime && element.mediaType == "anime") {
+      //     itemsCache.add(element);
+      //   } else if (media == MediaType.Serie && element.mediaType == "Serie") {
+      //     itemsCache.add(element);
+      //   } else if (media == MediaType.Tous) {
+      //     itemsCache.add(element);
+      //   }
+      // });
       return itemsCache;
     }
     return items.map((e) => Data.fromJson(e)).toList();

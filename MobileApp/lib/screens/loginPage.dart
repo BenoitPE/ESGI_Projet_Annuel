@@ -201,7 +201,7 @@ Widget buildPassword(TextEditingController myControllerPassword) {
           height: 60,
           child: TextField(
             controller: myControllerPassword,
-            keyboardType: TextInputType.emailAddress,
+            obscureText: true,
             style: TextStyle(
               color: Colors.white,
             ),
