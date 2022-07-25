@@ -164,7 +164,6 @@ class ItemsPage extends StatelessWidget {
     List<Data> itemsCache = [];
     final WhislistRepository _whislistRepository = WhislistRepository();
 
-    try {
       var userApiUrl =
           dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
       final response = await http
@@ -183,20 +182,14 @@ class ItemsPage extends StatelessWidget {
           _whislistRepository.addData(data);
         });
       } else {
-        var list2 = await _whislistRepository.getAllData();
-        list2.forEach((element) {
-          itemsCache.add(element);
-        });
-        return itemsCache;
+        // var list2 = await _whislistRepository.getAllData();
+        // list2.forEach((element) {
+        //   itemsCache.add(element);
+        // });
+        // return itemsCache;
       }
       return items.map((e) => Data.fromJson(e)).toList();
-    } catch (e) {
-      var list2 = await _whislistRepository.getAllData();
-      list2.forEach((element) {
-        itemsCache.add(element);
-      });
-      return itemsCache;
-    }
+    
   }
 
   Widget buttonWhislist(
@@ -314,7 +307,7 @@ class ItemsPage extends StatelessWidget {
     var userApiUrl =
         dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
 
-    try {
+    
       final response = await http
           .get(Uri.parse(userApiUrl.toString() +
               '/getCollection?Id=' +
@@ -330,21 +323,16 @@ class ItemsPage extends StatelessWidget {
           Data data = new Data.fromJson(element);
           _dataRepository.addData(data);
         });
-      } else {
-        var list2 = await _dataRepository.getAllData();
-        list2.forEach((element) {
-          itemsCache.add(element);
-        });
-        return itemsCache;
+      } 
+      else {
+        // var list2 = await _dataRepository.getAllData();
+        // list2.forEach((element) {
+        //   itemsCache.add(element);
+        // });
+        // return itemsCache;
       }
       return items.map((e) => Data.fromJson(e)).toList();
-    } catch (e) {
-      var list2 = await _dataRepository.getAllData();
-      list2.forEach((element) {
-        itemsCache.add(element);
-      });
-      return itemsCache;
-    }
+
   }
 
   Widget buttonCollectionlist(
