@@ -158,38 +158,26 @@ class ItemsPage extends StatelessWidget {
       );
 
   //fonction permattant de récupérer tout les élément présent dans la wishlist
-  Future<List<Data>> ReadJsonDataWhislist(dynamic user) async {
-    var list;
-    var items = [];
-    List<Data> itemsCache = [];
+  Future<bool> ReadJsonDataWhislist(dynamic user, dynamic item) async {
+    bool isInWishlist = false;
     final WhislistRepository _whislistRepository = WhislistRepository();
 
-      var userApiUrl =
-          dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
+    var userApiUrl =
+        dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
+
+    
       final response = await http
           .get(Uri.parse(userApiUrl.toString() +
-              '/getWishlist?Id=' +
-              user.idUser.toString()))
+              '/isMediaInWishlist?MediaType='+item.mediaType.toString()+
+              '&MediaId='+item.id.toString()+
+              '&Id='+ user.idUser.toString()))
           .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
-        list = json.decode(response.body) as List<dynamic>;
-        log(response.reasonPhrase.toString());
+        isInWishlist = json.decode(response.body) as bool;
         _whislistRepository.deleteAll();
-        list.forEach((element) {
-          items.add(element);
-          Data data = new Data.fromJson(element);
-          _whislistRepository.addData(data);
-        });
-      } else {
-        // var list2 = await _whislistRepository.getAllData();
-        // list2.forEach((element) {
-        //   itemsCache.add(element);
-        // });
-        // return itemsCache;
       }
-      return items.map((e) => Data.fromJson(e)).toList();
-    
+      return isInWishlist;
   }
 
   Widget buttonWhislist(
@@ -198,22 +186,15 @@ class ItemsPage extends StatelessWidget {
     item,
   ) {
     return FutureBuilder(
-      future: ReadJsonDataWhislist(user),
+      future: ReadJsonDataWhislist(user, item),
       builder: (context, data) {
         if (data.hasError) {
           return Text('error');
         } else if (data.hasData) {
-          var items = data.data as List<Data>;
-          var present;
-          items.forEach((element) {
-            if (element.id == item.id) {
-              present = true;
-            }
-          });
-          if (present == true) {
+          var present = data.data as bool;
             return Container(
               decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.7),
+                  color: present == true ? Colors.red.withOpacity(0.7) : Colors.black.withOpacity(0.6),
                   borderRadius: BorderRadius.circular(10)),
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: IconButton(
@@ -250,47 +231,6 @@ class ItemsPage extends StatelessWidget {
                 ),
               ),
             );
-          } else {
-            return Container(
-              decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(10)),
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: IconButton(
-                onPressed: () async {
-                  var userApiUrl = dotenv.env['USERAPI_URL'] != null
-                      ? dotenv.env['USERAPI_URL']
-                      : '';
-                  final response = await http.post(
-                    Uri.parse(userApiUrl.toString() +
-                        '/addToWishlist?MediaType=' +
-                        item.mediaType +
-                        '&MediaId=' +
-                        item.id.toString() +
-                        '&Id=' +
-                        user.idUser.toString()),
-                  );
-
-                  if (response.statusCode == 200) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => searchPage(
-                                user: user,
-                                index: 0,
-                              )),
-                    );
-                  } else {
-                    throw Exception('Failed');
-                  }
-                },
-                icon: Icon(
-                  Icons.favorite,
-                  color: Colors.white,
-                ),
-              ),
-            );
-          }
         } else {
           return CircularProgressIndicator();
         }
@@ -299,39 +239,26 @@ class ItemsPage extends StatelessWidget {
   }
 
   //fonction permattant de récupérer tout les élément présent dans la wishlist
-  Future<List<Data>> ReadJsonData(dynamic user) async {
-    var list;
-    var items = [];
-    List<Data> itemsCache = [];
+  Future<bool> ReadJsonData(dynamic user, dynamic item) async {
+    bool isInCollection = false;
     final DataRepository _dataRepository = DataRepository();
+
     var userApiUrl =
         dotenv.env['USERAPI_URL'] != null ? dotenv.env['USERAPI_URL'] : '';
 
     
       final response = await http
           .get(Uri.parse(userApiUrl.toString() +
-              '/getCollection?Id=' +
-              user.idUser.toString()))
+              '/isMediaInCollection?MediaType='+item.mediaType.toString()+
+              '&MediaId='+item.id.toString()+
+              '&Id='+ user.idUser.toString()))
           .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
-        list = json.decode(response.body) as List<dynamic>;
-        log(response.reasonPhrase.toString());
+        isInCollection = json.decode(response.body) as bool;
         _dataRepository.deleteAll();
-        list.forEach((element) {
-          items.add(element);
-          Data data = new Data.fromJson(element);
-          _dataRepository.addData(data);
-        });
-      } 
-      else {
-        // var list2 = await _dataRepository.getAllData();
-        // list2.forEach((element) {
-        //   itemsCache.add(element);
-        // });
-        // return itemsCache;
       }
-      return items.map((e) => Data.fromJson(e)).toList();
+      return isInCollection;
 
   }
 
@@ -341,23 +268,16 @@ class ItemsPage extends StatelessWidget {
     item,
   ) {
     return FutureBuilder(
-      future: ReadJsonData(user),
+      future: ReadJsonData(user,item),
       builder: (context, data) {
         if (data.hasError) {
           return Text('error');
         } else if (data.hasData) {
-          var items = data.data as List<Data>;
-          var present;
-          items.forEach((element) {
-            if (element.id == item.id) {
-              present = true;
-            }
-          });
-          if (present == true) {
+          var present = data.data as bool;
             return Container(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.7),
+                  color: present == true ? Colors.red.withOpacity(0.7) : Colors.black.withOpacity(0.6),
                   borderRadius: BorderRadius.circular(10)),
               child: IconButton(
                 onPressed: () async {
@@ -392,46 +312,6 @@ class ItemsPage extends StatelessWidget {
                 ),
               ),
             );
-          } else {
-            return Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(10)),
-              child: IconButton(
-                onPressed: () async {
-                  var userApiUrl = dotenv.env['USERAPI_URL'] != null
-                      ? dotenv.env['USERAPI_URL']
-                      : '';
-                  final response = await http.post(
-                    Uri.parse(userApiUrl.toString() +
-                        '/addToCollection?MediaType=' +
-                        item.mediaType +
-                        '&MediaId=' +
-                        item.id.toString() +
-                        '&Id=' +
-                        user.idUser.toString()),
-                  );
-                  if (response.statusCode == 200) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => searchPage(
-                                user: user,
-                                index: 1,
-                              )),
-                    );
-                  } else {
-                    throw Exception('Failed');
-                  }
-                },
-                icon: Icon(
-                  Icons.folder,
-                  color: Colors.white,
-                ),
-              ),
-            );
-          }
         } else {
           return CircularProgressIndicator();
         }
